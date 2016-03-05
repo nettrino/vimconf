@@ -13,7 +13,6 @@ update:
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo
-	vim +PlugClean +qall
 	vim +PlugUpdate +qall
 
 .PHONY: update
