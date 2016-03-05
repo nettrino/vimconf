@@ -1,18 +1,22 @@
 VUNDLE_URL=https://github.com/VundleVim/Vundle.vim.git
 VUNDLE_LOCAL=~/.vim/bundle/Vundle.vim
 
+PLUG=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 all:
+	mkdir -p autoload
 	mkdir -p bundle
 	mkdir -p swap
 	mkdir -p undo
 	touch ~/.vim/config/vimrc.user
-	git clone $(VUNDLE_URL) $(VUNDLE_LOCAL)
-	vim +PluginInstall +qall
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
+	vim +PlugInstall +qall
 
 update:
-	vim +PluginUpdate +qall
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo
+	vim +PlugClean +qall
+	vim +PlugUpdate +qall
 
 .PHONY: update
