@@ -1,6 +1,3 @@
-VUNDLE_URL=https://github.com/VundleVim/Vundle.vim.git
-VUNDLE_LOCAL=~/.vim/bundle/Vundle.vim
-
 PLUG=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 all:
