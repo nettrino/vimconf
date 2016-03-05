@@ -1,7 +1,6 @@
 " ===================================================  GLOBAL SETTINGS
 "
 set nocompatible              " Vim not vi
-filetype off                  " required by Vundle
 
 "| PLUGINS START
 "|
@@ -45,7 +44,6 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
-
 
 " wrap it up
 call plug#end()
