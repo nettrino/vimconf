@@ -43,8 +43,8 @@ Plugin 'https://github.com/pangloss/vim-javascript.git'
 Plugin 'https://github.com/maksimr/vim-jsbeautify.git'
 " LLVM-specific
 Plugin 'https://github.com/Superbil/llvm.vim.git'
-
-
+" Load colorschemes
+Bundle 'colorschemes'
 
 
 " wrap it up
@@ -62,8 +62,9 @@ set t_Co=256
 
 " load config
 so ~/.vim/config/vimrc.default
+so ~/.vim/config/plugins.vim
 
 "===================================================  USER SETTINGS
 
 " user settings - this will be ignored by git
-"so ~/.vim/config/vimrc.user
+so ~/.vim/config/vimrc.user

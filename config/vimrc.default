@@ -1,6 +1,5 @@
 " =========================== COLORS =====================================
 set background=dark
-Bundle 'colorschemes'
 colorscheme monokain
 
 " ====================== GENERAL CONFIG ==================================
