@@ -61,6 +61,7 @@ set t_Co=256
 " load config
 so ~/.vim/config/vimrc.default
 so ~/.vim/config/plugins.vim
+so ~/.vim/config/misc.vim
 
 "===================================================  USER SETTINGS
 

@@ -60,6 +60,27 @@ set showmatch
 " After 4s of inactivity, check for ext. file modifications on next keyrpress
 au CursorHold * checktime
 
+"
+" ====== cscope
+"
+if has("cscope")
+  " Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+  set cscopetag
+
+  " Check cscope for definition of a symbol before checking ctags. Set to 1 if
+  " you want the reverse search order.
+  set csto=0
+
+  " Add any cscope database in current directory
+  if filereadable("cscope.out")
+    cs add cscope.out
+  endif
+
+  " Show msg when any other cscope db is added
+  set cscopeverbose
+end
+
+
 
 " ========================= KEY MAPPINGS ======================================
 
