@@ -8,38 +8,38 @@ filetype off                  " required by Vundle
 "v
 "
 
-" set the runtime path to include Vundle
+" init
 call plug#begin('~/.vim/plugged')
-
+"disable parallel plugs
+let g:plug_threads = 1
 
 " === Plugs
-Plug 'https://github.com/scrooloose/nerdtree.git'
-Plug 'https://github.com/scrooloose/nerdcommenter.git'
-Plug 'https://github.com/Lokaltog/powerline.git'
-Plug 'https://github.com/garbas/vim-snipmate.git'
-Plug 'https://github.com/tomtom/tlib_vim.git'
-Plug 'https://github.com/MarcWeber/vim-addon-mw-utils.git'
-Plug 'https://github.com/honza/vim-snippets.git'
-Plug 'https://github.com/godlygeek/tabular.git'
-Plug 'https://github.com/jistr/vim-nerdtree-tabs.git'
-Plug 'https://github.com/Lokaltog/vim-powerline.git'
-Plug 'https://github.com/sjl/gundo.vim.git'
-Plug 'https://github.com/scrooloose/syntastic.git'
-Plug 'https://github.com/tpope/vim-fugitive.git'
-Plug 'https://github.com/majutsushi/tagbar.git'
-Plug 'https://github.com/embear/vim-localvimrc.git'
-Plug 'https://github.com/vim-scripts/hgrev.git'
-Plug 'https://github.com/vim-scripts/taglist.vim.git'
-Plug 'https://github.com/SirVer/ultisnips.git'
-Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
-Plug 'https://github.com/Raimondi/delimitMate.git'
+Plug 'scrooloose/nerdtree.git', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter.git'
+Plug 'Lokaltog/powerline.git'
+Plug 'garbas/vim-snipmate.git'
+Plug 'tomtom/tlib_vim.git'
+Plug 'MarcWeber/vim-addon-mw-utils.git'
+Plug 'godlygeek/tabular.git'
+Plug 'jistr/vim-nerdtree-tabs.git'
+Plug 'Lokaltog/vim-powerline.git'
+Plug 'sjl/gundo.vim.git'
+Plug 'scrooloose/syntastic.git'
+Plug 'tpope/vim-fugitive.git'
+Plug 'majutsushi/tagbar.git'
+Plug 'embear/vim-localvimrc.git'
+Plug 'vim-scripts/hgrev.git'
+Plug 'vim-scripts/taglist.vim.git'
+Plug 'nathanaelkane/vim-indent-guides.git'
+Plug 'Raimondi/delimitMate.git'
+
+" Group dependencies, vim-snippets depends on ultisnips
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " JS-specific
-" Plug 'https://github.com/editorconfig/editorconfig-vim.git'
-" Plug 'https://github.com/pangloss/vim-javascript.git'
-" Plug 'https://github.com/maksimr/vim-jsbeautify.git'
-" LLVM-specific
-" Plug 'https://github.com/Superbil/llvm.vim.git'
+Plug 'editorconfig/editorconfig-vim.git', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript.git', { 'for': 'javascript' }
+Plug 'maksimr/vim-jsbeautify.git', { 'for': 'javascript' }
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
