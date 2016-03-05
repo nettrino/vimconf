@@ -42,7 +42,7 @@ Plug 'https://github.com/Raimondi/delimitMate.git'
 " Plug 'https://github.com/Superbil/llvm.vim.git'
 
 " Load colorschemes
-Plug 'colorschemes'
+Plug '~/.vim/colorschemes'
 
 
 " wrap it up
