@@ -5,7 +5,7 @@ filetype off                  " required by Vundle
 
 "| PLUGINS START
 "|
-"v 
+"v
 "
 
 " set the runtime path to include Vundle
@@ -37,12 +37,14 @@ Plugin 'https://github.com/vim-scripts/taglist.vim.git'
 Plugin 'https://github.com/SirVer/ultisnips.git'
 Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plugin 'https://github.com/Raimondi/delimitMate.git'
+
 " JS-specific
-Plugin 'https://github.com/editorconfig/editorconfig-vim.git'
-Plugin 'https://github.com/pangloss/vim-javascript.git'
-Plugin 'https://github.com/maksimr/vim-jsbeautify.git'
+" Plugin 'https://github.com/editorconfig/editorconfig-vim.git'
+" Plugin 'https://github.com/pangloss/vim-javascript.git'
+" Plugin 'https://github.com/maksimr/vim-jsbeautify.git'
 " LLVM-specific
-Plugin 'https://github.com/Superbil/llvm.vim.git'
+" Plugin 'https://github.com/Superbil/llvm.vim.git'
+
 " Load colorschemes
 Bundle 'colorschemes'
 
@@ -50,7 +52,7 @@ Bundle 'colorschemes'
 " wrap it up
 call vundle#end()
 
-"^ 
+"^
 "|
 "| PLUGINS END
 "
