@@ -8,7 +8,11 @@ all:
 	touch ~/.vim/config/vimrc.user
 	git clone $(VUNDLE_URL) $(VUNDLE_LOCAL)
 	vim +PluginInstall +qall
+
 update:
 	vim +PluginUpdate +qall
+	git stash
+	git pull
+	git clean -fdx -eswap -eundo
 
 .PHONY: update
