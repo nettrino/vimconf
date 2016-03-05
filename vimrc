@@ -14,24 +14,26 @@ call plug#begin('~/.vim/plugged')
 let g:plug_threads = 1
 
 " === Plugs
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'Lokaltog/powerline'
 Plug 'garbas/vim-snipmate'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'godlygeek/tabular'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Lokaltog/vim-powerline'
 Plug 'sjl/gundo.vim'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
-Plug 'majutsushi/tagbar'
 Plug 'embear/vim-localvimrc'
 Plug 'vim-scripts/hgrev'
 Plug 'vim-scripts/taglist.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
+
+" On demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
+Plug 'majutsushi/tagbar', { 'on':  'TagbarOpen' }
 
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
