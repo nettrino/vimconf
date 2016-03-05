@@ -1,0 +1,4 @@
+./swap/*
+./undo/*
+./config/vimrc.user
+viminfo
