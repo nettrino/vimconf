@@ -1,7 +1,5 @@
 ./swap/*
 ./undo/*
-./bundle/*
+./plugged/*
 ./config/vimrc.user
 viminfo
-
-!/bundle/colorschemes
