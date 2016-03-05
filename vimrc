@@ -52,10 +52,6 @@ call plug#end()
 "|
 "| PLUGINS END
 "
-
-filetype plugin indent on
-syntax on
-syntax enable
 set t_Co=256
 
 " load config

@@ -10,13 +10,13 @@ all:
 	mkdir -p undo
 	touch ~/.vim/config/vimrc.user
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
-	vim +PlugInstall +qall
+	vim +PlugInstall
 
 update:
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo
-	vim +PlugClean +qall
-	vim +PlugUpdate +qall
+	vim +PlugClean
+	vim +PlugUpdate
 
 .PHONY: update
