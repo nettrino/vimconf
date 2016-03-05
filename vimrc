@@ -21,7 +21,6 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'godlygeek/tabular'
 Plug 'Lokaltog/vim-powerline'
 Plug 'sjl/gundo.vim'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'embear/vim-localvimrc'
 Plug 'vim-scripts/hgrev'
@@ -30,6 +29,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
 
 " On demand loading
+Plug 'scrooloose/syntastic', { 'on': 'SyntasticToggleMode' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 Plug 'majutsushi/tagbar', { 'on':  'TagbarOpen' }
