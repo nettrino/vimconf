@@ -28,6 +28,9 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
 
+" Python-specific
+Plug 'hynek/vim-python-pep8-indent'
+
 " On demand loading
 Plug 'scrooloose/syntastic', { 'on': 'SyntasticToggleMode' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
@@ -41,6 +44,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
+
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
