@@ -29,6 +29,18 @@ nnoremap <silent> <Leader>gb :Gblame<CR>
 let g:NERDSpaceDelims = 1
 
 "
+" ====== delimitMate
+"
+
+" Python stuff
+let g:delimitMate_nesting_quotes = ['"','`']
+au FileType python let b:delimitMate_nesting_quotes = ['"']
+au FileType python let b:delimitMate_expand_cr = 0
+
+let delimitMate_smart_matchpairs = '\%(\w\|\!\|[£$]\|[^[:space:][:punct:]]\)'
+let delimitMate_smart_quotes = 1
+
+"
 " ====== Syntastic
 "
 highlight SyntasticWarning NONE
