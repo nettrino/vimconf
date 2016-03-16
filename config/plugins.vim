@@ -144,3 +144,14 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_start_level=4
 let g:indent_guides_guide_size=1
 map <F7> :IndentGuidesToggle<CR>
+
+
+"
+" ======= vim-javacomplete2
+"
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+"
+" ======= vim-rooter
+"
+let g:rooter_silent_chdir = 1

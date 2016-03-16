@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 let g:plug_threads = 1
 
 " === Plugs
+Plug 'airblade/vim-rooter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Lokaltog/powerline'
 Plug 'garbas/vim-snipmate'
@@ -45,6 +46,9 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 " Python-specific
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
+" Java-specific
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+
 " Load colorschemes
 Plug '~/.vim/colorschemes'
 
@@ -58,11 +62,11 @@ call plug#end()
 set t_Co=256
 
 " load config
-so ~/.vim/config/vimrc.default
+so ~/.vim/config/default.vim
 so ~/.vim/config/plugins.vim
 so ~/.vim/config/misc.vim
 
 "===================================================  USER SETTINGS
 
 " user settings - this will be ignored by git
-so ~/.vim/config/vimrc.user
+so ~/.vim/config/user.vim
