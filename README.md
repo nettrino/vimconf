@@ -38,5 +38,5 @@ Plugin Dependencies
 ===================
 
 Most plugins should work out of the box, however there are some that might require
-additional system packages for their full functionality. For instance, syntastic
-works pretty nicely for Python with [pylint]:(https://www.pylint.org/#install) installed.
+additional system packages for their full functionality. For instance, Syntastic
+works pretty nicely with Python with <a href="https://www.pylint.org/#install" target="_blank">pylint</a> installed.
