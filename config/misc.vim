@@ -24,9 +24,12 @@ au FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 " prevent # from going to start of line in python
 au BufRead *.py inoremap # X<c-h>#
 
-" Uncomment the following for permanent addition
 au BufNewFile,BufRead *.c.* setf rtl
 
+"bnf
+au BufNewFile,BufRead *.bnf set ft=bnf
+
+" Uncomment the following for permanent addition
 " Project-specific identation
 " augroup ProjectSetup
   " au BufRead,BufEnter /path/to/project1/* set et sts=2 cindent cinoptions=..
