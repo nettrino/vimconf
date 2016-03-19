@@ -48,6 +48,7 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 " Java-specific
 Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+Plug 'tfnico/vim-gradle', { 'for': 'java' }
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
