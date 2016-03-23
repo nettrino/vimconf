@@ -195,11 +195,7 @@ function! LightLineReadonly()
 endfunction
 function! LightLineFilename()
     let fname = expand('%p:t')
-    return fname == '__Tagbar__' ? g:lightline.fname :
-                \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                \ ('' != fname ? fname : '[No Name]') .
-                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    return fname
 endfunction
 augroup AutoSyntastic
 	autocmd!
