@@ -15,12 +15,10 @@ let g:plug_threads = 1
 " === Plugs
 Plug 'airblade/vim-rooter'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Lokaltog/powerline'
 Plug 'garbas/vim-snipmate'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'godlygeek/tabular'
-Plug 'Lokaltog/vim-powerline'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'embear/vim-localvimrc'
