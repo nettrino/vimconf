@@ -16,7 +16,6 @@ au FileType make set noexpandtab shiftwidth=8 softtabstop=0
 au FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 
 "Java
-au FileType java set expandtab shiftwidth=2 softtabstop=2
 function! GetJavaIndent_improved()
     let theIndent = GetJavaIndent()
     let lnum = prevnonblank(v:lnum - 1)
