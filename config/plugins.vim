@@ -56,7 +56,8 @@ let g:syntastic_error_symbol = "x"
 map <F3> :SyntasticToggleMode<CR>
 
 " See ~/.vim/bundle/syntastic/syntax_checkers for options
-" open errors with :lopen
+" open errors with :lopen.
+" Don't forget to update lightline for each checker added!
 
 " python
 let g:syntastic_python_checkers = ['pylint', 'python']
@@ -75,7 +76,10 @@ let g:syntastic_cpp_no_default_include_dirs = 1
 let g:syntastic_cpp_checkers = ['clang_check', 'gcc']
 "javascript
 let g:syntastic_javascript_checkers = ['jshint']
-
+"java
+let g:syntastic_java_checkers = ['javac']
+let g:syntastic_java_javac_autoload_maven_classpath = 1
+"
 "
 " ====== Powerline
 "
@@ -175,7 +179,7 @@ let g:lightline = {
 			\ }
 augroup AutoSyntastic
 	autocmd!
-	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp call s:syntastic()
+	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
 augroup END
 function! s:syntastic()
 	SyntasticCheck
