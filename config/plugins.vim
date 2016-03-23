@@ -104,6 +104,9 @@ noremap \& :Tabularize /\(&\\|\\\\\)<CR>
 " ====== Tagbar
 "
 nnoremap <Leader>t :TagbarOpen fjc<CR>
+" Disable F1 for tabar
+unlet g:tagbar_map_help
+let g:tagbar_map_help='?'
 
 "
 " ======= ultisnips
