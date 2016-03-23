@@ -21,7 +21,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set textwidth=80
-set formatoptions=cqt
+set formatoptions=cqtr
 set wrapmargin=0
 set colorcolumn=80
 set mouse=a			            " Enable mouse in all modes

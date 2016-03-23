@@ -1,9 +1,3 @@
-" ========================= AUTOCMDs ======================================
-
-" Automatically open the quickfix window on :make
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
 " ========================= INDENT HACKS ==================================
 
 " Remove trailing whitespace
