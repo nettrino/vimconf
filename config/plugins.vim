@@ -43,6 +43,7 @@ let delimitMate_smart_quotes = 1
 "
 " ====== Syntastic
 "
+let g:syntastic_stl_format     = '[%E{%e,%fe}%B{ | }%W{%w,%fw}]'
 highlight SyntasticWarning NONE
 highlight SyntasticError NONE
 let g:syntastic_debug=0
@@ -155,3 +156,28 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " ======= vim-rooter
 "
 let g:rooter_silent_chdir = 1
+
+"
+" ======= lightline
+"
+let g:lightline = {
+			\ 'active': {
+			\   'right': [ [ 'syntastic', 'lineinfo' ],
+			\              [ 'percent' ],
+			\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+			\ },
+			\ 'component_expand': {
+			\   'syntastic': 'SyntasticStatuslineFlag',
+			\ },
+			\ 'component_type': {
+			\   'syntastic': 'warning',
+			\ }
+			\ }
+augroup AutoSyntastic
+	autocmd!
+	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+	SyntasticCheck
+	call lightline#update()
+endfunction

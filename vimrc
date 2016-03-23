@@ -26,9 +26,10 @@ Plug 'vim-scripts/hgrev'
 Plug 'vim-scripts/taglist.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
+Plug 'itchyny/lightline.vim'
 
 " On demand loading
-Plug 'scrooloose/syntastic', { 'on': 'SyntasticToggleMode' }
+Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 Plug 'majutsushi/tagbar', { 'on':  'TagbarOpen' }
