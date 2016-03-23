@@ -13,7 +13,7 @@ update:
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo -eautoload
-	vim +PlugClean!
+	vim +PlugClean! +qall
 	vim +PlugInstall +qall
 	vim +PlugUpdate +qall
 

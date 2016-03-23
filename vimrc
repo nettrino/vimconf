@@ -26,6 +26,7 @@ Plug 'vim-scripts/hgrev'
 Plug 'vim-scripts/taglist.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
+Plug 'chrisbra/vim-diff-enhanced'
 
 " Group dependencies, vim-snippets depends on ultisnips
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -47,6 +48,9 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 " Java-specific
 Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'tfnico/vim-gradle', { 'for': 'java' }
+
+" CSV-specific
+Plug 'chrisbra/csv.vim'
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
