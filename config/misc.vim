@@ -15,6 +15,20 @@ au FileType make set noexpandtab shiftwidth=8 softtabstop=0
 " and set to NASM syntax highlighting
 au FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 
+"Java
+au FileType java set expandtab shiftwidth=2 softtabstop=2
+function! GetJavaIndent_improved()
+    let theIndent = GetJavaIndent()
+    let lnum = prevnonblank(v:lnum - 1)
+    let line = getline(lnum)
+    if line =~ '^\s*@.*$'
+        let theIndent = indent(lnum)
+    endif
+
+    return theIndent
+endfunction
+setlocal indentexpr=GetJavaIndent_improved()
+
 " prevent # from going to start of line in python
 au BufRead *.py inoremap # X<c-h>#
 
