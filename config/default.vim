@@ -99,6 +99,15 @@ map <Leader>d "+dd
 "paste X11 clipboard
 map <Leader>p "+p
 
+" F1 prev tab
+" F2 next tab
+" F3 Syntastic Toggle
+" F4 Indent Guides Toggle
+" F5 Reload page
+" F6 Spell Toggle
+" F7 Save session (open tabs) (will overwrite any previous session)
+" F8 Restore Session (only a single session is restored)
+" F9 Make (if makefile is present)
 
 "go to previous tab
 map <F1> :tabp<CR>
@@ -109,8 +118,12 @@ map <C-n> :tabnew<CR>
 "reload document from disk
 map <F5> :e<CR>
 "spelling toggle
-nmap <F6>      :setlocal spell!<CR>
+nmap <F6> :setlocal spell!<CR>
 imap <F6> <C-o>:setlocal spell!<CR>
+
+" FIXME http://stackoverflow.com/questions/1642611/how-to-save-a-session-in-vim
+" map <F7> :mksession! ~/.vim_saved_session<CR>
+" map <F8> :source ~/.vim_saved_session<CR>
 
 map <F9> :make<CR>
 

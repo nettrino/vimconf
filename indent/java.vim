@@ -121,10 +121,15 @@ function GetJavaIndent()
   " below a method with an indented "throws" clause.
   let lnum = SkipJavaBlanksAndComments(v:lnum - 1)
   if getline(lnum) =~ '^\s*}\s*\(//.*\|/\*.*\)\=$' && indent(lnum) < theIndent
-    let theIndent = indent(lnum)
+      let theIndent = indent(lnum)
   endif
 
+  let lnum = prevnonblank(v:lnum - 1)
+  let line = getline(lnum)
+  if line =~ '^\s*@.*$'
+      let theIndent = indent(lnum)
+  endif
   return theIndent
 endfunction
 
-" vi: sw=2 et
+set sw=2 et

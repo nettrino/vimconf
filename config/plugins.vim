@@ -153,7 +153,7 @@ let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_start_level=4
 let g:indent_guides_guide_size=1
-map <F7> :IndentGuidesToggle<CR>
+map <F4> :IndentGuidesToggle<CR>
 
 
 "
@@ -185,8 +185,21 @@ let g:lightline = {
             \   'syntastic': 'warning',
             \ }
             \ }
+
+function! LightLineModified()
+    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+    return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
 function! LightLineFilename()
-  return expand('%:p:h')
+    let fname = expand('%p:t')
+    return fname == '__Tagbar__' ? g:lightline.fname :
+                \ fname =~ '__Gundo\|NERD_tree' ? '' :
+                \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+                \ ('' != fname ? fname : '[No Name]') .
+                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 augroup AutoSyntastic
 	autocmd!
