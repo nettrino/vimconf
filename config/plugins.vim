@@ -170,18 +170,24 @@ let g:rooter_silent_chdir = 1
 " ======= lightline
 "
 let g:lightline = {
-			\ 'active': {
-			\   'right': [ [ 'syntastic', 'lineinfo' ],
-			\              [ 'percent' ],
-			\              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-			\ },
-			\ 'component_expand': {
-			\   'syntastic': 'SyntasticStatuslineFlag',
-			\ },
-			\ 'component_type': {
-			\   'syntastic': 'warning',
-			\ }
-			\ }
+            \ 'active': {
+            \   'right': [ [ 'syntastic', 'lineinfo' ],
+            \              [ 'percent' ],
+            \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+            \ },
+            \ 'component_function': {
+            \   'filename': 'LightLineFilename'
+            \ },
+            \ 'component_expand': {
+            \   'syntastic': 'SyntasticStatuslineFlag',
+            \ },
+            \ 'component_type': {
+            \   'syntastic': 'warning',
+            \ }
+            \ }
+function! LightLineFilename()
+  return expand('%:p:h')
+endfunction
 augroup AutoSyntastic
 	autocmd!
 	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
