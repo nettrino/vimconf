@@ -12,28 +12,37 @@ call plug#begin('~/.vim/plugged')
 "disable parallel plugs
 let g:plug_threads = 1
 
-" === Plugs
+" change working directory to project root
 Plug 'airblade/vim-rooter'
+" enable multiple comments
 Plug 'scrooloose/nerdcommenter'
+" code snippet <tab> completion
 Plug 'garbas/vim-snipmate'
-Plug 'tomtom/tlib_vim'
+" interpret a file by function
 Plug 'MarcWeber/vim-addon-mw-utils'
+" align text (e.g., '=' in consequent lines)
 Plug 'godlygeek/tabular'
+" git-style undo options
 Plug 'sjl/gundo.vim'
+" git diff/blame functionality
 Plug 'tpope/vim-fugitive'
+" search and local vimrc files (".lvimrc") in the dir tree
 Plug 'embear/vim-localvimrc'
-Plug 'vim-scripts/hgrev'
-Plug 'vim-scripts/taglist.vim'
+" show guides at indent stops
 Plug 'nathanaelkane/vim-indent-guides'
+" auto-completion for quotes, parentheses etc.
 Plug 'Raimondi/delimitMate'
+" pretty vim -d (diff)
 Plug 'chrisbra/vim-diff-enhanced'
+" display list of functions, variables etc.
 Plug 'majutsushi/tagbar'
 
-" Group dependencies, vim-snippets depends on ultisnips
+" more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" visual line (requires syntastic for error/warning detection)
 Plug 'itchyny/lightline.vim' | Plug 'scrooloose/syntastic'
 
-" On demand loading
+" open filesystem browser (on demand loading)
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 
