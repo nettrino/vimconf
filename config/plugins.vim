@@ -11,9 +11,7 @@ let g:gundo_close_on_revert=1
 nnoremap <C-g> :NERDTreeTabsToggle<cr>
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
                    \ '\.so$', '\.egg$', '^\.git$', '\.cmi', '\.cmo' ]
-let NERDTreeHighlightCursorline=1
-let NERDTreeShowBookmarks=1
-let NERDTreeShowFiles=1
+let NERDTreeDirArrows=0
 
 "
 " ====== Fugitive
@@ -165,6 +163,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " ======= vim-rooter
 "
 let g:rooter_silent_chdir = 1
+let g:rooter_chdir_makefile = 1
 
 "
 " ======= lightline
