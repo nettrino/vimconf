@@ -162,6 +162,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "
 " ======= vim-rooter
 "
+let g:rooter_manual_only = 1
 let g:rooter_silent_chdir = 1
 let g:rooter_chdir_makefile = 1
 
