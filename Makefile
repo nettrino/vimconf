@@ -6,7 +6,7 @@ all:
 	mkdir -p swap
 	mkdir -p undo
 	touch ~/.vim/config/vimrc.user
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
+	curl -kfLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
 	vim +PlugInstall +qall
 
 update:
