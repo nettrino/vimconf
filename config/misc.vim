@@ -24,6 +24,10 @@ au BufNewFile,BufRead *.c.* setf rtl
 "bnf
 au BufNewFile,BufRead *.bnf set ft=bnf
 
+"antlr
+au BufRead,BufNewFile *.g3 set filetype=antlr3
+au BufRead,BufNewFile *.g4 set filetype=antlr4
+
 " Uncomment the following for permanent addition
 " Project-specific identation
 " augroup ProjectSetup
