@@ -176,15 +176,16 @@ let g:lightline = {
             \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
             \ },
             \ 'component_function': {
-            \   'filename': 'LightLineFilename'
+            \   'filename': 'LightLineFilename',
             \ },
             \ 'component_expand': {
             \   'syntastic': 'SyntasticStatuslineFlag',
+            \   'lineinfo': 'WordCount'
             \ },
             \ 'component_type': {
             \   'syntastic': 'warning',
             \ }
-            \ }
+\ }
 
 function! LightLineModified()
     return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -193,15 +194,36 @@ endfunction
 function! LightLineReadonly()
     return &ft !~? 'help' && &readonly ? 'RO' : ''
 endfunction
+
 function! LightLineFilename()
     let fname = expand('%p:t')
     return fname
 endfunction
+
+function! WordCount()
+    let s:old_status = v:statusmsg
+    exe "silent normal g\<c-g>"
+    let s:word_count = str2nr(split(v:statusmsg)[11])
+    let v:statusmsg = s:old_status
+    return s:word_count
+endfunction
+
+augroup AutoWordCount
+	autocmd!
+	autocmd BufWritePost * call s:word_count()
+augroup END
+
 augroup AutoSyntastic
 	autocmd!
 	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
 augroup END
+
 function! s:syntastic()
 	SyntasticCheck
+	call lightline#update()
+endfunction
+
+function! s:word_count()
+	call WordCount()
 	call lightline#update()
 endfunction
