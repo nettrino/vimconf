@@ -41,7 +41,7 @@ let delimitMate_smart_quotes = 1
 "
 " ====== Syntastic
 "
-let g:syntastic_stl_format     = '[%E{%e,%fe}%B{ | }%W{%w,%fw}]'
+let g:syntastic_stl_format     = '[%E{%fe (%e)}%B{ | }%W{%fw (%w)}]'
 highlight SyntasticWarning NONE
 highlight SyntasticError NONE
 let g:syntastic_debug=0
@@ -77,12 +77,6 @@ let g:syntastic_javascript_checkers = ['jshint']
 "java
 let g:syntastic_java_checkers = ['javac']
 let g:syntastic_java_javac_autoload_maven_classpath = 1
-"
-"
-" ====== Powerline
-"
-let g:Powerline_symbols = 'unicode'
-set laststatus=2
 
 "
 " ====== Tabularize
@@ -167,6 +161,29 @@ let g:rooter_silent_chdir = 1
 let g:rooter_chdir_makefile = 1
 
 "
+" ======= cscope
+"
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
+" s: Find this C symbol
+nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+" g: Find this definition
+nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+" d: Find functions called by this function
+nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+" c: Find functions calling this function
+nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+" e: Find this egrep pattern
+nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+" f: Find this file
+nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
+
+"
 " ======= lightline
 "
 let g:lightline = {
@@ -184,7 +201,7 @@ let g:lightline = {
             \ 'component_type': {
             \   'syntastic': 'warning',
             \ }
-            \ }
+\ }
 
 function! LightLineModified()
     return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'

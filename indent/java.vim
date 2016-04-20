@@ -1,7 +1,14 @@
 " Vim indent file
-" Language:	Java
-" Maintainer:	Toby Allsopp <toby.allsopp@peace.com> (resigned)
-" Last Change:	2005 Mar 28
+" Language: Java
+" Previous Maintainer: Toby Allsopp <toby.allsopp@peace.com>
+" Current Maintainer: Hong Xu <xuhdev@gmail.com>
+" Homepage: https://bitbucket.org/xuhdev/indent-java.vim
+"           https://github.com/xuhdev/indent-java.vim
+" Last Change:  2012 Jan 20
+" Version: 1.0
+" License: Same as Vim.
+" Copyright (c) 2012 Hong Xu
+" Before 2012, this file is maintained by Toby Allsopp.
 
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
@@ -60,6 +67,13 @@ function GetJavaIndent()
 
   " find start of previous line, in case it was a continuation line
   let lnum = SkipJavaBlanksAndComments(v:lnum - 1)
+
+  " If the previous line starts with '@', we should have the same indent as
+  " the previous one
+  if getline(lnum) =~ '^\s*@\S\+\s*$'
+    return indent(lnum)
+  endif
+
   let prev = lnum
   while prev > 1
     let next_prev = SkipJavaBlanksAndComments(prev - 1)
@@ -121,15 +135,10 @@ function GetJavaIndent()
   " below a method with an indented "throws" clause.
   let lnum = SkipJavaBlanksAndComments(v:lnum - 1)
   if getline(lnum) =~ '^\s*}\s*\(//.*\|/\*.*\)\=$' && indent(lnum) < theIndent
-      let theIndent = indent(lnum)
+    let theIndent = indent(lnum)
   endif
 
-  let lnum = prevnonblank(v:lnum - 1)
-  let line = getline(lnum)
-  if line =~ '^\s*@.*$'
-      let theIndent = indent(lnum)
-  endif
   return theIndent
 endfunction
 
-set sw=2 et
+" vi: sw=2 et

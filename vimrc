@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 let g:plug_threads = 1
 
 " change working directory to project root
-Plug 'nettrino/vim-rooter'
+" Plug 'nettrino/vim-rooter'
 " enable multiple comments
 Plug 'scrooloose/nerdcommenter'
 " code snippet <tab> completion
@@ -36,6 +36,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'chrisbra/vim-diff-enhanced'
 " display list of functions, variables etc.
 Plug 'majutsushi/tagbar'
+" cscope
+Plug 'brookhong/cscope.vim'
 
 " more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
