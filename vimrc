@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 let g:plug_threads = 1
 
 " change working directory to project root
-" Plug 'nettrino/vim-rooter'
+Plug 'airblade/vim-rooter'
 " enable multiple comments
 Plug 'scrooloose/nerdcommenter'
 " code snippet <tab> completion
