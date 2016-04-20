@@ -186,6 +186,10 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 "
 " ======= lightline
 "
+
+" always on
+set laststatus=2
+
 let g:lightline = {
             \ 'active': {
             \   'right': [ [ 'syntastic', 'lineinfo' ],
