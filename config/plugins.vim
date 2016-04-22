@@ -59,6 +59,12 @@ map <F3> :SyntasticToggleMode<CR>
 
 " python
 let g:syntastic_python_checkers = ['pylint', 'python']
+" some pylint error codes: http://pylint-messages.wikidot.com/all-codes
+"
+" C0111 Missing docstring
+" C0103 Invalid  argument name
+let g:syntastic_python_pylint_args='--disable C0111,C0103'
+
 " php
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 "c
