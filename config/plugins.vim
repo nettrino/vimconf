@@ -41,7 +41,7 @@ let delimitMate_smart_quotes = 1
 "
 " ====== Syntastic
 "
-let g:syntastic_stl_format     = '[%E{%fe (%e)}%B{ | }%W{%fw (%w)}]'
+let g:syntastic_stl_format     = '%E{e:%e(%fe)}%B{|}%W{w:%w}'
 highlight SyntasticWarning NONE
 highlight SyntasticError NONE
 let g:syntastic_debug=0
@@ -204,7 +204,7 @@ let g:lightline = {
             \   'lineinfo': 'WordCount'
             \ },
             \ 'component_type': {
-            \   'syntastic': 'warning',
+            \ 'syntastic': 'warning',
             \ }
 \ }
 
