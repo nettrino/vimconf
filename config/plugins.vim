@@ -63,7 +63,8 @@ let g:syntastic_python_checkers = ['pylint', 'python']
 "
 " C0111 Missing docstring
 " C0103 Invalid  argument name
-let g:syntastic_python_pylint_args='--disable C0111,C0103'
+" F0401 Unable to import %s
+let g:syntastic_python_pylint_args='--disable C0111,C0103,F0401'
 
 " php
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
