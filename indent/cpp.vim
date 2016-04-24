@@ -11,5 +11,7 @@ let b:did_indent = 1
 
 " C++ indenting is built-in, thus this is very simple
 setlocal cindent
+set cino+=(0)
 
 let b:undo_indent = "setl cin<"
+
