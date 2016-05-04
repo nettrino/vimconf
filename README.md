@@ -13,10 +13,9 @@ This config assumes that you have some version of vim that supports copying
 to clipboard such as vim-athena and that ctags and curl are already installed
 in your system. On Debian/Ubuntu you may install the respective packages via
 
-    sudo apt-get install vim-athena exuberant-ctags curl pylint
+    sudo apt-get install vim-athena exuberant-ctags curl pylint cscope
 
 On Mac OS X you may use brew or macports respectively.
-
 
 Backup and remove your ~/.vim (if any). Once everything is setup run:
 
