@@ -56,10 +56,10 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 " Python-specific
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-" Java-specific
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-Plug 'tfnico/vim-gradle', { 'for': 'java' }
-Plug 'tpope/vim-classpath', { 'for': 'java' }
+" Java-specific -- really slow!
+" Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+" Plug 'tfnico/vim-gradle', { 'for': 'java' }
+" Plug 'tpope/vim-classpath', { 'for': 'java' }
 
 " CSV-specific
 Plug 'chrisbra/csv.vim'
