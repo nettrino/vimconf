@@ -85,8 +85,7 @@ function GetJavaIndent()
       " and so does previous line, don't indent
       return indent(lnum)
     else
-      " else start at the end of the last line
-      return strlen(getline(v:lnum - 1))
+      return strlen(getline(v:lnum - 1)) - &sw
     end
   endif
 
