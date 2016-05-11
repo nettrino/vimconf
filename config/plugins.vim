@@ -41,7 +41,7 @@ let delimitMate_smart_quotes = 1
 "
 " ====== Syntastic
 "
-let g:syntastic_stl_format     = '[%E{%fe (%e)}%B{ | }%W{%fw (%w)}]'
+let g:syntastic_stl_format     = '%E{e:%e(%fe)}%B{|}%W{w:%w}'
 highlight SyntasticWarning NONE
 highlight SyntasticError NONE
 let g:syntastic_debug=0
@@ -59,6 +59,13 @@ map <F3> :SyntasticToggleMode<CR>
 
 " python
 let g:syntastic_python_checkers = ['pylint', 'python']
+" some pylint error codes: http://pylint-messages.wikidot.com/all-codes
+"
+" C0111 Missing docstring
+" C0103 Invalid  argument name
+" F0401 Unable to import %s
+let g:syntastic_python_pylint_args='--disable C0111,C0103,F0401'
+
 " php
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 "c
@@ -204,7 +211,7 @@ let g:lightline = {
             \   'lineinfo': 'WordCount'
             \ },
             \ 'component_type': {
-            \   'syntastic': 'warning',
+            \ 'syntastic': 'warning',
             \ }
 \ }
 
