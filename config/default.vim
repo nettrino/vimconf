@@ -146,3 +146,16 @@ nnoremap \| :vsplit<cr>
 " hex mode
 map <Leader>hon :set binary <bar> %!xxd<CR>
 map <Leader>hof :set binary <bar> %!xxd -r<CR>
+
+" Remove trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" fix backspace
+set backspace=indent,eol,start
