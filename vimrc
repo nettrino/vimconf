@@ -38,8 +38,6 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'majutsushi/tagbar'
 " cscope
 Plug 'brookhong/cscope.vim'
-" highlight color codes
-Plug 'lilydjwg/colorizer'
 
 " more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -53,6 +51,10 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 " JS-specific
 Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+
+" highlight color codes
+Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
+
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 
 " Python-specific

@@ -168,6 +168,11 @@ let g:rooter_silent_chdir = 1
 let g:rooter_chdir_makefile = 1
 
 "
+" ====== colorizer
+"
+let g:colorizer_maxline = 1000
+
+"
 " ======= cscope
 "
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
