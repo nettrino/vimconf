@@ -38,6 +38,8 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'majutsushi/tagbar'
 " cscope
 Plug 'brookhong/cscope.vim'
+" highlight color codes
+Plug 'lilydjwg/colorizer'
 
 " more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
