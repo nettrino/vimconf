@@ -159,3 +159,6 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " fix backspace
 set backspace=indent,eol,start
+
+" select all
+map <C-a> <esc>ggVG<CR>
