@@ -1,4 +1,5 @@
 " =========================== COLORS =====================================
+set t_Co=256
 set background=dark
 colorscheme monokain
 
@@ -20,11 +21,17 @@ set smarttab                    " Make <tab> and <backspace> smarter
 set expandtab
 set tabstop=4
 set shiftwidth=4
-set textwidth=80
 set formatoptions=cqtr
-set wrapmargin=0
 set colorcolumn=80
+
 set mouse=a			            " Enable mouse in all modes
+" make sure things work even inside tmux
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm-256color
+end
+
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
@@ -41,7 +48,6 @@ set viminfo=%100,'100,/100,h,\"500,:1000,n~/.vim/viminfo
 " http://stackoverflow.com/questions/563616/vim-and-ctags-tips-and-tricks
 " for an explanation and other ctags tips/tricks
 set tags+=tags;$HOME
-set t_Co=256
 
 " Undo
 set undolevels=10000
@@ -108,6 +114,7 @@ map <Leader>p "+p
 " F7 Save session (open tabs) (will overwrite any previous session)
 " F8 Restore Session (only a single session is restored)
 " F9 Make (if makefile is present)
+
 
 "go to previous tab
 map <F1> :tabp<CR>
