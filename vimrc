@@ -23,7 +23,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 " align text (e.g., '=' in consequent lines)
 Plug 'godlygeek/tabular'
 " git-style undo options
-Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 " git diff/blame functionality
 Plug 'tpope/vim-fugitive'
 " search and local vimrc files (".lvimrc") in the dir tree

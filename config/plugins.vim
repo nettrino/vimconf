@@ -1,7 +1,7 @@
 "
-" ====== GUNDO_TOGGLE
+" ====== UndoTree
 "
-nnoremap <S-u> :GundoToggle<CR>
+nnoremap <S-u> :UndotreeToggle<CR>
 let g:gundo_close_on_revert=1
 
 
