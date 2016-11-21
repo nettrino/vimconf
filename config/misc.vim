@@ -22,6 +22,9 @@ au BufNewFile,BufRead *.bnf set ft=bnf
 au BufRead,BufNewFile *.g3 set filetype=antlr3
 au BufRead,BufNewFile *.g4 set filetype=antlr4
 
+" Fix spell check for tex
+au FileType plaintex,tex,latex syntax spell toplevel
+
 " Uncomment the following for permanent addition
 " Project-specific identation
 " augroup ProjectSetup
