@@ -25,6 +25,9 @@ au BufRead,BufNewFile *.g4 set filetype=antlr4
 " Fix spell check for tex
 au FileType plaintex,tex,latex syntax spell toplevel
 
+" Xdebug syntax
+au BufNewFile,BufRead *.xt  setf xt
+
 " Uncomment the following for permanent addition
 " Project-specific identation
 " augroup ProjectSetup
