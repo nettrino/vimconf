@@ -60,6 +60,9 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 " Python-specific
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
+" SMT
+Plug 'raichoo/smt-vim'
+
 " Java-specific -- really slow!
 " Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 " Plug 'tfnico/vim-gradle', { 'for': 'java' }

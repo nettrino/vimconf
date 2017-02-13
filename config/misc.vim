@@ -28,6 +28,8 @@ au FileType plaintex,tex,latex syntax spell toplevel
 " Xdebug syntax
 au BufNewFile,BufRead *.xt  setf xt
 
+au BufNewFile, BufRead *.smt set nowrap
+
 " Uncomment the following for permanent addition
 " Project-specific identation
 " augroup ProjectSetup
