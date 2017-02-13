@@ -28,7 +28,7 @@ au FileType plaintex,tex,latex syntax spell toplevel
 " Xdebug syntax
 au BufNewFile,BufRead *.xt  setf xt
 
-au BufNewFile, BufRead *.smt set nowrap
+au BufNewFile,BufRead *.smt* set nowrap filetype=smt
 
 " Uncomment the following for permanent addition
 " Project-specific identation
