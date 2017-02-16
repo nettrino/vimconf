@@ -48,28 +48,22 @@ Plug 'itchyny/lightline.vim' | Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 
-" JS-specific
+" language-specific
 Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-
-" highlight color codes
-Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
-
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 
-" Python-specific
+Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
+Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-" SMT
 Plug 'raichoo/smt-vim'
+Plug 'chrisbra/csv.vim'
 
 " Java-specific -- really slow!
 " Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 " Plug 'tfnico/vim-gradle', { 'for': 'java' }
 " Plug 'tpope/vim-classpath', { 'for': 'java' }
-
-" CSV-specific
-Plug 'chrisbra/csv.vim'
 
 " Load colorschemes
 Plug '~/.vim/colorschemes'
