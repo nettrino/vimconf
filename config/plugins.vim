@@ -25,6 +25,8 @@ nnoremap <silent> <Leader>gb :Gblame<CR>
 " Go into visual mode and then type ,cc or cn to comment and ,cu to uncomment
 " Put a space around comment markers
 let g:NERDSpaceDelims = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'smt': { 'left': ';','right': '' } }
 
 "
 " ====== delimitMate
