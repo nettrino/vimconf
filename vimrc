@@ -58,9 +58,9 @@ Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-Plug 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex', { 'for': ['tex', 'latex', 'plaintext'] }
 Plug 'raichoo/smt-vim'
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 
 " Java-specific -- really slow!
 " Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
