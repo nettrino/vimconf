@@ -163,6 +163,15 @@ map <F4> :IndentGuidesToggle<CR>
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 "
+" ======= vim-latex
+"
+
+" No folding please
+let g:Tex_FoldedSections=""
+let g:Tex_FoldedEnvironments=""
+let g:Tex_FoldedMisc=""
+
+"
 " ======= vim-rooter
 "
 let g:rooter_manual_only = 1
