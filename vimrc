@@ -56,7 +56,9 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
+Plug 'vim-latex/vim-latex'
 Plug 'raichoo/smt-vim'
 Plug 'chrisbra/csv.vim'
 
