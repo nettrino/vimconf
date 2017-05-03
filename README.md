@@ -15,7 +15,10 @@ in your system. On Debian/Ubuntu you may install the respective packages via
 
     sudo apt-get install vim-athena exuberant-ctags curl pylint cscope
 
-On Mac OS X you may use brew or macports respectively.
+On Mac OS X you may use brew or macports respectively:
+
+    brew install macvim ctags
+    pip install pylint
 
 Backup and remove your ~/.vim (if any). Once everything is setup run:
 
