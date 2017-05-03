@@ -17,7 +17,7 @@ in your system. On Debian/Ubuntu you may install the respective packages via
 
 On Mac OS X you may use brew or macports respectively:
 
-    brew install macvim ctags && pip install pylint
+    brew install macvim ctags && pip install pylint && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && ~/.profile
 
 Backup and remove your ~/.vim (if any). Once everything is setup run:
 
