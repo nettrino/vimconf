@@ -29,7 +29,7 @@ set mouse=a			            " Enable mouse in all modes
 if has("mouse_sgr")
     set ttymouse=sgr
 else
-    set ttymouse=xterm-256color
+    set ttymouse=xterm2
 end
 
 
