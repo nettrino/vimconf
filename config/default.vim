@@ -7,7 +7,6 @@ colorscheme monokain
 set number						" Numbering of lines
 set hidden                      " Don't abandon buffers moved to the backgr.
 set updatecount=100             " Write swap file to disk every 100 chars
-set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace,
                                 " align lines
                                 "
@@ -32,17 +31,24 @@ else
     set ttymouse=xterm2
 end
 
+" Directory to use for the swap file
+let swapdir=expand(g:vimroot . "/swap")
+if !isdirectory(swapdir)
+    call mkdir(swapdir, "p", 0755)
+endif
+set directory=swapdir
 
+let editinfo=expand(g:vimroot . "/editinfo")
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
 "   %    : saves and restores the buffer list
 "   '100 : marks will be remembered for up to 30 previously edited files
-"   /100 : save 100 lines from search history
+"   /200 : save 200 lines from search history
 "   h    : disable hlsearch on start
 "   "500 : save up to 500 lines for each register
 "   :1000 : up to 1000 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
-set viminfo=%100,'100,/100,h,\"500,:1000,n~/.vim/viminfo
+set viminfo=%100,'200,/100,h,\"500,:1000,neditinfo
 
 " ctags: recurse up to home to find tags. See
 " http://stackoverflow.com/questions/563616/vim-and-ctags-tips-and-tricks
@@ -51,8 +57,12 @@ set tags+=tags;$HOME
 
 " Undo
 set undolevels=10000
+let undo_dir=expand(g:vimroot . "/undo")
+if !isdirectory(undo_dir)
+    call mkdir(undo_dir, "p", 0755)
+endif
 if has("persistent_undo")
-  set undodir=~/.vim/undo  " Allow undos to persist even after a file is closed
+  set undodir=undo_dir  " Allow undos to persist even after a file is closed
   set undofile
 endif
 
@@ -133,13 +143,6 @@ imap <F6> <C-o>:setlocal spell!<CR>
 " map <F8> :source ~/.vim_saved_session<CR>
 
 map <F9> :make<CR>
-
-" Add license
-map :license :0r ~/.vim/license.txt
-
-
-"\ 0r ~/.vim/license.txt
-"augroup END
 
 " Resize window splits
 nnoremap <S-Up>    3<C-w>-

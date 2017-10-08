@@ -244,6 +244,11 @@ function! LightLineFilename()
     return fname
 endfunction
 
+function! s:syntastic()
+	SyntasticCheck
+	call lightline#update()
+endfunction
+
 function! WordCount()
     let s:old_status = v:statusmsg
     exe "silent normal g\<c-g>"
@@ -261,11 +266,6 @@ augroup AutoSyntastic
 	autocmd!
 	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
 augroup END
-
-function! s:syntastic()
-	SyntasticCheck
-	call lightline#update()
-endfunction
 
 function! s:word_count()
 	call WordCount()

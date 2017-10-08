@@ -1,6 +1,7 @@
 " ===================================================  GLOBAL SETTINGS
 "
 set nocompatible              " Vim not vi
+let g:vimroot=expand($HOME . "/.vim")
 
 "| PLUGINS START
 "|
@@ -8,7 +9,9 @@ set nocompatible              " Vim not vi
 "
 
 " init
-call plug#begin('~/.vim/plugged')
+let g:plug_dir=expand(g:vimroot . "/plugged")
+call plug#begin(g:plug_dir)
+
 "disable parallel plugs
 let g:plug_threads = 1
 
@@ -36,8 +39,11 @@ Plug 'Raimondi/delimitMate'
 Plug 'chrisbra/vim-diff-enhanced'
 " display list of functions, variables etc.
 Plug 'majutsushi/tagbar'
-" cscope
-Plug 'brookhong/cscope.vim'
+
+if !(has('win32') || has ('win64'))
+    " cscope only for Linux / Mac
+    Plug 'brookhong/cscope.vim'
+endif
 
 " more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -69,7 +75,8 @@ Plug 'tomlion/vim-solidity'
 " Plug 'tpope/vim-classpath', { 'for': 'java' }
 
 " Load colorschemes
-Plug '~/.vim/colorschemes'
+let colorschemes=expand(g:vimroot . "/colorschemes")
+Plug colorschemes
 
 " wrap it up
 call plug#end()
@@ -80,12 +87,16 @@ call plug#end()
 "
 set t_Co=256
 
-" load config
-so ~/.vim/config/default.vim
-so ~/.vim/config/plugins.vim
-so ~/.vim/config/misc.vim
+" load configs
+let default_config = expand(g:vimroot . "/config/default.vim")
+execute "source ".fnameescape(default_config)
+let plugins_config = expand(g:vimroot . "/config/plugins.vim")
+execute "source ".fnameescape(plugins_config)
+let misc_config = expand(g:vimroot . "/config/misc.vim")
+execute "source ".fnameescape(misc_config)
 
 "===================================================  USER SETTINGS
 
 " user settings - this will be ignored by git
-so ~/.vim/config/user.vim
+let user_config = expand(g:vimroot . "/config/user.vim")
+execute "source ".fnameescape(user_config)
