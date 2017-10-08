@@ -36,7 +36,7 @@ let swapdir=expand(g:vimroot . "/swap")
 if !isdirectory(swapdir)
     call mkdir(swapdir, "p", 0755)
 endif
-set directory=swapdir
+execute "set directory=".fnameescape(swapdir)
 
 let editinfo=expand(g:vimroot . "/editinfo")
 " viminfo: remember certain things when we exit
@@ -62,7 +62,8 @@ if !isdirectory(undo_dir)
     call mkdir(undo_dir, "p", 0755)
 endif
 if has("persistent_undo")
-  set undodir=undo_dir  " Allow undos to persist even after a file is closed
+ " Allow undos to persist even after a file is closed
+  execute "set undodir=".fnameescape(undo_dir)
   set undofile
 endif
 
