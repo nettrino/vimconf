@@ -48,7 +48,7 @@ endif
 " more snippets (depends on ultisnips)
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " visual line (requires syntastic for error/warning detection)
-Plug 'itchyny/lightline.vim' | Plugin 'w0rp/ale''
+Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
 
 " open filesystem browser (on demand loading)
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }

@@ -39,107 +39,6 @@ au FileType python let b:delimitMate_expand_cr = 0
 
 let delimitMate_smart_matchpairs = '\%(\w\|\!\|[£$]\|[^[:space:][:punct:]]\)'
 let delimitMate_smart_quotes = 1
-
-"
-" ====== Syntastic
-"
-let g:syntastic_stl_format     = '%E{e:%e(%fe)}%B{|}%W{w:%w}'
-highlight SyntasticWarning NONE
-highlight SyntasticError NONE
-let g:syntastic_debug=0
-let g:syntastic_enable_signs=1
-let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_warning_symbol = "!"
-let g:syntastic_error_symbol = "x"
-map <F3> :SyntasticToggleMode<CR>
-
-
-" ALE
-let g:ale_sign_warning = '▲'
-let g:ale_sign_error = '✗'
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
-
-" Lightline
-let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ 'active': {
-\   'left': [['mode', 'paste'], ['filename', 'modified']],
-\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
-\ },
-\ 'component_expand': {
-\   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
-\ },
-\ 'component_type': {
-\   'readonly': 'error',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error'
-\ },
-\ }
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
-endfunction
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
-endfunction
-function! LightlineLinterOK() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓ ' : ''
-endfunction
-
-" Update and show lightline but only if it's visible (e.g., not in Goyo)
-autocmd User ALELint call s:MaybeUpdateLightline()
-function! s:MaybeUpdateLightline()
-  if exists('#lightline')
-    call lightline#update()
-  end
-endfunction
-
-
-" See ~/.vim/bundle/syntastic/syntax_checkers for options
-" open errors with :lopen.
-" Don't forget to update lightline for each checker added!
-
-" python
-let g:syntastic_python_checkers = ['pylint', 'python']
-" some pylint error codes: http://pylint-messages.wikidot.com/all-codes
-"
-" C0111 Missing docstring
-" C0103 Invalid  argument name
-" F0401 Unable to import %s
-let g:syntastic_python_pylint_args='--disable C0111,C0103,F0401'
-
-" php
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-"c
-let g:syntastic_c_check_header = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_c_no_include_search = 1
-let g:syntastic_c_no_default_include_dirs = 1
-let g:syntastic_c_compiler = 'clang'
-let g:syntastic_c_checkers = ['make']
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_cpp_no_include_search = 1
-let g:syntastic_cpp_no_default_include_dirs = 1
-let g:syntastic_cpp_checkers = ['clang_check', 'gcc']
-"javascript
-let g:syntastic_javascript_checkers = ['jshint']
-"java
-let g:syntastic_java_checkers = ['javac']
-let g:syntastic_java_javac_autoload_maven_classpath = 1
-
 "
 " ====== Tabularize
 "
@@ -258,69 +157,114 @@ nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
+"
+" ====== Syntastic
+"
+let g:syntastic_stl_format     = '%E{e:%e(%fe)}%B{|}%W{w:%w}'
+highlight SyntasticWarning NONE
+highlight SyntasticError NONE
+let g:syntastic_debug=0
+let g:syntastic_enable_signs=1
+let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_warning_symbol = "!"
+let g:syntastic_error_symbol = "x"
+map <F3> :SyntasticToggleMode<CR>
+
+
+"
+" ====== ALE
+"
+" open errors with :lopen.
+let g:ale_sign_warning = '!'
+let g:ale_sign_error = 'x'
+let g:ale_fixers = {
+    \ 'python': ['pylint', 'python'],
+    \ 'php': ['php', 'phpcs', 'phpmd'],
+    \ 'javascript': ['jshint'],
+    \ 'java': ['javac'],
+    \ 'c': ['make', 'clang'],
+    \ 'cpp': ['make', 'clang++'],
+    \ }
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+
+" See ~/.vim/bundle/syntastic/syntax_checkers for options
+" Don't forget to update lightline for each checker added!
+
+" python
+" some pylint error codes: http://pylint-messages.wikidot.com/all-codes
+" C0111 Missing docstring
+" C0103 Invalid  argument name
+" F0401 Unable to import %s
+let g:ale_python_pylint_options='--disable C0111,C0103,F0401'
+
+"c
+let g:ale_c_gcc_options = '-std=c14 -Wall'
+let g:ale_c_clang_options = '-std=c14 -Wall'
+"cpp
+let g:ale_cpp_gcc_options = '-std=c++14 -Wall'
+let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 
 "
 " ======= Lightline
 "
+set laststatus=2
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [['mode', 'paste'], ['filename', 'modified']],
+    \   'right': [
+    \       ['lineinfo'],
+    \       ['percent'],
+    \       ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']
+    \    ]
+    \ },
+    \ 'component_expand': {
+    \   'linter_warnings': 'LightlineLinterWarnings',
+    \   'linter_errors': 'LightlineLinterErrors',
+    \   'lineinfo': 'WordCount'
+    \ },
+    \ 'component_type': {
+    \   'readonly': 'error',
+    \   'linter_warnings': 'warning',
+    \   'linter_errors': 'error'
+    \ },
+    \ }
 
-" always on
-" set laststatus=2
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d !', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:all_errors == 0 ? '' : printf('%d x', all_errors)
+endfunction
 
-" let g:lightline = {
-            " \ 'active': {
-            " \   'right': [ [ 'syntastic', 'lineinfo' ],
-            " \              [ 'percent' ],
-            " \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-            " \ },
-            " \ 'component_function': {
-            " \   'filename': 'LightLineFilename',
-            " \ },
-            " \ 'component_expand': {
-            " \   'syntastic': 'SyntasticStatuslineFlag',
-            " \   'lineinfo': 'WordCount'
-            " \ },
-            " \ 'component_type': {
-            " \ 'syntastic': 'warning',
-            " \ }
-" \ }
+function! WordCount()
+    return wordcount()['words']
+endfunction
 
-" function! LightLineModified()
-    " return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-" endfunction
+augroup AutoWordCount
+    autocmd!
+    autocmd BufWritePost * call s:word_count()
+augroup END
 
-" function! LightLineReadonly()
-    " return &ft !~? 'help' && &readonly ? 'RO' : ''
-" endfunction
+function! s:word_count()
+    call WordCount()
+    call lightline#update()
+endfunction
 
-" function! LightLineFilename()
-    " let fname = expand('%p:t')
-    " return fname
-" endfunction
-
-" function! s:syntastic()
-	" SyntasticCheck
-	" call lightline#update()
-" endfunction
-
-" function! WordCount()
-    " let s:old_status = v:statusmsg
-    " exe "silent normal g\<c-g>"
-    " let s:word_count = str2nr(split(v:statusmsg)[11])
-    " let v:statusmsg = s:old_status
-    " return s:word_count
-" endfunction
-
-" augroup AutoWordCount
-	" autocmd!
-	" autocmd BufWritePost * call s:word_count()
-" augroup END
-
-" augroup AutoSyntastic
-	" autocmd!
-	" autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
-" augroup END
-
-" function! s:word_count()
-	" call WordCount()
-	" call lightline#update()
-" endfunction
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+autocmd User ALELint call s:MaybeUpdateLightline()
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
