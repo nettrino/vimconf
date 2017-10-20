@@ -1,7 +1,11 @@
 " =========================== COLORS =====================================
 set t_Co=256
 set background=dark
-colorscheme monokain
+if (has("win32") || has("win64"))
+    " TODO find a nice colorscheme for Windows
+else
+    colorscheme monokain
+endif
 
 " ====================== GENERAL CONFIG ==================================
 set number						" Numbering of lines
