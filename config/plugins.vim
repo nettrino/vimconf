@@ -159,22 +159,6 @@ nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 "
-" ====== Syntastic
-"
-let g:syntastic_stl_format     = '%E{e:%e(%fe)}%B{|}%W{w:%w}'
-highlight SyntasticWarning NONE
-highlight SyntasticError NONE
-let g:syntastic_debug=0
-let g:syntastic_enable_signs=1
-let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_warning_symbol = "!"
-let g:syntastic_error_symbol = "x"
-map <F3> :SyntasticToggleMode<CR>
-
-
-"
 " ====== ALE
 "
 " open errors with :lopen.
@@ -189,9 +173,7 @@ let g:ale_fixers = {
     \ 'cpp': ['make', 'clang++'],
     \ }
 let g:ale_set_highlights=0
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
-
+let g:ale_lint_delay = 200
 
 " See ~/.vim/bundle/syntastic/syntax_checkers for options
 " Don't forget to update lightline for each checker added!
