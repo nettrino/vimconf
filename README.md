@@ -17,12 +17,12 @@ not work for your setup.
 
 Get your system up-to-date if necessary
 ```
-    sudo apt-get update && sudo apt-get upgrade
+sudo apt-get update && sudo apt-get upgrade
 ```
 then
 ```
-    sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
-    cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
+sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
+cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
 # OS X
@@ -32,12 +32,12 @@ installed in your system.
 
 Get your system up-to-date if necessary
 ```
-    brew update && brew upgrade
+brew update && brew upgrade
 ```
 then
 ```
-    brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
-    cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
+brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
+cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
 # Windows
@@ -47,15 +47,15 @@ package manager is in installed in your system.
 
 Get your system up-to-date if necessary
 ```
-    choco upgrade chocolatey
-    choco upgrade all
+choco upgrade chocolatey
+choco upgrade all
 ```
 then
 
 ```
-    choco install ctags, vim
-    cd && git clone https://github.com/nettrino/vimconf.git .vim && echo let g:vim_root=expand("$HOME/.vim") > _vimrc && echo execute "source ".g:vim_root,"\\vimrc" >> _vimrc && cd .vim
-	vim +PlugInstall +qall
+choco install ctags, vim
+cd && git clone https://github.com/nettrino/vimconf.git .vim && echo let g:vim_root=expand("$HOME/.vim") > _vimrc && echo execute "source ".g:vim_root,"\\vimrc" >> _vimrc && cd .vim
+vim +PlugInstall +qall
 ```
 
 Staying up-to-date
@@ -63,17 +63,17 @@ Staying up-to-date
 
 # Debian/Ubuntu & Mac OS X
 ```
-    cd ~/.vim && make update
+cd ~/.vim && make update
 ```
 # Windows
 ```
-    cd %userprofile%\.vim
-    git stash
-    git pull
-	git clean -fdx -eswap -eundo -eautoload
-	vim +PlugClean! +qall
-	vim +PlugInstall +qall
-	vim +PlugUpdate +qall
+cd %userprofile%\.vim
+git stash
+git pull
+git clean -fdx -eswap -eundo -eautoload
+vim +PlugClean! +qall
+vim +PlugInstall +qall
+vim +PlugUpdate +qall
 ```
 
 Custom Settings
@@ -84,5 +84,7 @@ You can specify your own settings overriding the defaults in config/user.vim
 Plugin Dependencies
 ===================
 
-Most plugins should work out of the box, however several linters need to be
-installed in your system for full support (e.g., pylint).
+Most plugins should work out of the box, however several plugins can offer their
+full functionality when certain dependencies are met (e.g., my setup for
+[ALE](https://github.com/w0rp/ale) assumes the presence of linters such as
+[pylint](https://www.pylint.org/)).
