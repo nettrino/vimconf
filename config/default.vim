@@ -1,16 +1,19 @@
 " =========================== COLORS =====================================
 set t_Co=256
 set background=dark
-if (has("win32") || has("win64"))
-	if !empty($CONEMUBUILD)
-        set termencoding=utf8
-		set term=xterm
-		set t_Co=256
-		let &t_AB="\e[48;5;%dm"
-		let &t_AF="\e[38;5;%dm"
-		set bs=indent,eol,start
-	endif
+
+if !empty($CONEMUBUILD)
+    set termencoding=utf8
+    set encoding=utf8
+    set term=xterm
+    set t_Co=256
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+    set bs=indent,eol,start
+    inoremap <Char-0x07F> <BS>
+    nnoremap <Char-0x07F> <BS>
 endif
+
 colorscheme monokain
 
 " ====================== GENERAL CONFIG ==================================
