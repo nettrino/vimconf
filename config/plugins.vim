@@ -173,7 +173,10 @@ let g:ale_fixers = {
     \ 'cpp': ['make', 'clang++'],
     \ }
 let g:ale_set_highlights=0
-let g:ale_lint_delay = 200
+let g:ale_lint_delay=1000
+let g:ale_lint_on_enter=0
+let g:ale_lint_on_save=1
+let g:ale_lint_on_text_changed='never'
 
 " See ~/.vim/bundle/syntastic/syntax_checkers for options
 " Don't forget to update lightline for each checker added!
