@@ -55,6 +55,59 @@ let g:syntastic_warning_symbol = "!"
 let g:syntastic_error_symbol = "x"
 map <F3> :SyntasticToggleMode<CR>
 
+
+" ALE
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+autocmd User ALELint call s:MaybeUpdateLightline()
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
+
 " See ~/.vim/bundle/syntastic/syntax_checkers for options
 " open errors with :lopen.
 " Don't forget to update lightline for each checker added!
@@ -207,67 +260,67 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 
 "
-" ======= lightline
+" ======= Lightline
 "
 
 " always on
-set laststatus=2
+" set laststatus=2
 
-let g:lightline = {
-            \ 'active': {
-            \   'right': [ [ 'syntastic', 'lineinfo' ],
-            \              [ 'percent' ],
-            \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-            \ },
-            \ 'component_function': {
-            \   'filename': 'LightLineFilename',
-            \ },
-            \ 'component_expand': {
-            \   'syntastic': 'SyntasticStatuslineFlag',
-            \   'lineinfo': 'WordCount'
-            \ },
-            \ 'component_type': {
-            \ 'syntastic': 'warning',
-            \ }
-\ }
+" let g:lightline = {
+            " \ 'active': {
+            " \   'right': [ [ 'syntastic', 'lineinfo' ],
+            " \              [ 'percent' ],
+            " \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+            " \ },
+            " \ 'component_function': {
+            " \   'filename': 'LightLineFilename',
+            " \ },
+            " \ 'component_expand': {
+            " \   'syntastic': 'SyntasticStatuslineFlag',
+            " \   'lineinfo': 'WordCount'
+            " \ },
+            " \ 'component_type': {
+            " \ 'syntastic': 'warning',
+            " \ }
+" \ }
 
-function! LightLineModified()
-    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
+" function! LightLineModified()
+    " return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+" endfunction
 
-function! LightLineReadonly()
-    return &ft !~? 'help' && &readonly ? 'RO' : ''
-endfunction
+" function! LightLineReadonly()
+    " return &ft !~? 'help' && &readonly ? 'RO' : ''
+" endfunction
 
-function! LightLineFilename()
-    let fname = expand('%p:t')
-    return fname
-endfunction
+" function! LightLineFilename()
+    " let fname = expand('%p:t')
+    " return fname
+" endfunction
 
-function! s:syntastic()
-	SyntasticCheck
-	call lightline#update()
-endfunction
+" function! s:syntastic()
+	" SyntasticCheck
+	" call lightline#update()
+" endfunction
 
-function! WordCount()
-    let s:old_status = v:statusmsg
-    exe "silent normal g\<c-g>"
-    let s:word_count = str2nr(split(v:statusmsg)[11])
-    let v:statusmsg = s:old_status
-    return s:word_count
-endfunction
+" function! WordCount()
+    " let s:old_status = v:statusmsg
+    " exe "silent normal g\<c-g>"
+    " let s:word_count = str2nr(split(v:statusmsg)[11])
+    " let v:statusmsg = s:old_status
+    " return s:word_count
+" endfunction
 
-augroup AutoWordCount
-	autocmd!
-	autocmd BufWritePost * call s:word_count()
-augroup END
+" augroup AutoWordCount
+	" autocmd!
+	" autocmd BufWritePost * call s:word_count()
+" augroup END
 
-augroup AutoSyntastic
-	autocmd!
-	autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
-augroup END
+" augroup AutoSyntastic
+	" autocmd!
+	" autocmd BufWritePost *.py,*.php,*.js,*.c,*.cpp,*.java call s:syntastic()
+" augroup END
 
-function! s:word_count()
-	call WordCount()
-	call lightline#update()
-endfunction
+" function! s:word_count()
+	" call WordCount()
+	" call lightline#update()
+" endfunction
