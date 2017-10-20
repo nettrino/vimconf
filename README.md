@@ -9,24 +9,72 @@ for your specific setup.
 Installation
 ============
 
-This config assumes that you have some version of vim that supports copying
-to clipboard such as vim-athena and that ctags and curl are already installed
-in your system. On Debian/Ubuntu you may install the respective packages via
+Below are outlined installation steps that should work out-of-the box,
+however this is not thoroughly tested. Please open an issue if something does
+not work for your setup.
 
-    sudo apt-get install vim-athena exuberant-ctags curl pylint cscope
+# Debian/Ubuntu
 
-On Mac OS X you may use brew or macports respectively:
-
-    brew install macvim ctags && pip install pylint && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
-
-Backup and remove your ~/.vim (if any). Once everything is setup run:
-
+Get your system up-to-date if necessary
+```
+    sudo apt-get update && sudo apt-get upgrade
+```
+then
+```
+    sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
     cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
+```
+
+# OS X
+
+The following assumes that the [`brew`](https://brew.sh/) package manager is
+installed in your system.
+
+Get your system up-to-date if necessary
+```
+    brew update && brew upgrade
+```
+then
+```
+    brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
+    cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
+```
+
+# Windows
+
+The following assumes that the [`chocolatey`](https://chocolatey.org/)
+package manager is in installed in your system.
+
+Get your system up-to-date if necessary
+```
+    choco upgrade chocolatey
+    choco upgrade all
+```
+then
+
+```
+    choco install ctags, vim
+    cd && git clone https://github.com/nettrino/vimconf.git .vim && echo let g:vim_root=expand("$HOME/.vim") > _vimrc && echo execute "source ".g:vim_root,"\\vimrc" >> _vimrc && cd .vim
+	vim +PlugInstall +qall
+```
 
 Staying up-to-date
 ==================
 
+# Debian/Ubuntu & Mac OS X
+```
     cd ~/.vim && make update
+```
+# Windows
+```
+    cd %userprofile%\.vim
+    git stash
+    git pull
+	git clean -fdx -eswap -eundo -eautoload
+	vim +PlugClean! +qall
+	vim +PlugInstall +qall
+	vim +PlugUpdate +qall
+```
 
 Custom Settings
 ===============
@@ -36,7 +84,5 @@ You can specify your own settings overriding the defaults in config/user.vim
 Plugin Dependencies
 ===================
 
-Most plugins should work out of the box, however there are some that might require
-additional system packages for their full functionality. For instance, Syntastic
-works pretty nicely with Python with <a href="https://www.pylint.org/#install"
-target="_blank">pylint</a> installed.
+Most plugins should work out of the box, however several linters need to be
+installed in your system for full support (e.g., pylint).
