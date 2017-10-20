@@ -13,7 +13,8 @@ Below are outlined installation steps that should work out-of-the box,
 however this is not thoroughly tested. Please open an issue if something does
 not work for your setup.
 
-# Debian/Ubuntu
+Debian/Ubuntu
+-------------
 
 Get your system up-to-date if necessary
 ```
@@ -25,7 +26,8 @@ sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
-# OS X
+OS X
+----
 
 The following assumes that the [`brew`](https://brew.sh/) package manager is
 installed in your system.
@@ -40,7 +42,8 @@ brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && 
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
-# Windows
+Windows (Powershell)
+--------------------
 
 The following assumes that the [`chocolatey`](https://chocolatey.org/)
 package manager is in installed in your system.
@@ -54,18 +57,49 @@ then
 
 ```
 choco install ctags, vim
-cd && git clone https://github.com/nettrino/vimconf.git .vim && echo let g:vim_root=expand("$HOME/.vim") > _vimrc && echo execute "source ".g:vim_root,"\\vimrc" >> _vimrc && cd .vim
+cd ~
+git clone https://github.com/nettrino/vimconf.git .vim
+md ~\.vim\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile($uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\.vim\autoload\plug.vim"))
+```
+
+Using notepad (or vi, since nothing is configured yet :)), create a `~\_vimrc` file with the following contents
+```
+" init
+let g:vim_root=expand("$HOME/.vim")
+
+" add g:vim_root to the front of the runtimepath
+execute "set rtp^=".g:vim_root
+
+" On windows, if called from cygwin or msys, the shell needs to be changed
+" to cmd.exe to work with certain plugins that expect cmd.exe on windows 
+" versions "of vim.
+if &shell=~#'bash$'
+	set shell=$COMSPEC " sets shell to correct path for cmd.exe
+endif
+
+execute "source " .g:vim_root . '\\vimrc'
+```
+
+Run
+```
 vim +PlugInstall +qall
 ```
 
 Staying up-to-date
 ==================
 
-# Debian/Ubuntu & Mac OS X
+Debian/Ubuntu & Mac OS X
+------------------------
+
 ```
 cd ~/.vim && make update
 ```
-# Windows
+
+Windows
+-------
+
 ```
 cd %userprofile%\.vim
 git stash
