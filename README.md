@@ -6,6 +6,7 @@ not been extensively tested on various platforms, though it should work out
 of the box on most systems. Please open a ticket if anything does not work
 for your specific setup.
 
+
 Installation
 ============
 
@@ -114,6 +115,12 @@ Custom Settings
 ===============
 
 You can specify your own settings overriding the defaults in config/user.vim
+
+### Notice
+
+The colorscheme in this config is built for a terminal with a black background,
+similar to the default terminals in OS X, Unix. In Windows, it is tested using
+cmder + conemu, under the Terminal.app colorscheme.
 
 Plugin Dependencies
 ===================

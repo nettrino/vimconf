@@ -2,10 +2,16 @@
 set t_Co=256
 set background=dark
 if (has("win32") || has("win64"))
-    " TODO find a nice colorscheme for Windows
-else
-    colorscheme monokain
+	if !empty($CONEMUBUILD)
+		set term=pcansi
+		set t_Co=256
+		let &t_AB="\e[48;5;%dm"
+		let &t_AF="\e[38;5;%dm"
+		set bs=indent,eol,start
+		colorscheme wombat256
+	endif
 endif
+colorscheme monokain
 
 " ====================== GENERAL CONFIG ==================================
 set number						" Numbering of lines
