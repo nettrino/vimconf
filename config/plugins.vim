@@ -144,6 +144,7 @@ nnoremap <leader>l :call ToggleLocationList()<CR>
 nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
 " g: Find this definition
 nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+
 " d: Find functions called by this function
 nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
 " c: Find functions calling this function
@@ -187,6 +188,7 @@ let g:ale_fixers = {
     \ 'c': ['make', 'clang'],
     \ 'cpp': ['make', 'clang++'],
     \ }
+let g:ale_set_highlights=0
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
