@@ -3,12 +3,12 @@ set t_Co=256
 set background=dark
 if (has("win32") || has("win64"))
 	if !empty($CONEMUBUILD)
-		set term=pcansi
+        set termencoding=utf8
+		set term=xterm
 		set t_Co=256
 		let &t_AB="\e[48;5;%dm"
 		let &t_AF="\e[38;5;%dm"
 		set bs=indent,eol,start
-		colorscheme wombat256
 	endif
 endif
 colorscheme monokain

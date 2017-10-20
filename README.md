@@ -72,14 +72,6 @@ let g:vim_root=expand("$HOME/.vim")
 
 " add g:vim_root to the front of the runtimepath
 execute "set rtp^=".g:vim_root
-
-" On windows, if called from cygwin or msys, the shell needs to be changed
-" to cmd.exe to work with certain plugins that expect cmd.exe on windows
-" versions "of vim.
-if &shell=~#'bash$'
-    set shell=$COMSPEC " sets shell to correct path for cmd.exe
-endif
-
 execute "source " .g:vim_root . '\\vimrc'
 ```
 
