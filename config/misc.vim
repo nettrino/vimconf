@@ -36,3 +36,8 @@ au BufNewFile,BufRead *.smt* set nowrap filetype=smt
   " au BufRead,BufEnter /path/to/project1/* set et sts=2 cindent cinoptions=..
   " au BufRead,BufEnter /path/to/project2/* set noet sts=4 cindent ...
 " augroup END
+
+" hack because of color issues in windows
+ if (has('win32') || has ('win64'))
+     let loaded_matchparen = 0
+ endif
