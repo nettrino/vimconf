@@ -80,6 +80,9 @@ Run
 vim +PlugInstall +qall
 ```
 
+In case you have issues with Ultisnips & Python in Windows, make sure your PATH
+does not contain multiple python executables.
+
 Staying up-to-date
 ==================
 

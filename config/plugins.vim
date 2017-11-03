@@ -68,7 +68,11 @@ let g:tagbar_map_help='?'
 "
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-set runtimepath+=~/.vim/bundle/ultisnips
+let ultisnips_dir=expand(g:vimroot . "/bundle/ultisnips")
+if !isdirectory(ultisnips_dir)
+    call mkdir(ultisnips_dir, "p", 0755)
+endif
+set runtimepath+=ultisnips_dir
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"

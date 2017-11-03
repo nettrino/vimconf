@@ -123,6 +123,7 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 "Copy to X11 clipboard. Need to install a vim version that supports +xclipboard
 "for this to work like vim-athena, otherwise the selection won't be copied
+" FIXME add support for Windows
 map <Leader>y "+2yy
 "cut to X11 clipboard
 map <Leader>d "+dd
@@ -159,10 +160,14 @@ imap <F6> <C-o>:setlocal spell!<CR>
 map <F9> :make<CR>
 
 " Resize window splits
-nnoremap <S-Up>    3<C-w>-
-nnoremap <S-Down>  3<C-w>+
-nnoremap <S-Left>  3<C-w><
-nnoremap <S-Right> 3<C-w>>
+" up
+nnoremap <C-k>      3<C-w>-
+" down
+nnoremap <C-j>  3<C-w>+
+" left
+nnoremap <C-h>  3<C-w><
+" right
+nnoremap <C-l> 3<C-w>>
 
 nnoremap _ :split<cr>
 nnoremap \| :vsplit<cr>
