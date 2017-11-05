@@ -51,7 +51,7 @@ if !isdirectory(swapdir)
 endif
 execute "set directory=".fnameescape(swapdir)
 
-let editinfo=expand(g:vimroot . "/editinfo")
+let editinfo=expand(g:vimroot . "/.viminfo")
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
 "   %    : saves and restores the buffer list
