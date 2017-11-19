@@ -150,7 +150,7 @@ nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
 nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
 
 " d: Find functions called by this function
-nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+noremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
 " c: Find functions calling this function
 nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
 " t: Find this text string
@@ -176,8 +176,9 @@ let g:ale_fixers = {
     \ 'c': ['make', 'clang'],
     \ 'cpp': ['make', 'clang++'],
     \ }
+let g:ale_python_flake8_executable=''
 let g:ale_set_highlights=0
-let g:ale_lint_delay=1000
+let g:ale_lint_delay=500
 let g:ale_lint_on_enter=0
 let g:ale_lint_on_save=1
 let g:ale_lint_on_text_changed='never'
