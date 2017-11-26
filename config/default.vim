@@ -51,7 +51,7 @@ if !isdirectory(swapdir)
 endif
 execute "set directory=".fnameescape(swapdir)
 
-let editinfo=expand(g:vimroot . "/.viminfo")
+" let editinfo=expand(g:vimroot . "/.viminfo")
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
 "   %    : saves and restores the buffer list
@@ -61,7 +61,7 @@ let editinfo=expand(g:vimroot . "/.viminfo")
 "   "500 : save up to 500 lines for each register
 "   :1000 : up to 1000 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
-set viminfo=%100,'200,/100,h,\"500,:1000,neditinfo
+set viminfo=%100,'200,/100,h,\"500,:1000
 
 " ctags: recurse up to home to find tags. See
 " http://stackoverflow.com/questions/563616/vim-and-ctags-tips-and-tricks
