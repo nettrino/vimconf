@@ -150,7 +150,7 @@ nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
 nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
 
 " d: Find functions called by this function
-nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+noremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
 " c: Find functions calling this function
 nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
 " t: Find this text string
