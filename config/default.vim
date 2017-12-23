@@ -145,9 +145,9 @@ map <Leader>p "+p
 
 
 "go to previous tab
-" map <F1> :tabp<CR>
+map <S-z> :tabp<CR>
 "go to next tab
-" map <F2> :tabn<CR>
+map <S-x> :tabn<CR>
 "open new tab
 map <C-n> :tabnew<CR>
 "reload document from disk
