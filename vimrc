@@ -39,6 +39,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'chrisbra/vim-diff-enhanced'
 " display list of functions, variables etc.
 Plug 'majutsushi/tagbar'
+" distraction-free editing
+Plug 'junegunn/goyo.vim'
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
