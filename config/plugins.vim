@@ -20,6 +20,11 @@ nnoremap <silent> <Leader>gd :Gdiff<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 
 "
+" ====== PyDocstring
+"
+nnoremap <C-i> :Pydocstring<CR>
+
+"
 " ====== NerdCommenter
 "
 " Go into visual mode and then type ,cc or cn to comment and ,cu to uncomment

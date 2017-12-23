@@ -36,7 +36,8 @@ set shiftwidth=4
 set formatoptions=cqtr
 set colorcolumn=80
 
-set mouse=a			            " Enable mouse in all modes
+" Enable mouse in all modes
+set mouse=a
 " make sure things work even inside tmux
 if has("mouse_sgr")
     set ttymouse=sgr
@@ -51,7 +52,6 @@ if !isdirectory(swapdir)
 endif
 execute "set directory=".fnameescape(swapdir)
 
-" let editinfo=expand(g:vimroot . "/.viminfo")
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
 "   %    : saves and restores the buffer list
@@ -121,6 +121,9 @@ let localmapleader=","
 map <Leader>/ :nohlsearch<cr>
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" Paste mode toggle
+set pastetoggle=<F2>
+set clipboard=unnamed
 "Copy to X11 clipboard. Need to install a vim version that supports +xclipboard
 "for this to work like vim-athena, otherwise the selection won't be copied
 " FIXME add support for Windows
@@ -130,8 +133,8 @@ map <Leader>d "+dd
 "paste X11 clipboard
 map <Leader>p "+p
 
-" F1 prev tab
-" F2 next tab
+" F1 is help in the buffers so leave it as it is
+" F2 Paste mode toggle
 " F3 Syntastic Toggle
 " F4 Indent Guides Toggle
 " F5 Reload page
@@ -142,9 +145,9 @@ map <Leader>p "+p
 
 
 "go to previous tab
-map <F1> :tabp<CR>
+" map <F1> :tabp<CR>
 "go to next tab
-map <F2> :tabn<CR>
+" map <F2> :tabn<CR>
 "open new tab
 map <C-n> :tabnew<CR>
 "reload document from disk
@@ -159,31 +162,30 @@ imap <F6> <C-o>:setlocal spell!<CR>
 
 map <F9> :make<CR>
 
-" Resize window splits
-" up
-nnoremap <C-k>      3<C-w>-
-" down
-nnoremap <C-j>  3<C-w>+
-" left
-nnoremap <C-h>  3<C-w><
-" right
-nnoremap <C-l> 3<C-w>>
-
+" splits
 nnoremap _ :split<cr>
 nnoremap \| :vsplit<cr>
+" Resize window splits
+" up
+nnoremap <C-k> 2<C-w>-
+" down
+nnoremap <C-j> 2<C-w>+
+" left
+nnoremap <C-h> 2<C-w><
+" right
+nnoremap <C-l> 2<C-w>>
 
 " hex mode
 map <Leader>hon :set binary <bar> %!xxd<CR>
 map <Leader>hof :set binary <bar> %!xxd -r<CR>
 
-" Remove trailing whitespace
+" Remove trailing whitespace at every write
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " fix backspace
@@ -191,3 +193,17 @@ set backspace=indent,eol,start
 
 " select all
 map <C-a> <esc>ggVG<CR>
+
+" sort selected
+vnoremap <Leader>s :sort<CR>
+
+" indent with < directly in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Enable Greek!
+" Map to Ctrl+L
+inoremap <c-l> <c-^>
+set keymap=greek_utf-8
+set iminsert=0
+set imsearch=-1
