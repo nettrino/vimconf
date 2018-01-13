@@ -25,6 +25,27 @@ nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <C-i> :Pydocstring<CR>
 
 "
+" ====== jedi-vim
+"
+
+let g:jedi#max_doc_height = 50
+" don't auto-complete - only when C-space is pressed
+let g:jedi#popup_on_dot = 0
+" set completeopt=menuone,longest
+" show call signatures in the command line
+set noshowmode
+let g:jedi#show_call_signatures = 2
+" split the window to show the definition when pressing <Leader>d
+let g:jedi#use_splits_not_buffers = "winwidth"
+let g:jedi#show_call_signatures_delay = 100
+
+" notes:
+" rename variables with <Leader>r
+" show documentation with K
+" show usages of a name <Leader>n
+
+
+"
 " ====== NerdCommenter
 "
 " Go into visual mode and then type ,cc or cn to comment and ,cu to uncomment
