@@ -24,6 +24,8 @@ sudo apt-get update && sudo apt-get upgrade
 then
 ```
 sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
+sudo pip install jedi
+sudo pip3 install jedi
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
@@ -40,6 +42,8 @@ brew update && brew upgrade
 then
 ```
 brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
+sudo pip install jedi
+sudo pip3 install jedi
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
@@ -57,7 +61,9 @@ choco upgrade all
 then
 
 ```
-choco install ctags, vim
+choco install ctags, vim, python, python3
+pip install jedi
+pip3 install jedi
 cd ~
 git clone https://github.com/nettrino/vimconf.git .vim
 md ~\.vim\autoload
