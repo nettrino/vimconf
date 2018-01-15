@@ -23,9 +23,7 @@ sudo apt-get update && sudo apt-get upgrade
 ```
 then
 ```
-sudo apt-get install vim-athena exuberant-ctags curl cscope ctags
-sudo pip install jedi
-sudo pip3 install jedi
+sudo apt-get install vim-athena exuberant-ctags curl cscope ctags python-jedi python3-jedi
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
