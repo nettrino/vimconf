@@ -204,7 +204,7 @@ let g:ale_fixers = {
     \ }
 let g:ale_python_flake8_executable=''
 let g:ale_set_highlights=0
-let g:ale_lint_delay=200
+let g:ale_lint_delay=50
 let g:ale_lint_on_enter=0
 let g:ale_lint_on_save=1
 let g:ale_lint_on_text_changed='never'
