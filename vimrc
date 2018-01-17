@@ -68,7 +68,6 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'Rykka/riv.vim', { 'for': 'rst' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'vim-latex/vim-latex', { 'for': ['tex', 'latex', 'plaintext'] }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
