@@ -33,21 +33,18 @@ Plug 'tpope/vim-fugitive'
 Plug 'embear/vim-localvimrc'
 " show guides at indent stops
 Plug 'nathanaelkane/vim-indent-guides'
-" auto-completion for quotes, parentheses etc.
-" this plugin does not play well with TeX, so this workaround is needed.
-" See https://github.com/Raimondi/delimitMate/issues/48 and
-" https://github.com/junegunn/vim-plug/issues/63
-Plug 'Raimondi/delimitMate', { 'for': [] }
-augroup plug_xtype
-  autocmd FileType * if expand('<amatch>') != 'tex' | call plug#load('delimitMate') | execute 'autocmd! plug_xtype' | endif
-augroup END
-
 " pretty vim -d (diff)
 Plug 'chrisbra/vim-diff-enhanced'
 " display list of functions, variables etc.
 Plug 'majutsushi/tagbar'
 " distraction-free editing
 Plug 'junegunn/goyo.vim'
+" auto-completion for quotes, parentheses etc.
+" this plugin does not play well with vim-tex, so keep this in mind
+" See https://github.com/Raimondi/delimitMate/issues/48 and
+" https://github.com/junegunn/vim-plug/issues/63
+Plug 'Raimondi/delimitMate'
+
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
