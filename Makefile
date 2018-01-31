@@ -10,9 +10,7 @@ all:
 update:
 	git stash
 	git pull
-	git clean -fdx -eswap -eundo -eautoload
-	vim +PlugClean! +qall
+	git clean -fdx -eswap -eundo -eautoload -ebundle -eplugged -espell
 	vim +PlugInstall +qall
-	vim +PlugUpdate +qall
 
 .PHONY: update
