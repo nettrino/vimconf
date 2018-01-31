@@ -11,7 +11,8 @@ update:
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo -eautoload -ebundle -eplugged -espell
-	rm -rf swap/* undo/* autoload/* bundle/* plugged/* spell/*
+	rm -rf swap/* undo/* autoload/* bundle/* plugged spell/*
+	curl -kfLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
 	vim +PlugInstall +qall
 
 .PHONY: update
