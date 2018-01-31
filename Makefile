@@ -11,6 +11,7 @@ update:
 	git stash
 	git pull
 	git clean -fdx -eswap -eundo -eautoload -ebundle -eplugged -espell
+	rm -rf swap/* undo/* autoload/* bundle/* plugged/* spell/*
 	vim +PlugInstall +qall
 
 .PHONY: update
