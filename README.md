@@ -65,7 +65,7 @@ Debian/Ubuntu & Mac OS X
 ------------------------
 
 ```
-cd ~/.vim && make upadte
+cd ~/.vim && make update
 ```
 
 Windows
