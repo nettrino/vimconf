@@ -13,7 +13,7 @@ Installation
 Debian/Ubuntu & Mac OS X
 ------------------------
 ```
-cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
+cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make install
 ```
 
 Windows (Powershell)
