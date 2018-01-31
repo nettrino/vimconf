@@ -3,45 +3,16 @@ General
 
 My personal vim config. This repo serves mainly as a personal backup and has
 not been extensively tested on various platforms, though it should work out
-of the box on most systems. Please open a ticket if anything does not work
+of the box on most systems. Please open an issue if anything does not work
 for your specific setup.
 
 
 Installation
 ============
 
-Below are outlined installation steps that should work out-of-the box,
-however this is not thoroughly tested. Please open an issue if something does
-not work for your setup.
-
-Debian/Ubuntu
--------------
-
-Get your system up-to-date if necessary
+Debian/Ubuntu & Mac OS X
+------------------------
 ```
-sudo apt-get update && sudo apt-get upgrade
-```
-then
-```
-sudo apt-get install vim-athena exuberant-ctags curl cscope ctags python-jedi python3-jedi
-cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
-```
-
-OS X
-----
-
-The following assumes that the [`brew`](https://brew.sh/) package manager is
-installed in your system.
-
-Get your system up-to-date if necessary
-```
-brew update && brew upgrade
-```
-then
-```
-brew install macvim ctags cscope && echo "alias vim='mvim -v'" >> ~/.profile && echo "alias vi='mvim -v'" >> ~/.profile && . ~/.profile
-sudo pip install jedi
-sudo pip3 install jedi
 cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
 
@@ -94,7 +65,7 @@ Debian/Ubuntu & Mac OS X
 ------------------------
 
 ```
-cd ~/.vim && make update
+cd ~/.vim && make upadte
 ```
 
 Windows
