@@ -59,7 +59,7 @@ setup_mac() {
     reload_env
     for pipv in pip pip3; do
         if [ ! `command -v ${pipv}` ]; then
-            echo "[+] pip not found! Please install pip (and/or pip3 for python3)."
+            echo "[+] pip not found! Please install pip (and/or pip3)."
             echo "    Subsequently install jedi via sudo pip(3) install jedi"
             exit
         else
@@ -75,7 +75,10 @@ setup_mac() {
 setup_linux() {
     echo "[+] Setting things up"
     reload_env
+    echo "[+] Running apt-get update"
+    sudo apt-get -y update >/dev/null 2>/dev/null
     echo "[+] Installing required packages"
+    sudo apt-get -y update >/dev/null 2>/dev/null
     sudo apt-get -y install vim-athena exuberant-ctags curl cscope ctags \
         python-jedi python3-jedi >/dev/null 2>/dev/null
 }
@@ -83,15 +86,14 @@ setup_linux() {
 uname="$(uname -s)"
 case "${uname}" in
     Linux*)
-        setup_linux
-		break;;
+        setup_linux;;
     Darwin*)
-        setup_mac
-		break;;
+        setup_mac;;
     *)
         echo "Default installer may not work for you!"
         echo "Please attempt a manual installation"
         exit 1
 esac
 
-make plugins
+make update
+vim +PlugInstall +qall
