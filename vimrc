@@ -30,7 +30,9 @@ Plug 'mbbill/undotree'
 " git diff/blame functionality
 Plug 'tpope/vim-fugitive'
 " search and local vimrc files (".lvimrc") in the dir tree
-Plug 'embear/vim-localvimrc'
+if v:version >= 704
+    Plug 'embear/vim-localvimrc'
+endif
 " show guides at indent stops
 Plug 'nathanaelkane/vim-indent-guides'
 " pretty vim -d (diff)
@@ -51,8 +53,11 @@ if !(has('win32') || has ('win64'))
     Plug 'brookhong/cscope.vim'
 endif
 
-" more snippets (depends on ultisnips)
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+if v:version >= 704
+    " more snippets (depends on ultisnips)
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+endif
+
 " visual line (requires syntastic for error/warning detection)
 Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
 

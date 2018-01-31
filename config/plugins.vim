@@ -92,19 +92,21 @@ let g:tagbar_map_help='?'
 "
 " ======= ultisnips
 "
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let ultisnips_dir=expand(g:vimroot . "/bundle/ultisnips")
-if !isdirectory(ultisnips_dir)
-    call mkdir(ultisnips_dir, "p", 0755)
-endif
-set runtimepath+=ultisnips_dir
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+if v:version >= 704
+    " Trigger configuration. Do not use <tab> if you use
+    " https://github.com/Valloric/YouCompleteMe.
+    let ultisnips_dir=expand(g:vimroot . "/bundle/ultisnips")
+    if !isdirectory(ultisnips_dir)
+        call mkdir(ultisnips_dir, "p", 0755)
+    endif
+    set runtimepath+=ultisnips_dir
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
+endif
 
 "
 " ======= EditorConfig
@@ -266,7 +268,12 @@ function! LightlineLinterErrors() abort
 endfunction
 
 function! WordCount()
-    return wordcount()['words']
+    if v:version >= 704
+        return wordcount()['words']
+    else
+        " not supported for older versions
+        return -1
+    endif
 endfunction
 
 augroup AutoWordCount
