@@ -77,6 +77,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'raichoo/smt-vim'
