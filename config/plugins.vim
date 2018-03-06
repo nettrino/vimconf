@@ -268,7 +268,7 @@ function! LightlineLinterErrors() abort
 endfunction
 
 function! WordCount()
-    if v:version >= 704
+    if v:version >= 800
         return wordcount()['words']
     else
         " not supported for older versions
