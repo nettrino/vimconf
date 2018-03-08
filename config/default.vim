@@ -142,6 +142,7 @@ map <Leader>p "+p
 " F7 Save session (open tabs) (will overwrite any previous session)
 " F8 Restore Session (only a single session is restored)
 " F9 Make (if makefile is present)
+" F10 Toggle distraction-free editing (Goyo)
 
 "go to previous tab
 map <S-z> :tabp<CR>
@@ -160,6 +161,7 @@ imap <F6> <C-o>:setlocal spell!<CR>
 " map <F8> :source ~/.vim_saved_session<CR>
 
 map <F9> :make<CR>
+map <F10> :Goyo<CR>
 
 " splits
 nnoremap _ :split<cr>
