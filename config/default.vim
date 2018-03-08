@@ -133,7 +133,7 @@ map <Leader>d "+dd
 "paste X11 clipboard
 map <Leader>p "+p
 
-" F1 is help in the buffers so leave it as it is
+" F1 is the default key for help so leave it as it is
 " F2 Paste mode toggle
 " F3 Syntastic Toggle
 " F4 Indent Guides Toggle
@@ -142,7 +142,6 @@ map <Leader>p "+p
 " F7 Save session (open tabs) (will overwrite any previous session)
 " F8 Restore Session (only a single session is restored)
 " F9 Make (if makefile is present)
-
 
 "go to previous tab
 map <S-z> :tabp<CR>
