@@ -197,14 +197,14 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 let g:ale_sign_warning = '!'
 let g:ale_sign_error = 'x'
 let g:ale_fixers = {
-    \ 'python': ['pylint', 'python'],
-    \ 'php': ['php', 'phpcs', 'phpmd'],
-    \ 'javascript': ['jshint'],
-    \ 'java': ['javac'],
-    \ 'c': ['make', 'clang'],
-    \ 'cpp': ['make', 'clang++'],
-	\ 'go': ['goimports', 'gofmt'],
-    \ }
+            \ 'python': ['pylint', 'python'],
+            \ 'php': ['php', 'phpcs', 'phpmd'],
+            \ 'javascript': ['jshint'],
+            \ 'java': ['javac'],
+            \ 'c': ['make', 'clang'],
+            \ 'cpp': ['make', 'clang++'],
+            \ 'go': ['goimports', 'gofmt'],
+            \ }
 let g:ale_python_flake8_executable=''
 let g:ale_set_highlights=0
 let g:ale_lint_delay=50
