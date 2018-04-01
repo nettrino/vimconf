@@ -196,13 +196,16 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 " open errors with :lopen.
 let g:ale_sign_warning = '!'
 let g:ale_sign_error = 'x'
-let g:ale_fixers = {
+let g:ale_linters = {
             \ 'python': ['pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
+            \ }
+let g:ale_fixers = {
+            \ 'python': ['isort'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
 let g:ale_python_flake8_executable=''
