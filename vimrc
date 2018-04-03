@@ -46,7 +46,8 @@ Plug 'junegunn/goyo.vim'
 " See https://github.com/Raimondi/delimitMate/issues/48 and
 " https://github.com/junegunn/vim-plug/issues/63
 Plug 'Raimondi/delimitMate'
-
+" faster folding
+Plug 'Konfekt/FastFold'
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
@@ -73,6 +74,8 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
