@@ -74,8 +74,6 @@ Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }

@@ -11,7 +11,6 @@ au FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 
 " prevent # from going to start of line in python
 au BufRead *.py inoremap # X<c-h>#
-au BufRead *.py set foldlevel=1
 
 " rtl
 au BufNewFile,BufRead *.c.* setf rtl

@@ -90,12 +90,6 @@ endif
 let g:tagbar_map_help='?'
 
 "
-" ======= SimplylFold
-"
-let g:SimpylFold_docstring_preview = 1
-let g:SimpylFold_fold_import = 0
-
-"
 " ======= ultisnips
 "
 if v:version >= 704
