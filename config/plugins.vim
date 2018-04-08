@@ -205,6 +205,7 @@ let g:ale_linters = {
             \ 'cpp': ['make', 'clang++'],
             \ }
 let g:ale_fixers = {
+            \ 'python': ['isort'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
 let g:ale_python_flake8_executable=''
