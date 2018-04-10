@@ -209,5 +209,10 @@ set keymap=greek_utf-8
 set iminsert=0
 set imsearch=-1
 
-" hide dashes in folds
-set fillchars=fold:\
+" hide dashes in folds and remember folds on close
+set fillchars=fold:\ "
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
