@@ -143,7 +143,6 @@ map <Leader>p "+p
 " F8 Restore Session (only a single session is restored)
 " F9 Make (if makefile is present)
 " F10 Toggle distraction-free editing (Goyo)
-" F11 toggle SimpylFold folding (python)
 
 "go to previous tab
 map <S-z> :tabp<CR>
@@ -209,3 +208,6 @@ inoremap <c-l> <c-^>
 set keymap=greek_utf-8
 set iminsert=0
 set imsearch=-1
+
+" hide dashes in folds
+set fillchars=fold:\
