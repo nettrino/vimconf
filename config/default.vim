@@ -211,8 +211,8 @@ set imsearch=-1
 
 " hide dashes in folds and remember folds on close
 set fillchars=fold:\ "
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
+" augroup remember_folds
+  " autocmd!
+  " autocmd BufWinLeave * mkview
+  " autocmd BufWinEnter * silent! loadview
+" augroup END

@@ -25,6 +25,11 @@ nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <C-i> :Pydocstring<CR>
 
 "
+" ====== auto-pairs
+"
+let g:AutoPairsOnlyWhitespace = 1
+
+"
 " ====== jedi-vim
 "
 
