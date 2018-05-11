@@ -86,9 +86,8 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 if has('nvim')
     Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-else
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " Go
 Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
@@ -96,6 +95,10 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
 if has('nvim')
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+endif
+
+if has('nvim')
+    Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }
 endif
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }

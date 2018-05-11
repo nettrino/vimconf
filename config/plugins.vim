@@ -33,16 +33,21 @@ let g:AutoPairsOnlyWhitespace = 1
 " ====== jedi-vim
 "
 
+if has('nvim')
+    " using deoplete on nvim
+    let g:jedi#completions_enabled = 0
+else
+    " don't auto-complete - only when C-space is pressed
+    let g:jedi#popup_on_dot = 0
+    set completeopt=preview,menuone
+endif
 let g:jedi#max_doc_height = 50
-" don't auto-complete - only when C-space is pressed
-let g:jedi#popup_on_dot = 0
-set completeopt=preview,menuone
 " show call signatures in the command line
 set noshowmode
 let g:jedi#show_call_signatures = 2
 " split the window to show the definition when pressing <Leader>d
 let g:jedi#use_splits_not_buffers = "winwidth"
-let g:jedi#show_call_signatures_delay = 100
+let g:jedi#show_call_signatures_delay = 50
 
 " notes:
 " rename variables with <Leader>r
@@ -50,8 +55,10 @@ let g:jedi#show_call_signatures_delay = 100
 " show usages of a name <Leader>n
 
 "
-" ====== Go plugins
+" ====== Deoplete options plugins
 "
+
+" Go
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -71,6 +78,16 @@ if has('nvim')
     function! Multiple_cursors_after()
         let b:deoplete_disable_auto_complete = 0
     endfunction
+endif
+
+" PHP
+if has('nvim')
+    let g:deoplete#sources#padawan#add_parentheses = 1
+    " needed for echodoc to work if add_parentheses is 1
+    let g:deoplete#skip_chars = ['$']
+
+    let g:deoplete#sources = {}
+    let g:deoplete#sources.php = ['padawan', 'ultisnips', 'tags', 'buffer']
 endif
 
 
