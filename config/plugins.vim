@@ -59,6 +59,7 @@ let g:NERDSpaceDelims = 1
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = { 'smt': { 'left': ';','right': '' } }
 
+
 "
 " ====== delimitMate
 "

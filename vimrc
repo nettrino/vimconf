@@ -30,7 +30,7 @@ Plug 'mbbill/undotree'
 " git diff/blame functionality
 Plug 'tpope/vim-fugitive'
 " search and local vimrc files (".lvimrc") in the dir tree
-if v:version >= 704
+if has('nvim') || v:version >= 704
     Plug 'embear/vim-localvimrc'
 endif
 " show guides at indent stops
@@ -49,14 +49,18 @@ Plug 'Raimondi/delimitMate'
 " faster folding
 Plug 'Konfekt/FastFold'
 " Smart completion
-Plug 'Shougo/neocomplete'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  let g:deoplete#enable_at_startup = 1
+endif
+
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
     Plug 'brookhong/cscope.vim'
 endif
 
-if v:version >= 704
+if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
     " more snippets (depends on ultisnips)
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
@@ -78,10 +82,9 @@ Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
-Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
+Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
-Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'raichoo/smt-vim'

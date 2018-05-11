@@ -1,4 +1,4 @@
-" =========================== COLORS =====================================
+" ===================== COLORS & TERMINAL =====================================
 set t_Co=256
 set background=dark
 
@@ -13,6 +13,9 @@ if !empty($CONEMUBUILD)
     inoremap <Char-0x07F> <BS>
     nnoremap <Char-0x07F> <BS>
 endif
+
+" no braketed paste mode
+set t_BE=
 
 colorscheme monokain
 
@@ -39,11 +42,15 @@ set colorcolumn=80
 " Enable mouse in all modes
 set mouse=a
 " make sure things work even inside tmux
-if has("mouse_sgr")
-    set ttymouse=sgr
+if !has('nvim')
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
 else
-    set ttymouse=xterm2
-end
+    set guicursor=
+endif
 
 " Directory to use for the swap file
 let swapdir=expand(g:vimroot . "/swap")
@@ -180,10 +187,6 @@ nnoremap <C-l> 2<C-w>>
 map <Leader>hon :set binary <bar> %!xxd<CR>
 map <Leader>hof :set binary <bar> %!xxd -r<CR>
 
-" Autocomplete with Ctrl + Space
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
-
 " Remove trailing whitespace at every write
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -198,6 +201,11 @@ set backspace=indent,eol,start
 
 " select all
 map <C-a> <esc>ggVG<CR>
+
+" Autocomplete with Ctrl + Space
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
+
 
 " sort selected
 vnoremap <Leader>s :sort<CR>
