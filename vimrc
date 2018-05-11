@@ -48,6 +48,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'Raimondi/delimitMate'
 " faster folding
 Plug 'Konfekt/FastFold'
+" Smart completion
+Plug 'Shougo/neocomplete'
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
@@ -77,7 +79,8 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'PHP' }
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'garyburd/go-explorer', { 'for': 'go' }
 Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
