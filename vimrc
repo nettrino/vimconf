@@ -85,6 +85,9 @@ Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
+if has('nvim')
+    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+endif
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'raichoo/smt-vim'
