@@ -71,13 +71,8 @@ let g:go_auto_type_info = 1
 let g:go_addtags_transform = "snakecase"
 
 if has('nvim')
-    " Disable deoplete when in multi cursor mode
-    function! Multiple_cursors_before()
-        let b:deoplete_disable_auto_complete = 1
-    endfunction
-    function! Multiple_cursors_after()
-        let b:deoplete_disable_auto_complete = 0
-    endfunction
+    let g:deoplete#disable_auto_complete = 1
+    inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
 endif
 
 " PHP
