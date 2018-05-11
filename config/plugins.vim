@@ -36,7 +36,7 @@ let g:AutoPairsOnlyWhitespace = 1
 let g:jedi#max_doc_height = 50
 " don't auto-complete - only when C-space is pressed
 let g:jedi#popup_on_dot = 0
-" set completeopt=menuone,longest
+set completeopt=preview,menuone
 " show call signatures in the command line
 set noshowmode
 let g:jedi#show_call_signatures = 2
@@ -215,8 +215,8 @@ let g:ale_fixers = {
             \ }
 let g:ale_python_flake8_executable=''
 let g:ale_set_highlights=0
-let g:ale_lint_delay=50
-let g:ale_lint_on_enter=0
+let g:ale_lint_delay=0
+let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed='never'

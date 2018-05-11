@@ -180,6 +180,10 @@ nnoremap <C-l> 2<C-w>>
 map <Leader>hon :set binary <bar> %!xxd<CR>
 map <Leader>hof :set binary <bar> %!xxd -r<CR>
 
+" Autocomplete with Ctrl + Space
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
+
 " Remove trailing whitespace at every write
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
