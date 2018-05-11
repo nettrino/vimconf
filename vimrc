@@ -72,22 +72,33 @@ Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 
+"
 " language-specific
+"
+
+" Javascript
 Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 
+" Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+if has('nvim')
+    Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+else
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+endif
 
-Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
+" Go
 Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
 if has('nvim')
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 endif
+
+Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'raichoo/smt-vim'

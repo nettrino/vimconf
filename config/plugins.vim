@@ -49,6 +49,30 @@ let g:jedi#show_call_signatures_delay = 100
 " show documentation with K
 " show usages of a name <Leader>n
 
+"
+" ====== Go plugins
+"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_type_info = 1
+let g:go_addtags_transform = "snakecase"
+
+if has('nvim')
+    " Disable deoplete when in multi cursor mode
+    function! Multiple_cursors_before()
+        let b:deoplete_disable_auto_complete = 1
+    endfunction
+    function! Multiple_cursors_after()
+        let b:deoplete_disable_auto_complete = 0
+    endfunction
+endif
+
 
 "
 " ====== NerdCommenter
