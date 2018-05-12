@@ -1,11 +1,7 @@
 General
 =======
 
-My personal vim config. This repo serves mainly as a personal backup and has
-not been extensively tested on various platforms, though it should work out
-of the box on most systems. Please open an issue if anything does not work
-for your specific setup.
-
+My personal Vim/NeoVim config.
 
 Installation
 ============
@@ -13,7 +9,7 @@ Installation
 Debian/Ubuntu & Mac OS X
 ------------------------
 ```
-if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && git clone https://github.com/nettrino/vimconf.git ~/.vim && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make install
+if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && mkdir -p ~/.config/nvim/ && git clone https://github.com/nettrino/vimconf.git ~/.vim && cp ~/.vim/init.vim ~/.config/nvim/ && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make install
 ```
 
 Windows (Powershell)
@@ -21,13 +17,6 @@ Windows (Powershell)
 
 The following assumes that the [`chocolatey`](https://chocolatey.org/)
 package manager is in installed in your system.
-
-Get your system up-to-date if necessary
-```
-choco upgrade chocolatey
-choco upgrade all
-```
-then
 
 ```
 choco install ctags, vim, python, python3
@@ -40,7 +29,7 @@ $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 (New-Object Net.WebClient).DownloadFile($uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\.vim\autoload\plug.vim"))
 ```
 
-Using notepad (or vi, since nothing is configured yet :)), create a `~\_vimrc` file with the following contents
+Create a `~\_vimrc` file with the following contents
 ```
 " init
 let g:vim_root=expand("$HOME/.vim")
@@ -86,16 +75,8 @@ Custom Settings
 
 You can specify your own settings overriding the defaults in config/user.vim
 
-### Notice
+Dependencies
+============
 
-The colorscheme in this config is built for a terminal with a black background,
-similar to the default terminals in OS X, Unix. In Windows, it is tested using
-cmder + conemu, under the Terminal.app colorscheme.
-
-Plugin Dependencies
-===================
-
-Most plugins should work out of the box, however several plugins can offer their
-full functionality when certain dependencies are met (e.g., my setup for
-[ALE](https://github.com/w0rp/ale) assumes the presence of linters such as
-[pylint](https://www.pylint.org/)).
+Most plugins should work out of the box, however several plugins require the
+presence of the appropriate software (e.g., linters).
