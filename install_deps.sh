@@ -48,11 +48,6 @@ setup_mac() {
         else
             echo -e "\t Installing $pkg"
             brew install $pkg > /dev/null 2>/dev/null
-            if $pkg == "macvim"; then
-                echo -e "\t\t Creating aliases for macvim in ~/.profile"
-                echo "alias vim='mvim -v'" >> ~/.profile
-                echo "alias vi='mvim -v'" >> ~/.profile
-            fi
         fi
     done
 
@@ -66,7 +61,7 @@ setup_mac() {
             if ${pipv} list --format=columns | grep jedi > /dev/null; then
                 echo -e "\t Skipping python jedi -- already installed"
             else
-                sudo ${pipv} install jedi 2>/dev/null
+                ${pipv} install jedi 2>/dev/null
             fi
         fi
     done

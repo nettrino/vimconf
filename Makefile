@@ -1,10 +1,13 @@
 PLUG=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 all:
-	@echo Please type \'make install\' or \'make update\'
+	@echo Please type \'make vim/neovim\' or \'make update\'
 
-install:
-	chmod +x install_deps.sh && ./install_deps.sh
+vim:
+	chmod +x install_deps.sh && ./install_deps.sh vim
+
+neovim:
+	chmod +x install_deps.sh && ./install_deps.sh neovim
 
 update:
 	git stash

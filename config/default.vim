@@ -6,16 +6,12 @@ if !empty($CONEMUBUILD)
     set termencoding=utf8
     set encoding=utf8
     set term=xterm
-    set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
     set bs=indent,eol,start
     inoremap <Char-0x07F> <BS>
     nnoremap <Char-0x07F> <BS>
 endif
-
-" no braketed paste mode
-set t_BE=
 
 colorscheme monokain
 
@@ -29,9 +25,11 @@ set diffopt=filler,iwhite       " In diff mode, ignore whitespace,
 set history=1000                " Remember 1000 commands
 set scrolloff=3                 " Start scrolling 3 lines before win. border
 set visualbell t_vb=            " Disable error bells
+set t_BE=                       " no braketed paste mode
 
 " Formatting, indentation and tabbing - see end of vimrc for custom settings
-set autoindent smartindent
+set autoindent
+filetype plugin indent on
 set smarttab                    " Make <tab> and <backspace> smarter
 set expandtab
 set tabstop=4
@@ -94,39 +92,14 @@ set hlsearch
 set incsearch
 set showmatch
 
-" After 4s of inactivity, check for ext. file modifications on next keyrpress
-au CursorHold * checktime
-
-"
-" ====== cscope
-"
-if has("cscope")
-  " Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
-  set cscopetag
-
-  " Check cscope for definition of a symbol before checking ctags. Set to 1 if
-  " you want the reverse search order.
-  set csto=0
-
-  " Add any cscope database in current directory
-  if filereadable("cscope.out")
-    cs add cscope.out
-  endif
-
-  " Show msg when any other cscope db is added
-  set cscopeverbose
-end
-
-
-
 " ========================= KEY MAPPINGS ======================================
 
 let mapleader=","
 let localmapleader=","
 
 "Turn off highlight of search
-map <Leader>/ :nohlsearch<cr>
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+noremap <Leader>/ :nohlsearch<cr>
+noremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Paste mode toggle
 set pastetoggle=<F2>
@@ -134,11 +107,11 @@ set clipboard=unnamed
 "Copy to X11 clipboard. Need to install a vim version that supports +xclipboard
 "for this to work like vim-athena, otherwise the selection won't be copied
 " FIXME add support for Windows
-map <Leader>y "+2yy
+noremap <Leader>y "+2yy
 "cut to X11 clipboard
-map <Leader>d "+dd
+noremap <Leader>d "+dd
 "paste X11 clipboard
-map <Leader>p "+p
+noremap <Leader>p "+p
 
 " F1 is the default key for help so leave it as it is
 " F2 Paste mode toggle
@@ -152,60 +125,43 @@ map <Leader>p "+p
 " F10 Toggle distraction-free editing (Goyo)
 
 "go to previous tab
-map <S-z> :tabp<CR>
+noremap <S-z> :tabp<CR>
 "go to next tab
-map <S-x> :tabn<CR>
+noremap <S-x> :tabn<CR>
 "open new tab
-map <C-n> :tabnew<CR>
+noremap <C-n> :tabnew<CR>
 "reload document from disk
-map <F5> :e<CR>
+noremap <F5> :e<CR>
 "spelling toggle
-nmap <F6> :setlocal spell!<CR>
+noremap <F6> :setlocal spell!<CR>
 imap <F6> <C-o>:setlocal spell!<CR>
 
-" FIXME http://stackoverflow.com/questions/1642611/how-to-save-a-session-in-vim
-" map <F7> :mksession! ~/.vim_saved_session<CR>
-" map <F8> :source ~/.vim_saved_session<CR>
-
-map <F9> :make<CR>
-map <F10> :Goyo<CR>
+noremap <F9> :make<CR>
+noremap <F10> :Goyo<CR>
 
 " splits
-nnoremap _ :split<cr>
-nnoremap \| :vsplit<cr>
+noremap _ :split<cr>
+noremap \| :vsplit<cr>
 " Resize window splits
 " up
-nnoremap <C-k> 2<C-w>-
+noremap <C-k> 2<C-w>-
 " down
-nnoremap <C-j> 2<C-w>+
+noremap <C-j> 2<C-w>+
 " left
-nnoremap <C-h> 2<C-w><
+noremap <C-h> 2<C-w><
 " right
-nnoremap <C-l> 2<C-w>>
+noremap <C-l> 2<C-w>>
 
 " hex mode
-map <Leader>hon :set binary <bar> %!xxd<CR>
-map <Leader>hof :set binary <bar> %!xxd -r<CR>
-
-" Remove trailing whitespace at every write
-function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-" fix backspace
-set backspace=indent,eol,start
+noremap <Leader>hon :set binary <bar> %!xxd<CR>
+noremap <Leader>hof :set binary <bar> %!xxd -r<CR>
 
 " select all
-map <C-a> <esc>ggVG<CR>
+noremap <C-a> <esc>ggVG<CR>
 
 " Autocomplete with Ctrl + Space
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
-
 
 " sort selected
 vnoremap <Leader>s :sort<CR>
@@ -228,3 +184,27 @@ set fillchars=fold:\ "
   " autocmd BufWinLeave * mkview
   " autocmd BufWinEnter * silent! loadview
 " augroup END
+
+" ========================= AutoCmds ======================================
+
+" After 4s of inactivity, check for ext. modifications on next keyrpress
+augroup reload_if_inactive
+    autocmd!
+    autocmd CursorHold * checktime
+augroup END
+
+" Remove trailing whitespace at every write
+function! <SID>StripTrailingWhitespaces() abort
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+augroup trailing_whitespaces
+    autocmd!
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+augroup END
+
+" fix backspace
+set backspace=indent,eol,start

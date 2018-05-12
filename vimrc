@@ -1,6 +1,5 @@
 " ===================================================  GLOBAL SETTINGS
 "
-set nocompatible              " Vim not vi
 let g:vimroot=expand($HOME . "/.vim")
 
 "| PLUGINS START
@@ -13,7 +12,7 @@ let g:plug_dir=expand(g:vimroot . "/plugged")
 call plug#begin(g:plug_dir)
 
 "disable parallel plugs
-let g:plug_threads = 1
+"let g:plug_threads = 1
 
 " change working directory to project root
 Plug 'airblade/vim-rooter'
@@ -53,7 +52,6 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   let g:deoplete#enable_at_startup = 1
 endif
-
 
 if !(has('win32') || has ('win64'))
     " cscope only for Linux / Mac
@@ -123,7 +121,6 @@ call plug#end()
 "|
 "| PLUGINS END
 "
-set t_Co=256
 
 " load configs
 let default_config = expand(g:vimroot . "/config/default.vim")

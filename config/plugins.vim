@@ -1,14 +1,13 @@
 "
 " ====== UndoTree
 "
-nnoremap <S-u> :UndotreeToggle<CR>
+noremap <S-u> :UndotreeToggle<CR>
 let g:gundo_close_on_revert=1
-
 
 "
 " ====== NerdTreeTabs
 "
-nnoremap <C-g> :NERDTreeTabsToggle<cr>
+noremap <C-g> :NERDTreeTabsToggle<cr>
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
                    \ '\.so$', '\.egg$', '^\.git$', '\.cmi', '\.cmo' ]
 let NERDTreeDirArrows=0
@@ -16,13 +15,13 @@ let NERDTreeDirArrows=0
 "
 " ====== Fugitive
 "
-nnoremap <silent> <Leader>gd :Gdiff<CR>
-nnoremap <silent> <Leader>gb :Gblame<CR>
+noremap <silent> <Leader>gd :Gdiff<CR>
+noremap <silent> <Leader>gb :Gblame<CR>
 
 "
 " ====== PyDocstring
 "
-nnoremap <C-i> :Pydocstring<CR>
+noremap <C-i> :Pydocstring<CR>
 
 "
 " ====== auto-pairs
@@ -55,10 +54,8 @@ let g:jedi#show_call_signatures_delay = 50
 " show usages of a name <Leader>n
 
 "
-" ====== Deoplete options plugins
+" ====== vim-go
 "
-
-" Go
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -70,13 +67,14 @@ let g:go_highlight_types = 1
 let g:go_auto_type_info = 1
 let g:go_addtags_transform = "snakecase"
 
+"
+" ====== Deoplete options
+"
 if has('nvim')
     let g:deoplete#disable_auto_complete = 1
     inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
-endif
 
-" PHP
-if has('nvim')
+    " PHP
     let g:deoplete#sources#padawan#add_parentheses = 1
     " needed for echodoc to work if add_parentheses is 1
     let g:deoplete#skip_chars = ['$']
@@ -84,7 +82,6 @@ if has('nvim')
     let g:deoplete#sources = {}
     let g:deoplete#sources.php = ['padawan', 'ultisnips', 'tags', 'buffer']
 endif
-
 
 "
 " ====== NerdCommenter
@@ -212,25 +209,40 @@ let g:colorizer_maxline = 1000
 "
 " ======= cscope
 "
-nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
-nnoremap <leader>l :call ToggleLocationList()<CR>
-" s: Find this C symbol
-nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
-" g: Find this definition
-nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+if has("cscope")
+  " Use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+  set cscopetag
 
+  " Check cscope for definition of a symbol before checking ctags. Set to 1 if
+  " you want the reverse search order.
+  set csto=0
+
+  " Add any cscope database in current directory
+  if filereadable("cscope.out")
+    cs add cscope.out
+  endif
+
+  " Show msg when any other cscope db is added
+  set cscopeverbose
+end
+noremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+noremap <leader>l :call ToggleLocationList()<CR>
+" s: Find this C symbol
+noremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+" g: Find this definition
+noremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
 " d: Find functions called by this function
 noremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
 " c: Find functions calling this function
-nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+noremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
 " t: Find this text string
-nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+noremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
 " e: Find this egrep pattern
-nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+noremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
 " f: Find this file
-nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+noremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
-nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+noremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 "
 " ====== ALE
@@ -268,16 +280,60 @@ let g:ale_lint_on_text_changed='never'
 " F0401 Unable to import %s
 let g:ale_python_pylint_options='--disable C0111,C0103,F0401'
 
-"c
+" c
 let g:ale_c_gcc_options = '-std=c14 -Wall'
 let g:ale_c_clang_options = '-std=c14 -Wall'
-"cpp
+" cpp
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall'
 let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 
 "
 " ======= Lightline
 "
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d !', all_non_errors)
+endfunction
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:all_errors == 0 ? '' : printf('%d x', all_errors)
+endfunction
+
+function! WordCount() abort
+    if v:version >= 800
+        return wordcount()['words']
+    else
+        " not supported for older versions
+        return -1
+    endif
+endfunction
+
+augroup AutoWordCount
+    autocmd!
+    autocmd BufWritePost * call s:word_count()
+augroup END
+
+function! s:word_count()
+    call WordCount()
+    call lightline#update()
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+augroup ALEUpdateLightline
+    autocmd!
+    autocmd User ALELint call s:MaybeUpdateLightline()
+augroup END
+
+function! s:MaybeUpdateLightline() abort
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
 set laststatus=2
 let g:lightline = {
     \ 'colorscheme': 'wombat',
@@ -300,43 +356,3 @@ let g:lightline = {
     \   'linter_errors': 'error'
     \ },
     \ }
-
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d !', all_non_errors)
-endfunction
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:all_errors == 0 ? '' : printf('%d x', all_errors)
-endfunction
-
-function! WordCount()
-    if v:version >= 800
-        return wordcount()['words']
-    else
-        " not supported for older versions
-        return -1
-    endif
-endfunction
-
-augroup AutoWordCount
-    autocmd!
-    autocmd BufWritePost * call s:word_count()
-augroup END
-
-function! s:word_count()
-    call WordCount()
-    call lightline#update()
-endfunction
-
-" Update and show lightline but only if it's visible (e.g., not in Goyo)
-autocmd User ALELint call s:MaybeUpdateLightline()
-function! s:MaybeUpdateLightline()
-  if exists('#lightline')
-    call lightline#update()
-  end
-endfunction

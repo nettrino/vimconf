@@ -1,43 +1,42 @@
-" ========================= INDENT HACKS ==================================
+" ========================= INDENT & OTHER HACKS ==============================
 
-" in makefiles, don't expand tabs to spaces, since actual tab characters are
-" needed, and have indentation at 8 chars to be sure that all indents are tabs
-" (despite the mappings later):
-au FileType make set noexpandtab shiftwidth=8 softtabstop=0
+" This file is the last that will be called before users' scripts so any
+" attempt to salvage the situation and make a correction is be made here
 
-" ensure normal tabs in assembly files
-" and set to NASM syntax highlighting
-au FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
+augroup UglyHacks
+    autocmd!
+    " in makefiles, don't expand tabs to spaces, since actual tab characters
+    " are needed, and have indentation at 8 chars to be sure that all indents
+    " are tabs (despite the mappings later):
+    autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
-" prevent # from going to start of line in python
-au BufRead *.py inoremap # X<c-h>#
+    " ensure normal tabs in assembly files and set to NASM syntax highlighting
+    autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 
-" rtl
-au BufNewFile,BufRead *.c.* setf rtl
+    " prevent # from going to start of line in python
+    autocmd BufRead *.py inoremap # X<c-h>#
 
-"bnf
-au BufNewFile,BufRead *.bnf set ft=bnf
+    " rtl
+    autocmd BufNewFile,BufRead *.c.* set filetype=rtl
 
-"antlr
-au BufRead,BufNewFile *.g3 set filetype=antlr3
-au BufRead,BufNewFile *.g4 set filetype=antlr4
+    " bnf
+    autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 
-" Fix spell check for tex
-au FileType plaintex,tex,latex syntax spell toplevel
+    " antlr
+    autocmd BufRead,BufNewFile *.g3 set filetype=antlr3
+    autocmd BufRead,BufNewFile *.g4 set filetype=antlr4
 
-" Xdebug syntax
-au BufNewFile,BufRead *.xt  setf xt
+    " Fix spell check for tex
+    autocmd FileType plaintex,tex,latex syntax spell toplevel
 
-au BufNewFile,BufRead *.smt* set nowrap filetype=smt
+    " Xdebug syntax
+    autocmd BufNewFile,BufRead *.xt  set filetype=xt
 
-" Uncomment the following for permanent addition
-" Project-specific identation
-" augroup ProjectSetup
-  " au BufRead,BufEnter /path/to/project1/* set et sts=2 cindent cinoptions=..
-  " au BufRead,BufEnter /path/to/project2/* set noet sts=4 cindent ...
-" augroup END
+    " SMT solvers
+    autocmd BufNewFile,BufRead *.smt* set nowrap filetype=smt
+augroup END
 
 " hack because of color issues in windows
- if (has('win32') || has ('win64'))
-     let loaded_matchparen = 0
- endif
+if (has('win32') || has ('win64'))
+    let loaded_matchparen = 0
+endif
