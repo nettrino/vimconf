@@ -13,6 +13,11 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
 let NERDTreeDirArrows=0
 
 "
+" ====== vim-json
+"
+let g:vim_json_syntax_conceal = 0
+
+"
 " ====== Fugitive
 "
 noremap <silent> <Leader>gd :Gdiff<CR>
