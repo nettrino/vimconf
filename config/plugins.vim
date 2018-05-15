@@ -73,11 +73,28 @@ let g:go_auto_type_info = 1
 let g:go_addtags_transform = "snakecase"
 
 "
+" ====== LanguageClient
+"
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ 'cpp': ['clangd'],
+    \ 'go': ['go-langserver'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+"
 " ====== Deoplete options
 "
 if has('nvim')
-    let g:deoplete#disable_auto_complete = 1
-    inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
+    " let g:deoplete#disable_auto_complete = 1
+    " inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
 
     " PHP
     let g:deoplete#sources#padawan#add_parentheses = 1

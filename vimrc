@@ -49,8 +49,16 @@ Plug 'Raimondi/delimitMate'
 Plug 'Konfekt/FastFold'
 " Smart completion
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  let g:deoplete#enable_at_startup = 1
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+
+    " (Optional) Multi-entry selection UI.
+    Plug 'junegunn/fzf'
+
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    let g:deoplete#enable_at_startup = 1
 endif
 
 if !(has('win32') || has ('win64'))
@@ -84,11 +92,16 @@ Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 if has('nvim')
     Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+else
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " Go
-Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'nsf/gocode', {
+            \ 'for': 'go',
+            \ 'rtp': 'vim',
+            \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+            \ }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
 if has('nvim')
