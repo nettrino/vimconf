@@ -93,8 +93,12 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " ====== Deoplete options
 "
 if has('nvim')
-    " let g:deoplete#disable_auto_complete = 1
-    " inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
+    let g:deoplete#disable_auto_complete = 1
+    inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
+    set completeopt+=noinsert
+    set completeopt+=noselect
+    set completeopt-=preview " disable preview window at the bottom of the screen
+    inoremap <silent><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " PHP
     let g:deoplete#sources#padawan#add_parentheses = 1
