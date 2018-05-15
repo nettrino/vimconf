@@ -53,10 +53,6 @@ if has('nvim')
                 \ 'branch': 'next',
                 \ 'do': 'bash install.sh',
                 \ }
-
-    " (Optional) Multi-entry selection UI.
-    Plug 'junegunn/fzf'
-
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
@@ -95,18 +91,18 @@ else
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
 
-" Go
+" Go order matters!
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-Plug 'garyburd/go-explorer', { 'for': 'go' }
-if has('nvim')
-    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-endif
 Plug 'nsf/gocode', {
             \ 'for': 'go',
             \ 'rtp': 'vim',
             \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
             \ }
+if has('nvim')
+    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+endif
 
+" php
 if has('nvim')
     Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }
 endif

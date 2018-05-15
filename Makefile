@@ -4,16 +4,13 @@ all:
 	@echo Please type \'make vim/neovim\' or \'make update\'
 
 vim:
-	chmod +x install_deps.sh && ./install_deps.sh vim
+	chmod +x install_deps.sh && ./install_deps.sh vim 1>/dev/null 2>&1
 
 neovim:
-	chmod +x install_deps.sh && ./install_deps.sh neovim
+	chmod +x install_deps.sh && ./install_deps.sh neovim 1>/dev/null 2>&1
 
 update:
 	git stash
 	git pull
-	git clean -fdx -eswap -eundo -eautoload -ebundle -eplugged -espell
-	rm -rf autoload bundle plugged
-	mkdir -p autoload bundle
-	curl -kfLo ~/.vim/autoload/plug.vim --create-dirs $(PLUG)
-	vim +PlugInstall +qall
+	vim +PlugClean +qall
+	vim +PlugUpdate +qall
