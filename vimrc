@@ -58,7 +58,6 @@ if has('nvim')
     Plug 'junegunn/fzf'
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
 endif
 
 if !(has('win32') || has ('win64'))
@@ -97,16 +96,16 @@ else
 endif
 
 " Go
-Plug 'nsf/gocode', {
-            \ 'for': 'go',
-            \ 'rtp': 'vim',
-            \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-            \ }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'garyburd/go-explorer', { 'for': 'go' }
 if has('nvim')
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 endif
+Plug 'nsf/gocode', {
+            \ 'for': 'go',
+            \ 'rtp': 'vim',
+            \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+            \ }
 
 if has('nvim')
     Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }

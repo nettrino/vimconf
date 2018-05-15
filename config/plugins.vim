@@ -93,13 +93,34 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " ====== Deoplete options
 "
 if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+
+    " uncomment to debug
+    " let g:deoplete#enable_profile = 1
+    " call deoplete#enable_logging('DEBUG', 'deoplete.log')
+    " call deoplete#custom#source('jedi', 'debug_enabled', 1)
+
     let g:deoplete#disable_auto_complete = 1
     inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
+
+    if !exists('g:deoplete#omni#input_patterns')
+        let g:deoplete#omni#input_patterns = {}
+    endif
+
     set completeopt+=noinsert
     set completeopt+=noselect
     set completeopt-=preview " disable preview window at the bottom of the screen
     inoremap <silent><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+    " set sources
+    let g:deoplete#sources = {}
+    let g:deoplete#sources.cpp = ['LanguageClient']
+    let g:deoplete#sources.python = ['LanguageClient']
+    let g:deoplete#sources.python3 = ['LanguageClient']
+    let g:deoplete#sources.rust = ['LanguageClient']
+    let g:deoplete#sources.go = ['LanguageClient']
+    let g:deoplete#sources.c = ['LanguageClient']
+    let g:deoplete#sources.vim = ['vim']
     " PHP
     let g:deoplete#sources#padawan#add_parentheses = 1
     " needed for echodoc to work if add_parentheses is 1
