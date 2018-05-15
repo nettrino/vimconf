@@ -18,8 +18,6 @@ call plug#begin(g:plug_dir)
 Plug 'airblade/vim-rooter'
 " enable multiple comments
 Plug 'scrooloose/nerdcommenter'
-" code snippet <tab> completion
-Plug 'garbas/vim-snipmate'
 " interpret a file by function
 Plug 'MarcWeber/vim-addon-mw-utils'
 " align text (e.g., '=' in consequent lines)
@@ -47,13 +45,19 @@ Plug 'junegunn/goyo.vim'
 Plug 'Raimondi/delimitMate'
 " faster folding
 Plug 'Konfekt/FastFold'
+
 " Smart completion
 if has('nvim')
+    Plug 'Shougo/neosnippet'
+    Plug 'Shougo/neosnippet-snippets'
     Plug 'autozimu/LanguageClient-neovim', {
                 \ 'branch': 'next',
                 \ 'do': 'bash install.sh',
                 \ }
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    " code snippet <tab> completion
+    Plug 'garbas/vim-snipmate'
 endif
 
 if !(has('win32') || has ('win64'))
@@ -93,13 +97,19 @@ endif
 
 " Go order matters!
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-Plug 'nsf/gocode', {
-            \ 'for': 'go',
-            \ 'rtp': 'vim',
-            \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-            \ }
 if has('nvim')
+    Plug 'mdempsky/gocode', {
+                \ 'for': 'go',
+                \ 'rtp': 'nvim',
+                \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
+                \ }
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+else
+    Plug 'mdempsky/gocode', {
+                \ 'for': 'go',
+                \ 'rtp': 'vim',
+                \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+                \ }
 endif
 
 " php

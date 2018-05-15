@@ -12,5 +12,7 @@ neovim:
 update:
 	git stash
 	git pull
-	vim +PlugClean +qall
-	vim +PlugUpdate +qall
+	vim +PlugClean! +qall
+	vim +PlugUpdate! +qall
+	vim +PlugInstall! +qall
+

@@ -102,7 +102,7 @@ if has('nvim')
 
     " let g:deoplete#disable_auto_complete = 1
     " inoremap <silent><expr> <c-space> deoplete#mappings#manual_complete()
-
+    inoremap <expr><CR> deoplete#close_popup() ? "\<Plug>(close_popup())" : "\<CR>"
     set completeopt+=noinsert
     set completeopt+=noselect
     set completeopt-=preview " disable preview window at the bottom of the screen
