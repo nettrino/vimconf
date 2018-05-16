@@ -61,6 +61,7 @@ let g:jedi#show_call_signatures_delay = 50
 "
 " ====== vim-go
 "
+set completeopt-=preview " disable preview window at the bottom of the screen
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -69,9 +70,15 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
-let g:go_auto_type_info = 1
 let g:go_addtags_transform = "snakecase"
-
+" silent type info
+function! s:custom_auto_type_info() abort
+    silent! call go#tool#Info(1)
+endfunction
+augroup vim-go-custom
+    autocmd!
+    autocmd CursorHold *.go call s:custom_auto_type_info()
+augroup end
 "
 " ====== LanguageClient
 "
@@ -103,10 +110,7 @@ if has('nvim')
     " let g:deoplete#disable_auto_complete = 1
     " inoremap <silent><expr> <c-space> deoplete#mappings#manual_complete()
 
-    set completeopt+=noinsert
-    set completeopt+=noselect
-    set completeopt-=preview " disable preview window at the bottom of the screen
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+    " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
     " set sources
     " let g:deoplete#sources = {}
