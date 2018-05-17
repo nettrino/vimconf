@@ -50,6 +50,7 @@ go_deps(){
     go get -u go get -u github.com/nsf/gocode
     go get -u github.com/derekparker/delve/cmd/dlv
     go get -u github.com/sourcegraph/go-langserver
+    go get -u github.com/cweill/gotests
 }
 
 #

@@ -95,8 +95,9 @@ else
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
 
-" Go order matters!
+" Go (order matters?)
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'buoto/gotests-vim', { 'for': 'go' }
 if has('nvim')
     Plug 'mdempsky/gocode', {
                 \ 'for': 'go',

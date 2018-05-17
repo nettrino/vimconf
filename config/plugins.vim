@@ -327,6 +327,7 @@ let g:ale_linters = {
             \ 'python': ['pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
+            \ 'go' : ['gometalinter', 'golint'],
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
@@ -411,7 +412,7 @@ set laststatus=2
 let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['filename', 'modified']],
+    \   'left': [['mode', 'paste'], ['absolutepath', 'modified']],
     \   'right': [
     \       ['lineinfo'],
     \       ['percent'],
