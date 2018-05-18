@@ -123,6 +123,7 @@ setup_linux() {
     echo "${OK_MSG}Setting things up"
     reload_env
     echo "${OK_MSG}Running apt-get update"
+    sudo add-apt-repository -y ppa:neovim-ppa/stable
     sudo apt-get -y update >/dev/null 2>/dev/null
     echo "${OK_MSG}Installing required packages"
     sudo apt-get -y install ${vim} exuberant-ctags curl cscope ctags \
