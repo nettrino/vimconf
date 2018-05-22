@@ -43,7 +43,7 @@ if has('nvim')
 else
     " don't auto-complete - only when C-space is pressed
     let g:jedi#popup_on_dot = 0
-    set completeopt=preview,menuone
+    " set completeopt+=menuone
 endif
 let g:jedi#max_doc_height = 50
 " show call signatures in the command line
@@ -61,7 +61,6 @@ let g:jedi#show_call_signatures_delay = 50
 "
 " ====== vim-go
 "
-set completeopt-=preview " disable preview window at the bottom of the screen
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -70,6 +69,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+" no quickfix in preview
+let g:go_list_type = ""
+let g:go_fmt_fail_silently = 1
 let g:go_addtags_transform = "snakecase"
 " silent type info
 function! s:custom_auto_type_info() abort
@@ -106,6 +108,8 @@ if has('nvim')
     " call deoplete#custom#source('jedi', 'debug_enabled', 1)
 
     let g:deoplete#enable_at_startup = 1
+
+    let g:deoplete#source#attribute#is_silent=1
 
     " let g:deoplete#disable_auto_complete = 1
     " inoremap <silent><expr> <c-space> deoplete#mappings#manual_complete()

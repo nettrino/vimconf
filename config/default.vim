@@ -36,6 +36,7 @@ set tabstop=4
 set shiftwidth=4
 set formatoptions=cqtr
 set colorcolumn=80
+set completeopt-=preview " disable preview window at the bottom of the screen
 
 " Enable mouse in all modes
 set mouse=a
