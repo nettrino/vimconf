@@ -41,7 +41,6 @@ if has('nvim')
     " using deoplete on nvim
     let g:jedi#completions_enabled = 0
 else
-    " don't auto-complete - only when C-space is pressed
     let g:jedi#popup_on_dot = 0
     " set completeopt+=menuone
 endif

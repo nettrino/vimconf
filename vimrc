@@ -74,9 +74,13 @@ endif
 Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
 
 " open filesystem browser (on demand loading)
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
-Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-
+if has('nvim')
+    Plug 'scrooloose/nerdtree'
+    Plug 'jistr/vim-nerdtree-tabs'
+else
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+    Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
+endif
 "
 " language-specific
 "
@@ -105,6 +109,7 @@ if has('nvim')
                 \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
                 \ }
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+    Plug 'sebdah/vim-delve', { 'for': 'go' }
 else
     Plug 'mdempsky/gocode', {
                 \ 'for': 'go',
