@@ -330,7 +330,7 @@ let g:ale_linters = {
             \ 'python': ['pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
-            \ 'go' : ['gometalinter', 'golint'],
+            \ 'go' : ['gometalinter'],
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
@@ -339,13 +339,18 @@ let g:ale_fixers = {
             \ 'python': ['isort'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
-let g:ale_python_flake8_executable=''
 let g:ale_set_highlights=0
 let g:ale_lint_delay=0
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed='never'
+
+" if you want the actual text to be highlighted you need to set guibg!
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+highlight ALEStyleErrorSign ctermbg=NONE ctermfg=LightRed
+highlight ALEStyleWarningSign ctermbg=NONE ctermfg=LightYellow
 
 " See ~/.vim/bundle/syntastic/syntax_checkers for options
 " Don't forget to update lightline for each checker added!
@@ -355,7 +360,11 @@ let g:ale_lint_on_text_changed='never'
 " C0111 Missing docstring
 " C0103 Invalid  argument name
 " F0401 Unable to import %s
+let g:ale_python_flake8_executable=''
 let g:ale_python_pylint_options='--disable C0111,C0103,F0401'
+
+" go
+let g:ale_go_gometalinter_options='--aggregate'
 
 " c
 let g:ale_c_gcc_options = '-std=c14 -Wall'
