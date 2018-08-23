@@ -347,7 +347,7 @@ let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed='never'
 
 " if you want the actual text to be highlighted you need to set guibg!
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEErrorSign ctermbg=black ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 highlight ALEStyleErrorSign ctermbg=NONE ctermfg=LightRed
 highlight ALEStyleWarningSign ctermbg=NONE ctermfg=LightYellow
