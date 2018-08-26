@@ -9,8 +9,10 @@ Installation
 Debian/Ubuntu & Mac OS X
 ------------------------
 ```
-if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && mkdir -p ~/.config/nvim/ && git clone https://github.com/nettrino/vimconf.git ~/.vim && cp ~/.vim/init.vim ~/.config/nvim/ && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make install
+if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && mkdir -p ~/.config/nvim/ && git clone https://github.com/nettrino/vimconf.git ~/.vim && cp ~/.vim/init.vim ~/.config/nvim/ && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make vim
 ```
+To install NeoVim just substitute the Makefile target with `make neovim`, in
+the command above.
 
 Windows (Powershell)
 --------------------
