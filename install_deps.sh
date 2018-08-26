@@ -79,9 +79,15 @@ setup_mac() {
     local vim
     case "$EDITOR" in
         vim)
-            vim=macvim;;
+            vim=macvim
+            curl -fLo curl ~/.vim/autoload/plug.vim --create-dirs \
+			https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            ;;
         neovim)
-            vim=neovim;;
+            vim=neovim
+            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            ;;
         *)
             vim=macvim;;
     esac
@@ -104,9 +110,15 @@ setup_linux() {
     local vim
     case "$EDITOR" in
         vim)
-            vim=vim-athena;;
+            vim=vim-athena
+            curl -fLo curl ~/.vim/autoload/plug.vim --create-dirs \
+			https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            ;;
         neovim)
-            vim=neovim;;
+            vim=neovim
+            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		    ;;
         *)
             vim=vim-athena;;
     esac
