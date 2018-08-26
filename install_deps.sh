@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
+EDITOR=neovim
+WITH_GO=false
+WITH_PYTHON=false
+
 shopt -s expand_aliases
-if [[ ! -f ~/.vim/config/vimrc.user ]]; then
-	touch ~/.vim/config/vimrc.user;
-fi
 
 GREEN="\033[0;32m"
 RED="\033[0;31m"
 BW="\e[0m"
-
 OK_MSG="${GREEN}[+]${BW}"
 
 reload_env(){
@@ -19,8 +19,8 @@ reload_env(){
     done
 }
 
-python_deps(){
-    echo -e "${OK_MSG}Installing Python dependencies"
+python_deps() {
+    echo -e "${OK_MSG} Installing Python dependencies"
     uname="$(uname -s)"
     case "${uname}" in
         Linux*)
@@ -45,23 +45,15 @@ python_deps(){
     done
 }
 
-go_deps(){
-    echo -e "${OK_MSG}Installing Go dependencies"
-    go get -u go get -u github.com/nsf/gocode
-    go get -u github.com/derekparker/delve/cmd/dlv
-    go get -u github.com/sourcegraph/go-langserver
-    go get -u github.com/cweill/gotests
-}
-
 #
 # MAC OS X (brew)
 #
 install_brew() {
     BREW=https://raw.githubusercontent.com/Homebrew/install/master/install
     if command -v brew > /dev/null; then
-        echo -e "${OK_MSG}Using brew package manager"
+        echo -e "${OK_MSG} Using brew package manager"
     else
-        echo -e "${OK_MSG}Brew package manager not found."
+        echo -e "${OK_MSG} Brew package manager not found."
         while true; do
             read -p "Install brew to continue automatic install?" yn
             case $yn in
@@ -75,6 +67,7 @@ install_brew() {
                     brew install caskroom/cask/brew-cask
                     break;;
                 [Nn]* )
+                    echo "[+] Please perform a manual installation"
                     exit;;
                 * ) echo "Please answer yes or no.";;
             esac
@@ -84,7 +77,7 @@ install_brew() {
 
 setup_mac() {
     local vim
-    case "$1" in
+    case "$EDITOR" in
         vim)
             vim=macvim;;
         neovim)
@@ -93,11 +86,8 @@ setup_mac() {
             vim=macvim;;
     esac
 
-    reload_env
-    install_brew
-
-    echo "${OK_MSG}Setting things up"
-    for pkg in python python3 ${vim} ctags cscope; do
+    echo "${OK_MSG} Setting things up"
+    for pkg in ${vim} ctags cscope; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -105,71 +95,102 @@ setup_mac() {
             brew install $pkg > /dev/null 2>/dev/null
         fi
     done
-
-    # FIXME add check that the proper version is installed
-    reload_env
 }
 
 setup_linux() {
+    echo "${OK_MSG} Setting things up"
+    reload_env
+
     local vim
-    case "$1" in
+    case "$EDITOR" in
         vim)
             vim=vim-athena;;
         neovim)
             vim=neovim;;
         *)
-            vim=macvim;;
+            vim=vim-athena;;
     esac
-    echo "${OK_MSG}Setting things up"
-    reload_env
-    echo "${OK_MSG}Running apt-get update"
-    sudo add-apt-repository -y ppa:neovim-ppa/stable
-    sudo apt-get -y update >/dev/null 2>/dev/null
-    echo "${OK_MSG}Installing required packages"
-    sudo apt-get -y install ${vim} exuberant-ctags curl cscope ctags \
-         1>/dev/null 2>/dev/null
 
-    # FIXME add check for vim-athena/neovim to be installed and that the proper
-    # version is working
+    echo "${OK_MSG} Running apt -y update"
+    if [ "$vim" == "neovim" ]; then
+        sudo add-apt-repository -y ppa:neovim-ppa/stable
+        sudo apt-get -y update >/dev/null 2>/dev/null
+    fi
+    echo "${OK_MSG} Installing required packages"
+    sudo apt-get -y install $vim exuberant-ctags curl cscope ctags \
+         1>/dev/null 2>/dev/null
 }
 
 install() {
-    vim_version="$(echo $1 | awk '{print tolower($0)}')"
-    case "$vim_version" in
-        vim)
-            echo "vim";;
-        neovim)
-            echo "neovim";;
-        *)
-            usage
-            exit 1
+    uname="$(uname -s)"
+
+    # if we're on a mac, see if we need to install brew
+    case "${uname}" in
+        Darwin*)
+            install_brew;;
     esac
 
-    uname="$(uname -s)"
+    # install additional packages
+    if [ $WITH_PYTHON ]; then
+        python_deps
+    fi
+
+    reload_env
     case "${uname}" in
         Linux*)
-            setup_linux $vim_version;;
+            setup_linux;;
         Darwin*)
-            setup_mac $vim_version;;
+            setup_mac;;
         *)
             echo "Default installer may not work for you!"
             echo "Please attempt a manual installation"
             exit 1
     esac
+    reload_env
 }
 
 usage() {
-    echo "Usage $0 <'vim' or 'neovim'>"
+    echo -e "Usage: $0 [-v <vim or neovim>] [-p <go|python>"]
+    echo -e "\t -v: editor version to install. Choose between 'vim' or 'neovim'"
+    echo -e "\t -p: language-specific packages to install passed as a string."
+    echo -e "\t     E.g., [-p "go python"] will install packages for both Go "
+    echo -e "\t     and Python, respecting the system installed versions. If "
+    echo -e "\t     If the respective programming language is not present,"
+    echo -e "\t     only the editor without the respective features will be"
+    echo -e "\t     installed."
+    exit 1;
 }
 
-main(){
-    if [ "$#" -ne 1 ]; then
-        usage
-        exit 1
-    fi
+while getopts ":v:p:" opt; do
+    case "${opt}" in
+        v)
+            v=$(echo ${OPTARG} | awk '{print tolower($0)}')
+            [ "$v" == "vim" ] || [ "$v" == "neovim" ] || usage
+            EDITOR=$v
+            ;;
+        p)
+            packages=( $(echo ${OPTARG} | awk '{print tolower($0)}') )
+            for p in "${packages[@]}"
+            do
+                if [ "$p" == "python" ] ; then
+                    WITH_PYTHON=true
+                fi
+            done
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
 
-    install $1
-}
+if [ -z "${v}" ]; then
+    usage
+fi
 
-main
+install
+
+if [[ ! -f ~/.vim/config/vimrc.user ]]; then
+    touch ~/.vim/config/vimrc.user;
+fi
 vim +PlugInstall +qall
