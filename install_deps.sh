@@ -8,6 +8,17 @@ shopt -s expand_aliases
 
 OK_MSG="[+]"
 
+install_vimplug() {
+    case "$EDITOR" in
+        vim)
+            $(curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
+            ;;
+        neovim)
+            $(curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)
+            ;;
+    esac
+}
+
 reload_env(){
     for envf in ~/.profile ~/.bash_profile ~/.bash_aliases ~/.bashrc; do
         if [ -f ${envf} ]; then
@@ -77,13 +88,9 @@ setup_mac() {
     case "$EDITOR" in
         vim)
             vim=macvim
-            curl -fLo curl ~/.vim/autoload/plug.vim --create-dirs \
-			https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             ;;
         neovim)
             vim=neovim
-            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             ;;
         *)
             vim=macvim;;
@@ -108,13 +115,9 @@ setup_linux() {
     case "$EDITOR" in
         vim)
             vim=vim-athena
-            curl -fLo curl ~/.vim/autoload/plug.vim --create-dirs \
-			https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             ;;
         neovim)
             vim=neovim
-            curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		    ;;
         *)
             vim=vim-athena;;
@@ -198,6 +201,7 @@ if [ -z "${v}" ]; then
 fi
 
 install
+install_vimplug
 
 if [[ ! -f ~/.vim/config/vimrc.user ]]; then
     touch ~/.vim/config/vimrc.user;
