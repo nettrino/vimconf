@@ -6,10 +6,7 @@ WITH_PYTHON=false
 
 shopt -s expand_aliases
 
-GREEN="\033[0;32m"
-RED="\033[0;31m"
-BW="\e[0m"
-OK_MSG="${GREEN}[+]${BW}"
+OK_MSG="[+]"
 
 reload_env(){
     for envf in ~/.profile ~/.bash_profile ~/.bash_aliases ~/.bashrc; do
