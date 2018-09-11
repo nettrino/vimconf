@@ -127,6 +127,7 @@ Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'avakhov/vim-yaml', { 'for': 'yaml' }
 Plug 'raichoo/smt-vim'
 Plug 'tomlion/vim-solidity'
 
