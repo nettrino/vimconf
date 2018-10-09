@@ -28,7 +28,7 @@ python_deps() {
     uname="$(uname -s)"
     case "${uname}" in
         Linux*)
-            sudo apt-get -y install python-jedi python3-jedi \
+            sudo apt-get -y install python-jedi python3-jedi cargo \
                 1>/dev/null 2>/dev/null;;
     esac
 
