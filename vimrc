@@ -143,11 +143,13 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'avakhov/vim-yaml', { 'for': 'yaml' }
 Plug 'raichoo/smt-vim'
 Plug 'tomlion/vim-solidity'
+" html css
+Plug 'mattn/emmet-vim'
 
 " Java-specific -- really slow!
-" Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-" Plug 'tfnico/vim-gradle', { 'for': 'java' }
-" Plug 'tpope/vim-classpath', { 'for': 'java' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+Plug 'tfnico/vim-gradle', { 'for': 'java' }
+Plug 'tpope/vim-classpath', { 'for': 'java' }
 
 " Load colorschemes
 let colorschemes=expand(g:vimroot . "/colorschemes")
