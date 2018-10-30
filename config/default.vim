@@ -13,7 +13,107 @@ if !empty($CONEMUBUILD)
     nnoremap <Char-0x07F> <BS>
 endif
 
-colorscheme monokain
+if !(has('win32') || has ('win64'))
+    colorscheme monokain
+else
+    " this has been working nicely with solarized dark theme from the
+    " colortool released by Microsoft. See github.com/microsoft/console
+    colorscheme DevC++
+endif
+
+" ====================== GENERAL CONFIG ==================================
+set number						" Numbering of lines
+set hidden                      " Don't abandon buffers moved to the backgr.
+set updatecount=100             " Write swap file to disk every 100 chars
+set diffopt=filler,iwhite       " In diff mode, ignore whitespace,
+                                " align lines
+                                "
+set history=1000                " Remember 1000 commands
+set scrolloff=3                 " Start scrolling 3 lines before win. border
+set visualbell t_vb=            " Disable error bells
+set t_BE=                       " no braketed paste mode
+
+" Formatting, indentation and tabbing - see end of vimrc for custom settings
+set autoindent
+filetype plugin indent on
+set smarttab                    " Make <tab> and <backspace> smarter
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set formatoptions=cqtr
+set colorcolumn=80
+set completeopt-=preview " disable preview window at the bottom of the screen
+
+" Enable mouse in all modes
+set mouse=a
+" make sure things work even inside tmux
+if !has('nvim')
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
+else
+    set guicursor=
+endif
+
+" Directory to use for the swap file
+let swapdir=expand(g:vimroot . "/swap")
+if !isdirectory(swapdir)
+    call mkdir(swapdir, "p", 0755)
+endif
+execute "set directory=".fnameescape(swapdir)
+
+" viminfo: remember certain things when we exit
+" (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
+"   %
+
+" ====================== GENERAL CONFIG ==================================
+set number						" Numbering of lines
+set hidden                      " Don't abandon buffers moved to the backgr.
+set updatecount=100             " Write swap file to disk every 100 chars
+set diffopt=filler,iwhite       " In diff mode, ignore whitespace,
+                                " align lines
+                                "
+set history=1000                " Remember 1000 commands
+set scrolloff=3                 " Start scrolling 3 lines before win. border
+set visualbell t_vb=            " Disable error bells
+set t_BE=                       " no braketed paste mode
+
+" Formatting, indentation and tabbing - see end of vimrc for custom settings
+set autoindent
+filetype plugin indent on
+set smarttab                    " Make <tab> and <backspace> smarter
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set formatoptions=cqtr
+set colorcolumn=80
+set completeopt-=preview " disable preview window at the bottom of the screen
+
+" Enable mouse in all modes
+set mouse=a
+" make sure things work even inside tmux
+if !has('nvim')
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
+else
+    set guicursor=
+endif
+
+" Directory to use for the swap file
+let swapdir=expand(g:vimroot . "/swap")
+if !isdirectory(swapdir)
+    call mkdir(swapdir, "p", 0755)
+endif
+execute "set directory=".fnameescape(swapdir)
+
+" viminfo: remember certain things when we exit
+" (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
+"   %
 
 " ====================== GENERAL CONFIG ==================================
 set number						" Numbering of lines

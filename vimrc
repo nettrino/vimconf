@@ -88,8 +88,9 @@ endif
 " Javascript
 Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
-
+if !(has('win32') || has ('win64'))
+	Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
+endif
 " Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
