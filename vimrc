@@ -125,9 +125,18 @@ if has('nvim')
 endif
 
 " Markdown
-if !(has('win32') || has ('win64'))
-    Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
-endif
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+
+Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }

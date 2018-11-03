@@ -3,6 +3,7 @@
 EDITOR=neovim
 WITH_GO=false
 WITH_PYTHON=false
+WITH_RUST=false
 
 shopt -s expand_aliases
 
@@ -32,7 +33,7 @@ python_deps() {
                 1>/dev/null 2>/dev/null;;
     esac
 
-    for pipv in pip pip3 grip; do
+    for pipv in pip pip3; do
         if [ ! `command -v ${pipv}` ]; then
             echo -e "${RED}[+] pip not found! Please install pip (and/or pip3)."
             echo -e "    Once pip is up, re-run this script ${BW}"
@@ -47,6 +48,17 @@ python_deps() {
             done
         fi
     done
+}
+
+rust_deps() {
+    echo -e "${OK_MSG} Installing Rust dependencies"
+    uname="$(uname -s)"
+    case "${uname}" in
+        Linux*)
+            sudo apt-get -y install rust 1>/dev/null 2>/dev/null;;
+        Darwin*)
+            brew install rust 1>/dev/null 2>/dev/null;;
+    esac
 }
 
 #
@@ -67,8 +79,6 @@ install_brew() {
                         xcode-select --install;
                     fi
                     ruby -e "$(curl -fsSL ${BREW})"
-                    echo -e "\t Installing grip (needed for markdown preview)"
-                    brew install grip
                     break;;
                 [Nn]* )
                     echo "[+] Please perform a manual installation"
@@ -143,8 +153,10 @@ install() {
         python_deps
     fi
 
-    # FIXME should be under a flag WITH_NODE
-    npm -g install instant-markdown-d
+    if [ $WITH_RUST ]; then
+        rust_deps
+    fi
+
 
     reload_env
     case "${uname}" in
