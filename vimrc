@@ -125,20 +125,7 @@ if has('nvim')
 endif
 
 " Markdown
-" function! BuildComposer(info)
-  " if a:info.status != 'unchanged' || a:info.force
-    " if has('nvim')
-      " !cargo build --release
-    " else
-      " !cargo build --release --no-default-features --features json-rpc
-    " endif
-  " endif
-" endfunction
-
-" Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
-" Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
-Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
-Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
