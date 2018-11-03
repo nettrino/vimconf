@@ -160,6 +160,13 @@ if has('nvim')
 endif
 
 "
+" ====== VimMarkdownPreview
+"
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=2
+let vim_markdown_preview_hotkey='<C-m>'
+
+"
 " ====== NerdCommenter
 "
 " Go into visual mode and then type ,cc or cn to comment and ,cu to uncomment

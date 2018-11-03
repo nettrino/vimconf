@@ -28,11 +28,11 @@ python_deps() {
     uname="$(uname -s)"
     case "${uname}" in
         Linux*)
-            sudo apt-get -y install python-jedi python3-jedi nodejs \
-                xdg-utils curl nodejs-legacy 1>/dev/null 2>/dev/null;;
+            sudo apt-get -y install python-jedi python3-jedi \
+                1>/dev/null 2>/dev/null;;
     esac
 
-    for pipv in pip pip3; do
+    for pipv in pip pip3 grip; do
         if [ ! `command -v ${pipv}` ]; then
             echo -e "${RED}[+] pip not found! Please install pip (and/or pip3)."
             echo -e "    Once pip is up, re-run this script ${BW}"
@@ -67,8 +67,8 @@ install_brew() {
                         xcode-select --install;
                     fi
                     ruby -e "$(curl -fsSL ${BREW})"
-                    echo -e "\t Installing node"
-                    brew install node
+                    echo -e "\t Installing grip (needed for markdown preview)"
+                    brew install grip
                     break;;
                 [Nn]* )
                     echo "[+] Please perform a manual installation"

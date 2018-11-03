@@ -125,7 +125,9 @@ if has('nvim')
 endif
 
 " Markdown
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+if !(has('win32') || has ('win64'))
+    Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
+endif
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
