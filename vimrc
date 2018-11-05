@@ -136,7 +136,6 @@ function! BuildComposer(info)
 endfunction
 
 Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
