@@ -29,7 +29,7 @@ python_deps() {
     uname="$(uname -s)"
     case "${uname}" in
         Linux*)
-            sudo apt-get -y install python-jedi python3-jedi \
+            sudo apt-get -y install python-jedi python3-jedi pylint pylint3 \
                 1>/dev/null 2>/dev/null;;
     esac
 
@@ -39,9 +39,9 @@ python_deps() {
             echo -e "    Once pip is up, re-run this script ${BW}"
             exit
         else
-            for pkg in jedi neovim; do
+            for pkg in jedi neovim python-language-server; do
                 if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
-                    echo -e "\t pip: skipping ${pkg} -- already installed"
+                    echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
                 else
                     ${pipv} install --user ${pkg} 2>/dev/null
                 fi
