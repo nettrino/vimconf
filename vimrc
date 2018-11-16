@@ -65,9 +65,14 @@ if !(has('win32') || has ('win64'))
     Plug 'brookhong/cscope.vim'
 endif
 
+if (has('win32') || has ('win64'))
+    " solarized-theme for windows
+    Plug 'altercation/vim-colors-solarized'
+endif
+
 if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
     " more snippets (depends on ultisnips)
-    " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
 
 " visual line (requires syntastic for error/warning detection)
