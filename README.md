@@ -21,8 +21,7 @@ The following assumes that the [`chocolatey`](https://chocolatey.org/)
 package manager is in installed in your system.
 
 ```
-choco install ctags, vim, python, python3
-pip install jedi
+choco install ctags, vim, python
 pip3 install jedi
 cd ~
 git clone https://github.com/nettrino/vimconf.git .vim
