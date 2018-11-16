@@ -106,41 +106,43 @@ else
 endif
 
 " Go (order matters?)
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-Plug 'buoto/gotests-vim', { 'for': 'go' }
-if has('nvim')
-    Plug 'mdempsky/gocode', {
-                \ 'for': 'go',
-                \ 'rtp': 'nvim',
-                \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
-                \ }
-    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-    Plug 'sebdah/vim-delve', { 'for': 'go' }
-else
-    Plug 'mdempsky/gocode', {
-                \ 'for': 'go',
-                \ 'rtp': 'vim',
-                \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-                \ }
-endif
-
-" php
-if has('nvim')
-    Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }
-endif
-
-" Markdown
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
+if !(has('win32') || has ('win64'))
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    Plug 'buoto/gotests-vim', { 'for': 'go' }
     if has('nvim')
-      !cargo build --release
+        Plug 'mdempsky/gocode', {
+                    \ 'for': 'go',
+                    \ 'rtp': 'nvim',
+                    \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
+                    \ }
+        Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+        Plug 'sebdah/vim-delve', { 'for': 'go' }
     else
-      !cargo build --release --no-default-features --features json-rpc
+        Plug 'mdempsky/gocode', {
+                    \ 'for': 'go',
+                    \ 'rtp': 'vim',
+                    \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+                    \ }
     endif
-  endif
-endfunction
 
-Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
+    " php
+    if has('nvim')
+        Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }
+    endif
+
+    " Markdown
+    function! BuildComposer(info)
+      if a:info.status != 'unchanged' || a:info.force
+        if has('nvim')
+          !cargo build --release
+        else
+          !cargo build --release --no-default-features --features json-rpc
+        endif
+      endif
+    endfunction
+
+    Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
+endif
 
 Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
