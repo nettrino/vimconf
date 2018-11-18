@@ -160,10 +160,11 @@ if has('nvim')
 endif
 
 "
-" ====== VimMarkdownPreview
+" ====== Markdown Composer
 "
-let vim_markdown_preview_github=1
-let vim_markdown_preview_toggle=2
+let g:markdown_composer_open_browser=0
+" preview with ,md
+noremap <Leader>md : ComposerStart<cr> :ComposerOpen<cr>
 
 "
 " ====== NerdCommenter
