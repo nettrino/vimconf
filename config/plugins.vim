@@ -72,14 +72,16 @@ let g:go_highlight_types = 1
 let g:go_list_type = ""
 let g:go_fmt_fail_silently = 1
 let g:go_addtags_transform = "snakecase"
-" silent type info
-function! s:custom_auto_type_info() abort
-    silent! call go#tool#Info(1)
-endfunction
-augroup vim-go-custom
-    autocmd!
-    autocmd CursorHold *.go call s:custom_auto_type_info()
-augroup end
+" let g:go_info_mode='guru'
+" " silent type info
+" function! s:custom_auto_type_info() abort
+    " silent! call go#tool#Info(1)
+" endfunction
+" augroup vim-go-custom
+    " autocmd!
+    " autocmd CursorHold *.go call s:custom_auto_type_info()
+" augroup end
+
 "
 " ====== LanguageClient
 "

@@ -34,6 +34,9 @@ augroup UglyHacks
 
     " SMT solvers
     autocmd BufNewFile,BufRead *.smt* set nowrap filetype=smt
+
+    " don't hide special characters in markdown
+    autocmd BufNewFile,BufRead *.md set filetype=text
 augroup END
 
 " hack because of color issues in windows
