@@ -4,6 +4,8 @@ EDITOR=neovim
 WITH_GO=false
 WITH_PYTHON=false
 WITH_RUST=false
+WITH_NPM=false
+WITH_ELM=false
 
 shopt -s expand_aliases
 
@@ -59,6 +61,25 @@ rust_deps() {
         Darwin*)
             brew install rust 1>/dev/null 2>/dev/null;;
     esac
+}
+
+npm_deps() {
+    echo -e "${OK_MSG} Installing npm dependencies"
+    uname="$(uname -s)"
+    case "${uname}" in
+        Linux*)
+            sudo apt-get -y install node 1>/dev/null 2>/dev/null;;
+        Darwin*)
+            brew install node 1>/dev/null 2>/dev/null;;
+    esac
+    reload_env
+}
+
+elm_deps() {
+    echo -e "${OK_MSG} Installing elm dependencies"
+    npm install -g elm
+    npm install -g elm-oracle
+    npm install -g elm-format
 }
 
 #
@@ -157,6 +178,17 @@ install() {
         rust_deps
     fi
 
+    if [ $WITH_GO ]; then
+        go_deps
+    fi
+
+    if [ $WITH_NPM ]; then
+        npm_deps
+    fi
+
+    if [ $WITH_ELM ]; then
+        npm_deps
+    fi
 
     reload_env
     case "${uname}" in
@@ -180,7 +212,7 @@ usage() {
     echo -e "\t     and Python, respecting the system installed versions. If "
     echo -e "\t     If the respective programming language is not present,"
     echo -e "\t     only the editor without the respective features will be"
-    echo -e "\t     installed."
+    echo -e "\t     installed. Supported: go python npm rust"
     exit 1;
 }
 
@@ -197,6 +229,18 @@ while getopts ":v:p:" opt; do
             do
                 if [ "$p" == "python" ] ; then
                     WITH_PYTHON=true
+                fi
+                if [ "$p" == "go" ] ; then
+                    WITH_GO=true
+                fi
+                if [ "$p" == "rust" ] ; then
+                    WITH_RUST=true
+                fi
+                if [ "$p" == "npm" ] ; then
+                    WITH_NPM=true
+                fi
+                if [ "$p" == "elm" ] ; then
+                    WITH_ELM=true
                 fi
             done
             ;;

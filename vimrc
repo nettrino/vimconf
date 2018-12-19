@@ -151,6 +151,8 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'avakhov/vim-yaml', { 'for': 'yaml' }
 Plug 'raichoo/smt-vim'
 Plug 'tomlion/vim-solidity'
+Plug 'ElmCast/elm-vim'
+
 " html css
 Plug 'mattn/emmet-vim'
 
