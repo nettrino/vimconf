@@ -255,10 +255,11 @@ if [ -z "${v}" ]; then
     usage
 fi
 
-install
 install_vimplug
+install
 
 if [[ ! -f ~/.vim/config/vimrc.user ]]; then
     touch ~/.vim/config/vimrc.user;
 fi
+
 vim +PlugInstall +qall
