@@ -151,7 +151,8 @@ get_linux_dist() {
     elif [ -f /etc/redhat-release ]; then
         # Red Hat
         OS=$(sudo cat /etc/redhat-release | awk '{print $1 $2}')
-        VER=$(sudo cat /etc/redhat-release | awk '{n=split($0,a," "); print a[n-1]}')
+        VER=$(sudo cat /etc/redhat-release | \
+            awk '{n=split($0,a," "); print a[n-1]}')
     else
         # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
         OS=$(uname -s)
@@ -162,28 +163,38 @@ get_linux_dist() {
 setup_linux() {
     echo "${OK_MSG} Setting things up"
     reload_env
-    get_linux_dist()
+    get_linux_dist
 
-    local vim
-    case "$EDITOR" in
-        vim)
-            vim=vim-athena
-            ;;
-        neovim)
-            vim=neovim
-		    ;;
-        *)
-            vim=vim-athena;;
-    esac
+    if [ "${OS}" == "Ubuntu" ] || [ "${OS}" == "Debian GNU/Linux" ] ; then
+        local vim
+        case "$EDITOR" in
+            vim)
+                vim=vim-athena
+                ;;
+            neovim)
+                vim=neovim
+                ;;
+            *)
+                vim=vim-athena;;
+        esac
 
-    echo "${OK_MSG} Running apt -y update"
-    if [ "$vim" == "neovim" ]; then
-        sudo add-apt-repository -y ppa:neovim-ppa/stable
-        sudo apt-get -y update >/dev/null 2>/dev/null
+        echo "${OK_MSG} Running apt -y update"
+        if [ "$vim" == "neovim" ]; then
+            sudo add-apt-repository -y ppa:neovim-ppa/stable
+            sudo apt-get -y update >/dev/null 2>/dev/null
+        fi
+        echo "${OK_MSG} Installing required packages"
+        sudo apt-get -y install $vim exuberant-ctags curl cscope ctags \
+             1>/dev/null 2>/dev/null
+    elif [ "${OS}" == "CentOS" ] || \
+        [ "${OS}" == "RedHat" ] || \
+        [ "${OS}" == "Red Hat Enterprise Linux Server" ]; then
+        sudo yum install vim cscope ctags
+    elif [ "${OS}" == "SLES" ]; then
+        sudo zypper install vim cscope ctags
+    elif [ "${OS}" == "Fedora" ]; then
+        sudo dnf install vim cscope ctags
     fi
-    echo "${OK_MSG} Installing required packages"
-    sudo apt-get -y install $vim exuberant-ctags curl cscope ctags \
-         1>/dev/null 2>/dev/null
 }
 
 install() {
