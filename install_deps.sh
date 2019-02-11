@@ -52,17 +52,6 @@ python_deps() {
     done
 }
 
-rust_deps() {
-    echo -e "${OK_MSG} Installing Rust dependencies"
-    uname="$(uname -s)"
-    case "${uname}" in
-        Linux*)
-            sudo apt-get -y install rust 1>/dev/null 2>/dev/null;;
-        Darwin*)
-            brew install rust 1>/dev/null 2>/dev/null;;
-    esac
-}
-
 npm_deps() {
     echo -e "${OK_MSG} Installing npm dependencies"
     uname="$(uname -s)"
@@ -111,6 +100,9 @@ install_brew() {
 }
 
 setup_mac() {
+    install_brew
+    reload_env
+
     local vim
     case "$EDITOR" in
         vim)
@@ -134,9 +126,43 @@ setup_mac() {
     done
 }
 
+get_linux_dist() {
+    if [ -f /etc/os-release ]; then
+        # freedesktop.org and systemd
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif type lsb_release >/dev/null 2>&1; then
+        # linuxbase.org
+        OS=$(lsb_release -si)
+        VER=$(lsb_release -sr)
+    elif [ -f /etc/lsb-release ]; then
+        # For some versions of Debian/Ubuntu without lsb_release command
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+        VER=$DISTRIB_RELEASE
+    elif [ -f /etc/debian_version ]; then
+        # Older Debian/Ubuntu/etc.
+        OS=Debian
+        VER=$(cat /etc/debian_version)
+    elif [ -f /etc/SuSe-release ]; then
+        # Older SuSE/etc.
+        OS=SUSE
+    elif [ -f /etc/redhat-release ]; then
+        # Red Hat
+        OS=$(sudo cat /etc/redhat-release | awk '{print $1 $2}')
+        VER=$(sudo cat /etc/redhat-release | awk '{n=split($0,a," "); print a[n-1]}')
+    else
+        # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+        OS=$(uname -s)
+        VER=$(uname -r)
+    fi
+}
+
 setup_linux() {
     echo "${OK_MSG} Setting things up"
     reload_env
+    get_linux_dist()
 
     local vim
     case "$EDITOR" in
@@ -162,35 +188,6 @@ setup_linux() {
 
 install() {
     uname="$(uname -s)"
-
-    # if we're on a mac, see if we need to install brew
-    case "${uname}" in
-        Darwin*)
-            install_brew;;
-    esac
-
-    # install additional packages
-    if [ $WITH_PYTHON ]; then
-        python_deps
-    fi
-
-    if [ $WITH_RUST ]; then
-        rust_deps
-    fi
-
-    if [ $WITH_GO ]; then
-        go_deps
-    fi
-
-    if [ $WITH_NPM ]; then
-        npm_deps
-    fi
-
-    if [ $WITH_ELM ]; then
-        npm_deps
-    fi
-
-    reload_env
     case "${uname}" in
         Linux*)
             setup_linux;;
@@ -212,7 +209,7 @@ usage() {
     echo -e "\t     and Python, respecting the system installed versions. If "
     echo -e "\t     If the respective programming language is not present,"
     echo -e "\t     only the editor without the respective features will be"
-    echo -e "\t     installed. Supported: go python npm rust"
+    echo -e "\t     installed. Supported: go python npm elm"
     exit 1;
 }
 
@@ -232,9 +229,6 @@ while getopts ":v:p:" opt; do
                 fi
                 if [ "$p" == "go" ] ; then
                     WITH_GO=true
-                fi
-                if [ "$p" == "rust" ] ; then
-                    WITH_RUST=true
                 fi
                 if [ "$p" == "npm" ] ; then
                     WITH_NPM=true

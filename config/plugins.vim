@@ -72,7 +72,7 @@ let g:go_highlight_types = 1
 let g:go_list_type = ""
 let g:go_fmt_fail_silently = 1
 let g:go_addtags_transform = "snakecase"
-" let g:go_info_mode='guru'
+let g:go_info_mode='guru'
 " " silent type info
 " function! s:custom_auto_type_info() abort
     " silent! call go#tool#Info(1)
@@ -81,23 +81,6 @@ let g:go_addtags_transform = "snakecase"
     " autocmd!
     " autocmd CursorHold *.go call s:custom_auto_type_info()
 " augroup end
-
-"
-" ====== LanguageClient
-"
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'python': ['pyls'],
-    \ 'cpp': ['clangd'],
-    \ 'go': ['go-langserver'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ }
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 "
 " ====== Deoplete options

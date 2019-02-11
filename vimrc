@@ -3,9 +3,7 @@
 let g:vimroot=expand($HOME . "/.vim")
 
 "| PLUGINS START
-"|
 "v
-"
 
 " init
 let g:plug_dir=expand(g:vimroot . "/plugged")
@@ -14,30 +12,62 @@ call plug#begin(g:plug_dir)
 "disable parallel plugs
 "let g:plug_threads = 1
 
-" change working directory to project root
-Plug 'airblade/vim-rooter'
-" enable multiple comments
-Plug 'scrooloose/nerdcommenter'
-" interpret a file by function
-Plug 'MarcWeber/vim-addon-mw-utils'
-" align text (e.g., '=' in consequent lines)
-Plug 'godlygeek/tabular'
-" git-style undo options
+"
+" Core plugins with toggles
+"
+
+" open filesystem browser (on demand loading) (toggle with Ctrl + g)
+if has('nvim')
+    Plug 'scrooloose/nerdtree'
+    Plug 'jistr/vim-nerdtree-tabs'
+else
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+    Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
+endif
+" display list of functions, variables etc. (',t')
+Plug 'majutsushi/tagbar'
+" git-based per-file local undo tree (toggle with 'U')
 Plug 'mbbill/undotree'
-" git diff/blame functionality
+" comment multiple lines (visual select + ',cc' to comment/',cu' to uncomment)
+Plug 'scrooloose/nerdcommenter'
+" Smart completion (Ctrl + P)
+if has('nvim')
+    Plug 'Shougo/neosnippet'
+    Plug 'Shougo/neosnippet-snippets'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    " code snippet <tab> completion
+    Plug 'garbas/vim-snipmate'
+endif
+
+" align text (e.g., '=' in consequent lines - visual select then ,<sumbol>)
+Plug 'godlygeek/tabular'
+" git diff/blame functionality (',gb' for blame, ',gd' for diff etc)
 Plug 'tpope/vim-fugitive'
+" show guides at indent stops (toggle with F4)
+Plug 'nathanaelkane/vim-indent-guides'
+" distraction-free editing (:Goyo and :Goyo! for on/off)
+Plug 'junegunn/goyo.vim'
+
+"
+" Other always-on plugins
+"
+
+" Colorschemes
+let colorschemes=expand(g:vimroot . "/colorschemes")
+Plug colorschemes
+" visual line (requires syntastic for error/warning detection)
+Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
 " search and local vimrc files (".lvimrc") in the dir tree
 if has('nvim') || v:version >= 704
     Plug 'embear/vim-localvimrc'
 endif
-" show guides at indent stops
-Plug 'nathanaelkane/vim-indent-guides'
+" interpret a file by function
+Plug 'MarcWeber/vim-addon-mw-utils'
 " pretty vim -d (diff)
 Plug 'chrisbra/vim-diff-enhanced'
-" display list of functions, variables etc.
-Plug 'majutsushi/tagbar'
-" distraction-free editing
-Plug 'junegunn/goyo.vim'
+" change working directory to project root
+Plug 'airblade/vim-rooter'
 " auto-completion for quotes, parentheses etc.
 " this plugin does not play well with vim-tex, so keep this in mind
 " See https://github.com/Raimondi/delimitMate/issues/48 and
@@ -46,28 +76,10 @@ Plug 'Raimondi/delimitMate'
 " faster folding
 Plug 'Konfekt/FastFold'
 
-" Smart completion
-if has('nvim')
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'autozimu/LanguageClient-neovim', {
-                \ 'branch': 'next',
-                \ 'do': 'bash install.sh',
-                \ }
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    " code snippet <tab> completion
-    Plug 'garbas/vim-snipmate'
-endif
-
-if !(has('win32') || has ('win64'))
-    " cscope only for Linux / Mac
+" cscope
+let has_cscope = system("which cscope")
+if !v:shell_error && !(has('win32') || has ('win64'))
     Plug 'brookhong/cscope.vim'
-endif
-
-if (has('win32') || has ('win64'))
-    " solarized-theme for windows
-    Plug 'altercation/vim-colors-solarized'
 endif
 
 if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
@@ -75,19 +87,8 @@ if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
 
-" visual line (requires syntastic for error/warning detection)
-Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
-
-" open filesystem browser (on demand loading)
-if has('nvim')
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs'
-else
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
-    Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-endif
 "
-" language-specific
+" Language-specific plugins
 "
 
 " Javascript
@@ -96,17 +97,24 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 if !(has('win32') || has ('win64'))
 	Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 endif
+
 " Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-if has('nvim')
-    Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-else
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+" check if jedi is present an load it accordingly
+let has_jedi = system("python -c 'import jedi'")
+if !v:shell_error
+    if has('nvim')
+        Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+    else
+        Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    endif
 endif
 
+
 " Go (order matters?)
-if !(has('win32') || has ('win64'))
+let has_go = system("which go")
+if !v:shell_error && !(has('win32') || has ('win64'))
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
     Plug 'buoto/gotests-vim', { 'for': 'go' }
     if has('nvim')
@@ -124,34 +132,14 @@ if !(has('win32') || has ('win64'))
                     \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
                     \ }
     endif
+endif
 
-    " php
+" PHP
+if !(has('win32') || has ('win64'))
     if has('nvim')
         Plug 'padawan-php/deoplete-padawan', { 'for': 'php' }
     endif
-
-    " Markdown
-    function! BuildComposer(info)
-      if a:info.status != 'unchanged' || a:info.force
-        if has('nvim')
-          !cargo build --release
-        else
-          !cargo build --release --no-default-features --features json-rpc
-        endif
-      endif
-    endfunction
-
-    Plug 'euclio/vim-markdown-composer', { 'for': 'markdown', 'do': function('BuildComposer') }
 endif
-
-Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
-Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'avakhov/vim-yaml', { 'for': 'yaml' }
-Plug 'raichoo/smt-vim'
-Plug 'tomlion/vim-solidity'
-Plug 'ElmCast/elm-vim'
 
 " html css
 Plug 'mattn/emmet-vim'
@@ -161,17 +149,22 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'tfnico/vim-gradle', { 'for': 'java' }
 Plug 'tpope/vim-classpath', { 'for': 'java' }
 
-" Load colorschemes
-let colorschemes=expand(g:vimroot . "/colorschemes")
-Plug colorschemes
+" other
+Plug 'lilydjwg/colorizer',  { 'for' : 'CSS' }
+Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'avakhov/vim-yaml', { 'for': 'yaml' }
+Plug 'msteinert/vim-ragel', { 'for': 'ragel' }
+Plug 'raichoo/smt-vim'
+Plug 'tomlion/vim-solidity'
+Plug 'ElmCast/elm-vim'
 
 " wrap it up
 call plug#end()
 
 "^
-"|
 "| PLUGINS END
-"
 
 " load configs
 let default_config = expand(g:vimroot . "/config/default.vim")

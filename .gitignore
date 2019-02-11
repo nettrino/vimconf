@@ -1,5 +1,8 @@
-./swap/*
-./undo/*
-./plugged/*
-./config/vimrc.user
+swap/*
+undo/*
+autoload/*
+plugged/*
+config/vimrc.user
 viminfo
+spell/*
+.netrwhist
