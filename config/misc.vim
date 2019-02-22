@@ -37,6 +37,9 @@ augroup UglyHacks
 
     " don't hide special characters in markdown
     autocmd BufNewFile,BufRead *.md set filetype=text
+
+    " YARA signature files"
+    autocmd BufNewFile,BufRead *.yar,*.yara set filetype=yara
 augroup END
 
 " hack because of color issues in windows
