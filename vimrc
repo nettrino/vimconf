@@ -98,6 +98,9 @@ if !(has('win32') || has ('win64'))
 	Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 endif
 
+" Typescript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
 " Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
