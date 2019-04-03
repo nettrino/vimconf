@@ -58,9 +58,16 @@ npm_deps() {
     case "${uname}" in
         Linux*)
             sudo apt-get -y install node 1>/dev/null 2>/dev/null;;
+            sudo apt -y install npm
         Darwin*)
             brew install node 1>/dev/null 2>/dev/null;;
     esac
+    reload_env
+}
+
+typescript_deps() {
+    echo -e "${OK_MSG} Installing typescript dependencies"
+    npm -g install typescript
     reload_env
 }
 
