@@ -225,13 +225,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "
 let g:javascript_enable_domhtmlcss=1
 
-
-"
-" =======  typescript - Tsuquyomi
-"
-set ballooneval
-autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
-
 "
 " ======= js-beautify
 "
@@ -329,7 +322,6 @@ let g:ale_linters = {
             \ 'python': ['pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
-            \ 'typescript': ['tsuquyomi', 'tsc'],
             \ 'go' : ['gometalinter'],
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],

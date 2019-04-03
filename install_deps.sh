@@ -57,8 +57,8 @@ npm_deps() {
     uname="$(uname -s)"
     case "${uname}" in
         Linux*)
-            sudo apt-get -y install node 1>/dev/null 2>/dev/null;;
-            sudo apt -y install npm
+            sudo apt-get -y install node 1>/dev/null 2>/dev/null
+            sudo apt-get -y install npm 1>/dev/null 2>/dev/null;;
         Darwin*)
             brew install node 1>/dev/null 2>/dev/null;;
     esac
