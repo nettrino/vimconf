@@ -100,7 +100,6 @@ endif
 
 " Typescript
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Quramy/tsuquyomi', { 'for': 'typescript' , 'do': 'make' }
 
 " Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
