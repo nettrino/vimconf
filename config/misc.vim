@@ -36,7 +36,7 @@ augroup UglyHacks
     autocmd BufNewFile,BufRead *.smt* set nowrap filetype=smt
 
     " don't hide special characters in markdown
-    autocmd BufNewFile,BufRead *.md set filetype=text
+    autocmd BufNewFile,BufRead *.md set filetype=markdown
 
     " YARA signature files"
     autocmd BufNewFile,BufRead *.yar,*.yara set filetype=yara
