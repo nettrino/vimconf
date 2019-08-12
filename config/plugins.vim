@@ -322,7 +322,7 @@ let g:ale_linters = {
             \ 'python': ['pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
-            \ 'go' : ['gometalinter'],
+            \ 'go' : ['golangcli-lint'],
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
