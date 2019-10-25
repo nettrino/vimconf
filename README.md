@@ -57,6 +57,7 @@ Debian/Ubuntu & Mac OS X
 ```
 cd ~/.vim && make update
 ```
+Oftentimes this step is known to break plugins - in that deleting `~/.vim` and installing from scratch is probably the best way to go.
 
 Windows
 -------
