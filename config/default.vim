@@ -193,6 +193,9 @@ set hlsearch
 set incsearch
 set showmatch
 
+" open new pages on the right split when vsplitting
+set splitright
+
 " ========================= KEY MAPPINGS ======================================
 
 let mapleader=","
