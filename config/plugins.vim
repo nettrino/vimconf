@@ -13,6 +13,15 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
 let NERDTreeDirArrows=0
 
 "
+" ====== vim-test
+"
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+"
 " ====== vim-json
 "
 let g:vim_json_syntax_conceal = 0
@@ -34,15 +43,44 @@ noremap <C-i> :Pydocstring<CR>
 let g:AutoPairsOnlyWhitespace = 1
 
 "
+" ====== LanguageClient
+"
+
+if has('nvim')
+    set hidden
+
+    let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_serverCommands = {
+        \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+        \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+        \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+        \ 'python': ['/usr/local/bin/pyls'],
+        \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+        \ 'java': ['java-lsp.sh'],
+        \ }
+
+    " Use the location list instead of the quickfix list to show linter warnings
+    let g:LanguageClient_diagnosticsList = "Location"
+    let g:LanguageClient_rootMarkers = {
+        \ 'java': ['.git']
+        \ }
+    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+    " Or map each action separately
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+endif
+
+"
 " ====== jedi-vim
 "
 
 if has('nvim')
     " using deoplete on nvim
-    let g:jedi#completions_enabled = 0
+    let g:jedi#completions_enabled = 1
 else
-    let g:jedi#popup_on_dot = 0
-    " set completeopt+=menuone
+    let g:jedi#popup_on_dot = 1
+    set completeopt+=menuone
 endif
 let g:jedi#max_doc_height = 50
 " show call signatures in the command line
@@ -326,12 +364,15 @@ let g:ale_fixers = {
             \ 'python': ['isort'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
+let g:ale_completion_enabled = 1
 let g:ale_set_highlights=0
 let g:ale_lint_delay=0
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed='never'
+let g:ale_set_balloons=1
+let g:ale_hover_to_preview=0
 
 " if you want the actual text to be highlighted you need to set guibg!
 highlight ALEErrorSign ctermbg=black ctermfg=red
@@ -356,6 +397,7 @@ let g:ale_go_gometalinter_options='--aggregate'
 " c
 let g:ale_c_gcc_options = '-std=c14 -Wall'
 let g:ale_c_clang_options = '-std=c14 -Wall'
+
 " cpp
 let g:ale_cpp_gcc_options = '-std=c++14 -Wall'
 let g:ale_cpp_clang_options = '-std=c++14 -Wall'

@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
 EDITOR=neovim
-WITH_GO=false
-WITH_PYTHON=false
-WITH_RUST=false
-WITH_NPM=false
-WITH_ELM=false
 
 shopt -s expand_aliases
 
@@ -42,8 +37,7 @@ python_deps() {
             exit
         else
             ${pipv} install -U setuptools
-            ${pipv} install -U python-language-server
-            for pkg in jedi neovim python-language-server; do
+            for pkg in jedi neovim python-language-server isort autopep8; do
                 if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
                     echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
                 else
@@ -66,6 +60,28 @@ npm_deps() {
     esac
     reload_env
 }
+
+java_deps() {
+    echo -e "${OK_MSG} Installing java dependencies"
+    uname="$(uname -s)"
+    case "${uname}" in
+        Linux*)
+            sudo apt-get -y install checkstyle 1>/dev/null 2>/dev/null;;
+        Darwin*)
+            brew install checkstyle 1>/dev/null 2>/dev/null;;
+    esac
+
+    pushd /tmp1 >/dev/null 2>/dev/null
+        git clone https://github.com/eclipse/eclipse.jdt.ls.git
+        pushd eclipse.jdt.ls.git 1>/dev/null 2>/dev/null
+            ./mvnw clean install -DskipTests
+        popd 1>/dev/null 2>/dev/null
+    popd 1>/dev/null 2>/dev/null
+
+    ./mvnw clean verify
+    reload_env
+}
+
 
 typescript_deps() {
     echo -e "${OK_MSG} Installing typescript dependencies"
@@ -245,16 +261,19 @@ while getopts ":v:p:" opt; do
             for p in "${packages[@]}"
             do
                 if [ "$p" == "python" ] ; then
-                    WITH_PYTHON=true
+                    python_deps
                 fi
                 if [ "$p" == "go" ] ; then
                     WITH_GO=true
                 fi
                 if [ "$p" == "npm" ] ; then
-                    WITH_NPM=true
+                    npm_deps
                 fi
                 if [ "$p" == "elm" ] ; then
-                    WITH_ELM=true
+                    elm_deps
+                fi
+                if [ "$p" == "java" ] ; then
+                    java_deps
                 fi
             done
             ;;

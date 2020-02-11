@@ -34,6 +34,13 @@ Plug 'scrooloose/nerdcommenter'
 if has('nvim')
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
+    Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+    " (Optional) Multi-entry selection UI.
+    Plug 'junegunn/fzf'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     " Plug 'lighttiger2505/deoplete-vim-lsp'
 else
@@ -98,6 +105,9 @@ if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
 
+" run tests
+Plug 'janko/vim-test'
+
 "
 " Language-specific plugins
 "
@@ -115,6 +125,8 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 " Python
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+
 " check if jedi is present an load it accordingly
 let has_jedi = system("python -c 'import jedi'")
 if !v:shell_error
