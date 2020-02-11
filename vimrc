@@ -35,6 +35,7 @@ if has('nvim')
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'lighttiger2505/deoplete-vim-lsp'
 else
     " code snippet <tab> completion
     Plug 'garbas/vim-snipmate'
@@ -48,6 +49,25 @@ Plug 'tpope/vim-fugitive'
 Plug 'nathanaelkane/vim-indent-guides'
 " distraction-free editing (:Goyo and :Goyo! for on/off)
 Plug 'junegunn/goyo.vim'
+
+" 
+" language server support
+"
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" to install a language server for your supported filetype type :LspInstallServer
+Plug 'mattn/vim-lsp-settings'
+
+" language client
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" (Optional) Multi-entry selection UI.
+Plug 'junegunn/fzf'
 
 "
 " Other always-on plugins

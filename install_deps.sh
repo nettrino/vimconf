@@ -41,6 +41,7 @@ python_deps() {
             echo -e "    Once pip is up, re-run this script ${BW}"
             exit
         else
+	    ${pipv} install -U setuptools
             for pkg in jedi neovim python-language-server; do
                 if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
                     echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
