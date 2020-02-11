@@ -30,6 +30,16 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 " comment multiple lines (visual select + ',cc' to comment/',cu' to uncomment)
 Plug 'scrooloose/nerdcommenter'
+"
+" language server support
+"
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" to install a language server for your supported filetype type :LspInstallServer
+Plug 'mattn/vim-lsp-settings'
+
 " Smart completion (Ctrl + P)
 if has('nvim')
     Plug 'Shougo/neosnippet'
@@ -42,7 +52,7 @@ if has('nvim')
     " (Optional) Multi-entry selection UI.
     Plug 'junegunn/fzf'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    " Plug 'lighttiger2505/deoplete-vim-lsp'
+    Plug 'lighttiger2505/deoplete-vim-lsp'
 else
     " code snippet <tab> completion
     Plug 'garbas/vim-snipmate'
@@ -56,16 +66,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'nathanaelkane/vim-indent-guides'
 " distraction-free editing (:Goyo and :Goyo! for on/off)
 Plug 'junegunn/goyo.vim'
-
-"
-" language server support
-"
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" to install a language server for your supported filetype type :LspInstallServer
-Plug 'mattn/vim-lsp-settings'
 
 "
 " Other always-on plugins

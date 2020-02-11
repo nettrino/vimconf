@@ -48,6 +48,11 @@ python_deps() {
     done
 }
 
+bash_deps() {
+    npm_deps
+    npm i -g bash-language-server
+}
+
 npm_deps() {
     echo -e "${OK_MSG} Installing npm dependencies"
     uname="$(uname -s)"
@@ -56,7 +61,7 @@ npm_deps() {
             sudo apt-get -y install node 1>/dev/null 2>/dev/null
             sudo apt-get -y install npm 1>/dev/null 2>/dev/null;;
         Darwin*)
-            brew install node 1>/dev/null 2>/dev/null;;
+            brew install npm 1>/dev/null 2>/dev/null;;
     esac
     reload_env
 }
@@ -274,6 +279,9 @@ while getopts ":v:p:" opt; do
                 fi
                 if [ "$p" == "java" ] ; then
                     java_deps
+                fi
+                if [ "$p" == "bash" ] ; then
+                    bash_deps
                 fi
             done
             ;;
