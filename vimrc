@@ -34,11 +34,8 @@ Plug 'scrooloose/nerdcommenter'
 " language server support
 "
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" to install a language server for your supported filetype type :LspInstallServer
-Plug 'mattn/vim-lsp-settings'
 
 " Smart completion (Ctrl + P)
 if has('nvim')
