@@ -78,7 +78,7 @@ if has('nvim')
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['run', 'stable', 'rls'],
         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-        \ 'python': ['pyls'],
+        \ 'python': ['/usr/local/bin/pyls'],
         \ 'ruby': ['stdio'],
         \ 'java': ['java-lsp.sh'],
         \ }

@@ -44,15 +44,7 @@ Plug 'mattn/vim-lsp-settings'
 if has('nvim')
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
-    Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-    " (Optional) Multi-entry selection UI.
-    Plug 'junegunn/fzf'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'lighttiger2505/deoplete-vim-lsp'
 else
     " code snippet <tab> completion
     Plug 'garbas/vim-snipmate'
