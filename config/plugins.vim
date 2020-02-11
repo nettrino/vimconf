@@ -358,6 +358,7 @@ let g:ale_linters = {
             \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
+            \ 'sh': ['language_server'],
             \ }
 let g:ale_fixers = {
             \ 'python': ['isort'],
