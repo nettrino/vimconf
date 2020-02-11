@@ -80,6 +80,16 @@ Plug 'airblade/vim-rooter'
 " See https://github.com/Raimondi/delimitMate/issues/48 and
 " https://github.com/junegunn/vim-plug/issues/63
 Plug 'Raimondi/delimitMate'
+
+" fancier auto-complete
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+" NOTE: you need to install completion sources to get completions. Check
+" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+
 " faster folding
 Plug 'Konfekt/FastFold'
 
