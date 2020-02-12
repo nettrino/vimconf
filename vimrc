@@ -33,22 +33,7 @@ Plug 'scrooloose/nerdcommenter'
 "
 " language server support
 "
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-python', {'branch': 'release', 'for': 'python'}
-Plug 'neoclide/coc-yaml', {'branch': 'release', 'for': 'yaml'}
-Plug 'neoclide/coc-html', {'branch': 'release', 'for': 'html'}
-Plug 'neoclide/coc-java', {'branch': 'release', 'for': 'java'}
-Plug 'neoclide/coc-json', {'branch': 'release', 'for': 'json'}
-
-" Smart completion (Ctrl + P)
-if has('nvim')
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    " code snippet <tab> completion
-    Plug 'garbas/vim-snipmate'
-endif
+Plug 'neoclide/coc.nvim',   {'branch': 'release'}
 
 " align text (e.g., '=' in consequent lines - visual select then ,<sumbol>)
 Plug 'godlygeek/tabular'

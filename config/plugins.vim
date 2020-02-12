@@ -13,6 +13,138 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$',
 let NERDTreeDirArrows=0
 
 "
+" ====== coc-nvim
+"
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+"set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+"
 " ====== vim-test
 "
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -20,48 +152,6 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
-
-"
-" ====== vim-ncm2
-"
-
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
 
 "
 " ====== vim-json
@@ -83,25 +173,6 @@ noremap <C-i> :Pydocstring<CR>
 " ====== auto-pairs
 "
 let g:AutoPairsOnlyWhitespace = 1
-
-"
-" ====== jedi-vim
-"
-
-if has('nvim')
-    " using deoplete on nvim
-    let g:jedi#completions_enabled = 1
-else
-    let g:jedi#popup_on_dot = 1
-    set completeopt+=menuone
-endif
-let g:jedi#max_doc_height = 50
-" show call signatures in the command line
-set noshowmode
-let g:jedi#show_call_signatures = 2
-" split the window to show the definition when pressing <Leader>d
-let g:jedi#use_splits_not_buffers = "winwidth"
-let g:jedi#show_call_signatures_delay = 50
 
 " notes:
 " rename variables with <Leader>r
@@ -132,63 +203,6 @@ let g:go_info_mode='guru'
     " autocmd!
     " autocmd CursorHold *.go call s:custom_auto_type_info()
 " augroup end
-
-"
-" ====== Deoplete options
-"
-if has('nvim')
-    " uncomment to debug
-    " let g:deoplete#enable_profile = 1
-    " call deoplete#enable_logging('DEBUG', 'deoplete.log')
-    " call deoplete#custom#source('jedi', 'debug_enabled', 1)
-
-    let g:deoplete#enable_at_startup = 1
-
-    let g:deoplete#source#attribute#is_silent=1
-
-    " let g:deoplete#disable_auto_complete = 1
-    " inoremap <silent><expr> <c-space> deoplete#mappings#manual_complete()
-
-    " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-    " set sources
-    " let g:deoplete#sources = {}
-    " let g:deoplete#sources.cpp = ['LanguageClient']
-    " let g:deoplete#sources.python = ['LanguageClient']
-    " let g:deoplete#sources.python3 = ['LanguageClient']
-    " let g:deoplete#sources.rust = ['LanguageClient']
-    " let g:deoplete#sources.go = ['LanguageClient']
-    " let g:deoplete#sources.c = ['LanguageClient']
-    " let g:deoplete#sources.vim = ['vim']
-
-    " PHP
-    let g:deoplete#sources#padawan#add_parentheses = 1
-    " needed for echodoc to work if add_parentheses is 1
-    let g:deoplete#skip_chars = ['$']
-
-    let g:deoplete#sources = {}
-    let g:deoplete#sources.php = ['padawan', 'ultisnips', 'tags', 'buffer']
-endif
-
-"
-" ====== Neosnippet
-"
-if has('nvim')
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <expr><TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ neosnippet#expandable_or_jumpable() ?
-    \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-endif
 
 "
 " ====== Markdown Composer
