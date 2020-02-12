@@ -304,4 +304,4 @@ if [[ ! -f ~/.vim/config/vimrc.user ]]; then
 fi
 
 vim +PlugInstall +qall
-vim +CocInstall coc-python coc-yaml coc-html coc-json coc-java
+vim -c "CocInstall coc-python coc-yaml coc-html coc-json coc-java coc-xml" +qall
