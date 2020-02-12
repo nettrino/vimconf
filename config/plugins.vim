@@ -369,7 +369,6 @@ let g:ale_linters = {
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
             \ 'go' : ['golangcli-lint', 'gometalinter', 'golint'],
-            \ 'java': ['javac'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
             \ 'sh': ['language_server'],
