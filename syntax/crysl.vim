@@ -19,7 +19,7 @@ syn match cryslSeperator ":=" contained
 syntax keyword cryslKeyword SPEC OBJECTS EVENTS ORDER CONSTRAINTS REQUIRES ENSURES
 
 syn match cryslEvent '[a-zA-Z0-9]\+:'
-syn match cryslEventCombination '[a-zA-Z0-9]\+\s:=.*'
+syn match cryslEventCombination '[a-zA-Z0-9]\+\s:=.*;'
 
 " Strings
 syntax region cryslStringText start=/"/ end=/"/ skip=/\(\\\\\|\\"\)/ contains=cryslStringTextFormat
