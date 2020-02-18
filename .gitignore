@@ -6,3 +6,4 @@ config/vimrc.user
 viminfo
 spell/*
 .netrwhist
+sessions/*

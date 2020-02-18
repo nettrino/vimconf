@@ -22,6 +22,9 @@ augroup UglyHacks
     " bnf
     autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 
+    " CrySL
+    autocmd BufNewFile,BufRead *.crysl set filetype=crysl
+
     " antlr
     autocmd BufRead,BufNewFile *.g3 set filetype=antlr3
     autocmd BufRead,BufNewFile *.g4 set filetype=antlr4
