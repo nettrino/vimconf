@@ -388,7 +388,7 @@ noremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 let g:ale_sign_warning = '!'
 let g:ale_sign_error = 'x'
 let g:ale_linters = {
-            \ 'python': ['pyls', 'pylint', 'python'],
+            \ 'python': ['black', 'autoflake', 'pyls', 'pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
             \ 'go' : ['golangcli-lint', 'gometalinter', 'golint'],
@@ -397,7 +397,7 @@ let g:ale_linters = {
             \ 'sh': ['language_server'],
             \ }
 let g:ale_fixers = {
-            \ 'python': ['isort'],
+            \ 'python': ['isort', 'black'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
 let g:ale_completion_enabled = 1
@@ -409,6 +409,8 @@ let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed='never'
 let g:ale_set_balloons=1
 let g:ale_hover_to_preview=0
+let g:ale_python_black_options='--line-length=120'
+let g:ale_python_isort_options='--multi-line=3 --line-width=120 --trailing-comma'
 
 " if you want the actual text to be highlighted you need to set guibg!
 highlight ALEErrorSign ctermbg=black ctermfg=red
