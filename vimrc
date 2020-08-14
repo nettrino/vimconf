@@ -104,6 +104,7 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+Plug 'psf/black'
 
 " check if jedi is present an load it accordingly
 let has_jedi = system("python -c 'import jedi'")

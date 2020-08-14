@@ -17,7 +17,7 @@ let NERDTreeDirArrows=0
 "
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
+nmap <leader>rn <Plug>(coc-rename)
 hi default link CocErrorSign Error
 hi default link CocWarningSign Error
 hi default link CocInfoSign Exception
@@ -425,7 +425,7 @@ highlight ALEStyleWarningSign ctermbg=NONE ctermfg=LightYellow
 " C0103 Invalid  argument name
 " F0401 Unable to import %s
 let g:ale_python_flake8_executable=''
-let g:ale_python_pylint_options='--disable C0111,C0103,F0401'
+let g:ale_python_pylint_options='--disable C0111,C0103,F0401,E203,W503'
 
 " go
 let g:ale_go_gometalinter_options='--aggregate'
