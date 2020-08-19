@@ -227,9 +227,10 @@ let g:NERDCustomDelimiters = { 'smt': { 'left': ';','right': '' } }
 "
 " ====== tell-k/vim-autopep8
 "
-let g:autopep8_on_save = 1
-let g:autopep8_disable_show_diff=1
-
+if !has('black')
+    let g:autopep8_on_save = 1
+    let g:autopep8_disable_show_diff=1
+endif
 "
 " ====== delimitMate
 "
