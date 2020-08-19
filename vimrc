@@ -101,12 +101,13 @@ endif
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Python
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+if has ('black')
+    Plug 'psf/black', { 'for': 'python', 'tag': '*' }
+else
+    Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+    Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+endif
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-" apply black
-Plug 'psf/black', { 'for': 'python', 'tag': '19.10b0' }
-" auto pep
-Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 
 " check if jedi is present an load it accordingly
 let has_jedi = system("python -c 'import jedi'")
