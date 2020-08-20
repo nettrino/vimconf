@@ -107,6 +107,7 @@ else
     Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 endif
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
 " check if jedi is present an load it accordingly
