@@ -401,7 +401,7 @@ let g:ale_fixers = {
             \ 'python': ['isort', 'black'],
             \ 'go': ['goimports', 'gofmt'],
             \ }
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_set_highlights=0
 let g:ale_lint_delay=0
 let g:ale_lint_on_enter=1
