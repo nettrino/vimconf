@@ -44,8 +44,10 @@ augroup UglyHacks
     " YARA signature files"
     autocmd BufNewFile,BufRead *.yar,*.yara set filetype=yara
 
-    " Run Black on save for Python
-    autocmd BufWritePre *.py execute ':Black'
+    " Run Black on save for Python if its there
+    if has('black')
+        autocmd BufWritePre *.py execute ':Black'
+    endif
 augroup END
 
 " hack because of color issues in windows
