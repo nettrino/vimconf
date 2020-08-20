@@ -163,6 +163,11 @@ nmap <silent> t<C-g> :TestVisit<CR>
 let g:vim_json_syntax_conceal = 0
 
 "
+" ====== vim-jedi
+"
+let g:jedi#show_call_signatures = "0"
+
+"
 " ====== Fugitive
 "
 noremap <silent> <Leader>gd :Gdiff<CR>
