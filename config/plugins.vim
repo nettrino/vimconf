@@ -15,7 +15,7 @@ let NERDTreeDirArrows=0
 "
 " ====== coc-nvim
 "
-
+let g:coc_node_path = trim(system('which node'))
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 nmap <leader>rn <Plug>(coc-rename)
 hi default link CocErrorSign Error
