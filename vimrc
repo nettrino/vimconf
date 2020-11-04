@@ -33,7 +33,7 @@ Plug 'scrooloose/nerdcommenter'
 "
 " language server support
 "
-Plug 'neoclide/coc.nvim',   {'branch': 'release'}
+Plug 'neoclide/coc.nvim',  {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
 
 " align text (e.g., '=' in consequent lines - visual select then ,<sumbol>)
 Plug 'godlygeek/tabular'
