@@ -37,7 +37,7 @@ python_deps() {
             exit
         else
             ${pipv} install -U setuptools
-            for pkg in jedi neovim python-language-server isort autopep8; do
+            for pkg in jedi neovim 'python-language-server[all]' isort autopep8; do
                 if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
                     echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
                 else

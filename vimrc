@@ -82,6 +82,13 @@ endif
 " run tests
 Plug 'janko/vim-test'
 
+" language server
+if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-lua/completion-nvim'
+    Plug 'nvim-lua/diagnostic-nvim'
+endif
+
 "
 " Language-specific plugins
 "
