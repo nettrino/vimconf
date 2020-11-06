@@ -30,10 +30,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 " comment multiple lines (visual select + ',cc' to comment/',cu' to uncomment)
 Plug 'scrooloose/nerdcommenter'
-"
-" language server support
-"
-Plug 'neoclide/coc.nvim'
 
 " align text (e.g., '=' in consequent lines - visual select then ,<sumbol>)
 Plug 'godlygeek/tabular'
