@@ -10,6 +10,12 @@ augroup UglyHacks
     " are tabs (despite the mappings later):
     autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
+    " force 4 spaces for java
+    autocmd FileType java set expandtab shiftwidth=4 softtabstop=4 tabstop=4
+
+    " fix for coral
+    " ?? expandtab tabstop=8 softtabstop=4 shiftwidth=4
+
     " ensure normal tabs in assembly files and set to NASM syntax highlighting
     autocmd FileType asm set noexpandtab shiftwidth=8 softtabstop=0 syntax=nasm
 

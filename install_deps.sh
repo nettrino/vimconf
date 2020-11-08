@@ -37,7 +37,7 @@ python_deps() {
             exit
         else
             ${pipv} install -U setuptools
-            for pkg in jedi neovim 'python-language-server[all]' isort autopep8; do
+            for pkg in jedi neovim 'python-language-server[all]' jedi-language-server isort autopep8; do
                 if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
                     echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
                 else
@@ -146,7 +146,7 @@ setup_mac() {
     esac
 
     echo "${OK_MSG} Setting things up"
-    for pkg in ${vim} ctags cscope; do
+    for pkg in ${vim} ctags cscope checkstyle; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -215,7 +215,7 @@ setup_linux() {
         fi
         echo "${OK_MSG} Installing required packages"
         sudo apt-get -y install $vim exuberant-ctags curl cscope ctags \
-             1>/dev/null 2>/dev/null
+             checkstyle 1>/dev/null 2>/dev/null
     elif [ "${OS}" == "CentOS" ] || \
         [ "${OS}" == "RedHat" ] || \
         [ "${OS}" == "Red Hat Enterprise Linux Server" ]; then

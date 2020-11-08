@@ -27,15 +27,94 @@ nmap <silent> t<C-g> :TestVisit<CR>
 let g:vim_json_syntax_conceal = 0
 
 "
-" ====== vim-jedi
-"
-let g:jedi#show_call_signatures = "0"
-
-"
 " ====== Fugitive
 "
 noremap <silent> <Leader>gd :Gdiff<CR>
 noremap <silent> <Leader>gb :Gblame<CR>
+
+"
+" ====== LanguageServers
+"
+"Open a file of a certain format andrun :LspInstallServer
+let g:lsp_diagnostics_enabled = 0
+
+" python
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
+else
+   echohl ErrorMsg
+   echom "\"pyls\" is not installed\n If you'd like autocompletion run :LspInstallServer and optionally \"pip install python-language-server\""
+   echohl NONE
+endif
+
+" java
+" FIXME
+if executable('java') && filereadable(expand('~/projects/jars/java-language-server/dist/lang_server_mac.sh'))
+au User lsp_setup call lsp#register_server({
+    \'name': 'eclipse.jdt.ls',
+    \'cmd': {server_info->[
+        \'java',
+        \'-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        \'-Dosgi.bundles.defaultStartLevel=4',
+        \'-Declipse.product=org.eclipse.jdt.ls.core.product',
+        \'-Dlog.level=all',
+        \'-noverify',
+        \'-javaagent:' . expand('/Users/tp/projects/jars/lombok.jar'),
+        \'-Xbootclasspath/a:' . expand('/Users/tp/projects/jars/lombok.jar'),
+        \'-Xmx1G',
+        \'-jar',
+        \expand('/Users/tp/projects/jars/jdt-language-server-latest/plugins/org.eclipse.equinox.launcher_*.jar'),
+        \'-configuration',
+        \expand('/Users/tp/projects/jars/jdt-language-server-latest/config_mac'),
+        \'-data',
+        \expand('/tmp') . getcwd()
+        \]},
+        \'allowlist': ['java']
+\})
+endif
+
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that have the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+"
+" ====== Asynccomplete
+"
+let g:asyncomplete_auto_popup = 1
+" allow modifying the completeopt variable, or it will
+" be overridden all the time
+let g:asyncomplete_auto_completeopt = 0
+
+set completeopt=menuone,noinsert,noselect,preview
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
 
 "
 " ====== PyDocstring
@@ -252,15 +331,34 @@ noremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 noremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 "
+" ===== FZF
+"
+if has("nvim")
+    " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+endif
+
+" , SPACE SPACE brings up the fuzzy file finder
+nnoremap <silent> <Leader><Space><Space> :Files<CR>
+
+" , SPACE DOT will open the fuzzy finder just for the directory
+" containing the currently edited file.
+nnoremap <silent> <Leader><Space>. :Files <C-r>=expand("%:h")<CR>/<CR>
+
+"
 " ====== ALE
 "
 " open errors with :lopen.
 let g:ale_sign_warning = '!'
 let g:ale_sign_error = 'x'
+let g:ale_sign_style_error = 's'
+let g:ale_sign_style_error = '.'
 let g:ale_linters = {
             \ 'python': ['black', 'autoflake', 'pyls', 'pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
+            \ 'java': ['checkstyle', 'google_java_format'],
             \ 'go' : ['golangcli-lint', 'gometalinter', 'golint'],
             \ 'c': ['make', 'clang'],
             \ 'cpp': ['make', 'clang++'],
@@ -269,6 +367,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \ 'python': ['isort', 'black'],
             \ 'go': ['goimports', 'gofmt'],
+            \ 'java': ['google_java_format'],
             \ }
 let g:ale_completion_enabled = 0
 let g:ale_set_highlights=0
@@ -281,6 +380,28 @@ let g:ale_set_balloons=1
 let g:ale_hover_to_preview=0
 let g:ale_python_black_options='--line-length=120'
 let g:ale_python_isort_options='--multi-line=3 --line-width=120 --trailing-comma'
+let g:ale_java_javac_options='-javaagent:/Users/tp/projects/jars/lombok.jar -Xbootclasspath/a:/Users/tp/projects/jars/lombok.jar'
+
+" augroup autoformat_settings
+  " " autocmd FileType bzl AutoFormatBuffer buildifier
+  " autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  " " autocmd FileType dart AutoFormatBuffer dartfmt
+  " autocmd FileType go AutoFormatBuffer gofmt
+  " " autocmd FileType gn AutoFormatBuffer gn
+  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  " autocmd FileType java AutoFormatBuffer google-java-format
+  " " autocmd FileType python AutoFormatBuffer yapf
+  " " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType rust AutoFormatBuffer rustfmt
+  " autocmd FileType vue AutoFormatBuffer prettier
+" augroup END
+
+" call glaive#Install()
+" Glaive codefmt plugin[mappings]
+" Glaive codefmt google_java_executable="java -jar /Users/tp/projects/jars/google-java-format/core/target/google-java-format-1.10-SNAPSHOT-all-deps.jar"
+
+let g:ale_checkstyle_config='/Users/tp/workplace/AcatJobManagementControlPlane/env/SATiHappierTrailsTools-1.0/runtime/antfiles/config/checkstyle-rules.xml'
+" let g:ale_java_javalsp_executable=expand('~/projects/jars/java-language-server/dist/lang_server_mac.sh')
 
 " if you want the actual text to be highlighted you need to set guibg!
 highlight ALEErrorSign ctermbg=black ctermfg=red
@@ -313,22 +434,9 @@ let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 "
 " ======= Lightline
 "
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d !', all_non_errors)
-endfunction
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:all_errors == 0 ? '' : printf('%d x', all_errors)
-endfunction
-
 function! WordCount() abort
     if v:version >= 800
-        return wordcount()['words']
+        return wordcount()['words'] . " " . wordcount()['chars']
     else
         " not supported for older versions
         return -1
@@ -345,18 +453,6 @@ function! s:word_count()
     call lightline#update()
 endfunction
 
-" Update and show lightline but only if it's visible (e.g., not in Goyo)
-augroup ALEUpdateLightline
-    autocmd!
-    autocmd User ALELint call s:MaybeUpdateLightline()
-augroup END
-
-function! s:MaybeUpdateLightline() abort
-  if exists('#lightline')
-    call lightline#update()
-  end
-endfunction
-
 set laststatus=2
 let g:lightline = {
     \ 'colorscheme': 'wombat',
@@ -369,13 +465,18 @@ let g:lightline = {
     \    ]
     \ },
     \ 'component_expand': {
-    \   'linter_warnings': 'LightlineLinterWarnings',
-    \   'linter_errors': 'LightlineLinterErrors',
-    \   'lineinfo': 'WordCount'
+    \  'linter_checking': 'lightline#ale#checking',
+    \  'linter_infos': 'lightline#ale#infos',
+    \  'linter_warnings': 'lightline#ale#warnings',
+    \  'linter_errors': 'lightline#ale#errors',
+    \  'linter_ok': 'lightline#ale#ok',
+    \  'lineinfo': 'WordCount'
     \ },
     \ 'component_type': {
-    \   'readonly': 'error',
+    \   'linter_checking': 'right',
+    \   'linter_infos': 'right',
     \   'linter_warnings': 'warning',
-    \   'linter_errors': 'error'
+    \   'linter_errors': 'error',
+    \   'linter_ok': 'right',
     \ },
     \ }

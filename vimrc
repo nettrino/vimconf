@@ -49,6 +49,7 @@ let colorschemes=expand(g:vimroot . "/colorschemes")
 Plug colorschemes
 " visual line (requires syntastic for error/warning detection)
 Plug 'itchyny/lightline.vim' | Plug 'w0rp/ale'
+Plug 'maximbaz/lightline-ale'
 " search and local vimrc files (".lvimrc") in the dir tree
 if has('nvim') || v:version >= 704
     Plug 'embear/vim-localvimrc'
@@ -83,11 +84,23 @@ endif
 Plug 'janko/vim-test'
 
 " language server
-if has('nvim')
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/completion-nvim'
-    Plug 'nvim-lua/diagnostic-nvim'
-endif
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+" fuzzy searching
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive'
 
 "
 " Language-specific plugins
@@ -110,7 +123,7 @@ else
     Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 endif
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
+" Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
 " check if jedi is present an load it accordingly
@@ -125,26 +138,26 @@ endif
 
 
 " Go (order matters?)
-let has_go = system("which go")
-if !v:shell_error && !(has('win32') || has ('win64'))
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    Plug 'buoto/gotests-vim', { 'for': 'go' }
-    if has('nvim')
-        Plug 'mdempsky/gocode', {
-                    \ 'for': 'go',
-                    \ 'rtp': 'nvim',
-                    \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
-                    \ }
-        Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-        Plug 'sebdah/vim-delve', { 'for': 'go' }
-    else
-        Plug 'mdempsky/gocode', {
-                    \ 'for': 'go',
-                    \ 'rtp': 'vim',
-                    \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-                    \ }
-    endif
-endif
+" let has_go = system("which go")
+" if !v:shell_error && !(has('win32') || has ('win64'))
+    " Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    " Plug 'buoto/gotests-vim', { 'for': 'go' }
+    " if has('nvim')
+        " Plug 'mdempsky/gocode', {
+                    " \ 'for': 'go',
+                    " \ 'rtp': 'nvim',
+                    " \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
+                    " \ }
+        " Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+        " Plug 'sebdah/vim-delve', { 'for': 'go' }
+    " else
+        " Plug 'mdempsky/gocode', {
+                    " \ 'for': 'go',
+                    " \ 'rtp': 'vim',
+                    " \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+                    " \ }
+    " endif
+" endif
 
 " PHP
 if !(has('win32') || has ('win64'))
