@@ -84,11 +84,16 @@ endif
 Plug 'janko/vim-test'
 
 " language server
+if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer'
+else
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+endif
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 
 " fuzzy searching
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -123,19 +128,9 @@ else
     Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 endif
-" Plug 'davidhalter/jedi-vim', {'for': 'python'}
-Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 
-" check if jedi is present an load it accordingly
-let has_jedi = system("python -c 'import jedi'")
-if !v:shell_error
-    if has('nvim')
-        Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-    else
-        Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    endif
-endif
-
+" Solidity
+Plug 'tomlion/vim-solidity'
 
 " Go (order matters?)
 " let has_go = system("which go")

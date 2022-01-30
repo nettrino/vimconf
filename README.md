@@ -8,6 +8,10 @@ to get full plugin functionality in Vim.
 Installation
 ============
 
+Once installation finishes (see sections below) type `:LspInstallInfo` to
+see what language servers are available and then type `:LspInstall <server>`
+to install eachyou want installed.
+
 Debian/Ubuntu & Mac OS X
 ------------------------
 ```
