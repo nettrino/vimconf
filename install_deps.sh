@@ -21,86 +21,6 @@ reload_env(){
     done
 }
 
-python_deps() {
-    echo -e "${OK_MSG} Installing Python dependencies"
-    uname="$(uname -s)"
-    case "${uname}" in
-        Linux*)
-            sudo apt-get -y install python-jedi python3-jedi pylint pylint3 \
-                1>/dev/null 2>/dev/null;;
-    esac
-
-    for pipv in pip pip3; do
-        if [ ! `command -v ${pipv}` ]; then
-            echo -e "${RED}[+] pip not found! Please install pip (and/or pip3)."
-            echo -e "    Once pip is up, re-run this script ${BW}"
-            exit
-        else
-            ${pipv} install -U setuptools
-            for pkg in jedi neovim 'python-language-server[all]' jedi-language-server isort autopep8; do
-                if ${pipv} list --format=columns | grep ${pkg} > /dev/null; then
-                    echo -e "\t ${pipv}: skipping ${pkg} -- already installed"
-                else
-                    ${pipv} install --user ${pkg} 2>/dev/null
-                fi
-            done
-        fi
-    done
-}
-
-bash_deps() {
-    npm_deps
-    npm i -g bash-language-server
-}
-
-npm_deps() {
-    echo -e "${OK_MSG} Installing npm dependencies"
-    uname="$(uname -s)"
-    case "${uname}" in
-        Linux*)
-            sudo apt-get -y install node 1>/dev/null 2>/dev/null
-            sudo apt-get -y install npm 1>/dev/null 2>/dev/null;;
-        Darwin*)
-            brew install npm 1>/dev/null 2>/dev/null;;
-    esac
-    reload_env
-}
-
-java_deps() {
-    echo -e "${OK_MSG} Installing java dependencies"
-    uname="$(uname -s)"
-    case "${uname}" in
-        Linux*)
-            sudo apt-get -y install checkstyle 1>/dev/null 2>/dev/null;;
-        Darwin*)
-            brew install checkstyle 1>/dev/null 2>/dev/null;;
-    esac
-
-    pushd /tmp1 >/dev/null 2>/dev/null
-        git clone https://github.com/eclipse/eclipse.jdt.ls.git
-        pushd eclipse.jdt.ls.git 1>/dev/null 2>/dev/null
-            ./mvnw clean install -DskipTests
-        popd 1>/dev/null 2>/dev/null
-    popd 1>/dev/null 2>/dev/null
-
-    ./mvnw clean verify
-    reload_env
-}
-
-
-typescript_deps() {
-    echo -e "${OK_MSG} Installing typescript dependencies"
-    npm -g install typescript
-    reload_env
-}
-
-elm_deps() {
-    echo -e "${OK_MSG} Installing elm dependencies"
-    npm install -g elm
-    npm install -g elm-oracle
-    npm install -g elm-format
-}
-
 #
 # MAC OS X (brew)
 #
@@ -245,12 +165,6 @@ install() {
 usage() {
     echo -e "Usage: $0 [-v <vim or neovim>] [-p <go|python>"]
     echo -e "\t -v: editor version to install. Choose between 'vim' or 'neovim'"
-    echo -e "\t -p: language-specific packages to install passed as a string."
-    echo -e "\t     E.g., [-p "go python"] will install packages for both Go "
-    echo -e "\t     and Python, respecting the system installed versions. If "
-    echo -e "\t     If the respective programming language is not present,"
-    echo -e "\t     only the editor without the respective features will be"
-    echo -e "\t     installed. Supported: go python npm elm"
     exit 1;
 }
 
@@ -260,30 +174,6 @@ while getopts ":v:p:" opt; do
             v=$(echo ${OPTARG} | awk '{print tolower($0)}')
             [ "$v" == "vim" ] || [ "$v" == "neovim" ] || usage
             EDITOR=$v
-            ;;
-        p)
-            packages=( $(echo ${OPTARG} | awk '{print tolower($0)}') )
-            for p in "${packages[@]}"
-            do
-                if [ "$p" == "python" ] ; then
-                    python_deps
-                fi
-                if [ "$p" == "go" ] ; then
-                    WITH_GO=true
-                fi
-                if [ "$p" == "npm" ] ; then
-                    npm_deps
-                fi
-                if [ "$p" == "elm" ] ; then
-                    elm_deps
-                fi
-                if [ "$p" == "java" ] ; then
-                    java_deps
-                fi
-                if [ "$p" == "bash" ] ; then
-                    bash_deps
-                fi
-            done
             ;;
         *)
             usage
@@ -304,4 +194,3 @@ if [[ ! -f ~/.vim/config/vimrc.user ]]; then
 fi
 
 vim +PlugInstall +qall
-vim -c "CocInstall coc-python coc-yaml coc-html coc-json coc-java coc-xml" +qall

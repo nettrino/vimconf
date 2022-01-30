@@ -75,7 +75,7 @@ if !v:shell_error && !(has('win32') || has ('win64'))
     Plug 'brookhong/cscope.vim'
 endif
 
-if (has('python') || has('python3')) && (has('nvim') || v:version >= 704)
+if (has('python3') && (has('nvim') || v:version >= 704))
     " more snippets (depends on ultisnips)
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
