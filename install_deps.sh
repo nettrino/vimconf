@@ -163,28 +163,9 @@ install() {
 }
 
 usage() {
-    echo -e "Usage: $0 [-v <vim or neovim>] [-p <go|python>"]
-    echo -e "\t -v: editor version to install. Choose between 'vim' or 'neovim'"
+    echo -e "Usage: Just type $0"]
     exit 1;
 }
-
-while getopts ":v:p:" opt; do
-    case "${opt}" in
-        v)
-            v=$(echo ${OPTARG} | awk '{print tolower($0)}')
-            [ "$v" == "vim" ] || [ "$v" == "neovim" ] || usage
-            EDITOR=$v
-            ;;
-        *)
-            usage
-            ;;
-    esac
-done
-shift $((OPTIND-1))
-
-if [ -z "${v}" ]; then
-    usage
-fi
 
 install_vimplug
 install

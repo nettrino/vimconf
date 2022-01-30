@@ -46,10 +46,6 @@ if executable('pyls')
         \ 'cmd': {server_info->['pyls']},
         \ 'allowlist': ['python'],
         \ })
-else
-   echohl ErrorMsg
-   echom "\"pyls\" is not installed\n If you'd like autocompletion run :LspInstallServer and optionally \"pip install python-language-server\""
-   echohl NONE
 endif
 
 " java
