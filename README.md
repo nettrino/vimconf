@@ -1,7 +1,9 @@
 General
 =======
 
-My personal Vim/NeoVim config.
+My personal NeoVim config. This is somewhat compatible with Vim as well
+but really I've only been using neovim lately so you might need to tweak things
+to get full plugin functionality in Vim.
 
 Installation
 ============
@@ -9,10 +11,8 @@ Installation
 Debian/Ubuntu & Mac OS X
 ------------------------
 ```
-if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && mkdir -p ~/.config/nvim/ && git clone https://github.com/nettrino/vimconf.git ~/.vim && cp ~/.vim/init.vim ~/.config/nvim/ && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make vim
+if [ -d ~/.vim ]; then mv ~/.vim ~/.vim_old; fi && cd && mkdir -p ~/.config/nvim/ && git clone https://github.com/nettrino/vimconf.git ~/.vim && cp ~/.vim/init.vim ~/.config/nvim/ && if [ -f ~/.vimrc ]; then mv ~/.vimrc ~/.vimrc_old; fi && ln -s ~/.vim/vimrc ~/.vimrc && cd ~/.vim && make
 ```
-To install NeoVim just substitute the Makefile target with `make neovim`, in
-the command above.
 
 Windows (Powershell)
 --------------------
