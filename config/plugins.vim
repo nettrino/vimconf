@@ -27,6 +27,12 @@ nmap <silent> t<C-g> :TestVisit<CR>
 let g:vim_json_syntax_conceal = 0
 
 "
+" ====== clang-format
+"
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+autocmd FileType c ClangFormatAutoEnable
+"
 " ====== Fugitive
 "
 noremap <silent> <Leader>gd :Gdiff<CR>

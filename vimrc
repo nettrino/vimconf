@@ -80,6 +80,8 @@ if (has('python3') && (has('nvim') || v:version >= 704))
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
 
+Plug 'rhysd/vim-clang-format'
+
 " run tests
 Plug 'janko/vim-test'
 
