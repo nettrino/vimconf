@@ -21,6 +21,11 @@ else
     colorscheme DevC++
 endif
 
+" chang colorscheme for vim -d
+if &diff
+    colorscheme apprentice
+endif
+
 " ====================== GENERAL CONFIG ==================================
 set number						" Numbering of lines
 set hidden                      " Don't abandon buffers moved to the backgr.
