@@ -78,6 +78,7 @@ endif
 if (has('python3') && (has('nvim') || v:version >= 704))
     " more snippets (depends on ultisnips)
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'davidhalter/jedi-vim'
 endif
 
 Plug 'rhysd/vim-clang-format'
@@ -113,9 +114,12 @@ Plug 'google/vim-glaive'
 " Language-specific plugins
 "
 
-" Javascript
-Plug 'editorconfig/editorconfig-vim', { 'for': 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Javascript / Typescript
+Plug 'editorconfig/editorconfig-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
 if !(has('win32') || has ('win64'))
 	Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 endif
@@ -124,37 +128,33 @@ endif
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Python
-if has ('black')
-    Plug 'psf/black', { 'for': 'python', 'tag': '*' }
-else
-    Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-    Plug 'tell-k/vim-autopep8', { 'for': 'python' }
-endif
+Plug 'psf/black', { 'for': 'python', 'tag': '*' }
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Solidity
 Plug 'tomlion/vim-solidity'
 
 " Go (order matters?)
-" let has_go = system("which go")
-" if !v:shell_error && !(has('win32') || has ('win64'))
-    " Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    " Plug 'buoto/gotests-vim', { 'for': 'go' }
-    " if has('nvim')
-        " Plug 'mdempsky/gocode', {
-                    " \ 'for': 'go',
-                    " \ 'rtp': 'nvim',
-                    " \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
-                    " \ }
-        " Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-        " Plug 'sebdah/vim-delve', { 'for': 'go' }
-    " else
-        " Plug 'mdempsky/gocode', {
-                    " \ 'for': 'go',
-                    " \ 'rtp': 'vim',
-                    " \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-                    " \ }
-    " endif
-" endif
+let has_go = system("which go")
+if !v:shell_error && !(has('win32') || has ('win64'))
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    Plug 'buoto/gotests-vim', { 'for': 'go' }
+    if has('nvim')
+        Plug 'mdempsky/gocode', {
+                    \ 'for': 'go',
+                    \ 'rtp': 'nvim',
+                    \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
+                    \ }
+        Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+        Plug 'sebdah/vim-delve', { 'for': 'go' }
+    else
+        Plug 'mdempsky/gocode', {
+                    \ 'for': 'go',
+                    \ 'rtp': 'vim',
+                    \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+                    \ }
+    endif
+endif
 
 " PHP
 if !(has('win32') || has ('win64'))

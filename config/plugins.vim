@@ -169,13 +169,6 @@ let g:NERDSpaceDelims = 1
 let g:NERDCustomDelimiters = { 'smt': { 'left': ';','right': '' } }
 
 "
-" ====== tell-k/vim-autopep8
-"
-if !has('black')
-    let g:autopep8_on_save = 1
-    let g:autopep8_disable_show_diff=1
-endif
-"
 " ====== delimitMate
 "
 
@@ -370,12 +363,10 @@ let g:ale_set_highlights=0
 let g:ale_lint_delay=0
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save=1
 let g:ale_lint_on_text_changed='never'
 let g:ale_set_balloons=1
 let g:ale_hover_to_preview=0
-let g:ale_python_black_options='--line-length=120'
-let g:ale_python_isort_options='--multi-line=3 --line-width=120 --trailing-comma'
 let g:ale_java_javac_options='-javaagent:/Users/tp/projects/jars/lombok.jar -Xbootclasspath/a:/Users/tp/projects/jars/lombok.jar'
 
 " augroup autoformat_settings
