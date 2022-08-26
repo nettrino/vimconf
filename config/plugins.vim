@@ -5,6 +5,12 @@ noremap <S-u> :UndotreeToggle<CR>
 let g:gundo_close_on_revert=1
 
 "
+" ====== vim-pydocstring
+"
+let g:pydocstring_formatter = 'numpy'
+nmap <silent> <C-i> <Plug>(pydocstring)
+
+"
 " ====== NerdTreeTabs
 "
 noremap <C-g> :NERDTreeTabsToggle<cr>
@@ -32,6 +38,13 @@ let g:vim_json_syntax_conceal = 0
 let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format = 1
 autocmd FileType c ClangFormatAutoEnable
+
+"
+" ====== poet-v
+"
+let g:poetv_auto_activate = 1
+let g:poetv_set_environment = 1
+
 "
 " ====== Fugitive
 "
@@ -344,7 +357,7 @@ let g:ale_sign_error = 'x'
 let g:ale_sign_style_error = 's'
 let g:ale_sign_style_error = '.'
 let g:ale_linters = {
-            \ 'python': ['black', 'autoflake', 'pyls', 'pylint', 'python'],
+            \ 'python': ['pyright', 'mypy', 'black', 'flake8', 'importanize', 'isort', 'autoflake', 'pyls', 'pylint', 'python'],
             \ 'php': ['php', 'phpcs', 'phpmd'],
             \ 'javascript': ['jshint'],
             \ 'java': ['checkstyle', 'google_java_format'],
@@ -354,7 +367,7 @@ let g:ale_linters = {
             \ 'sh': ['language_server'],
             \ }
 let g:ale_fixers = {
-            \ 'python': ['isort', 'black'],
+            \ 'python': ['black', 'autoflake', 'isort'],
             \ 'go': ['goimports', 'gofmt'],
             \ 'java': ['google_java_format'],
             \ }

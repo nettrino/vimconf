@@ -81,6 +81,7 @@ if (has('python3') && (has('nvim') || v:version >= 704))
     Plug 'davidhalter/jedi-vim'
 endif
 
+
 Plug 'rhysd/vim-clang-format'
 
 " run tests
@@ -130,6 +131,7 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 " Python
 Plug 'psf/black', { 'for': 'python', 'tag': '*' }
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+Plug 'petobens/poet-v', {'for': 'python'}
 
 " Solidity
 Plug 'tomlion/vim-solidity'
