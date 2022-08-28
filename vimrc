@@ -89,8 +89,10 @@ Plug 'janko/vim-test'
 
 " language server
 if has('nvim')
+    " Order matters: https://github.com/williamboman/mason-lspconfig.nvim
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/nvim-lsp-installer'
 else
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
@@ -136,27 +138,31 @@ Plug 'petobens/poet-v', {'for': 'python'}
 " Solidity
 Plug 'tomlion/vim-solidity'
 
+" Terraform
+Plug 'hashivim/vim-terraform'
+
 " Go (order matters?)
-let has_go = system("which go")
-if !v:shell_error && !(has('win32') || has ('win64'))
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    Plug 'buoto/gotests-vim', { 'for': 'go' }
-    if has('nvim')
-        Plug 'mdempsky/gocode', {
-                    \ 'for': 'go',
-                    \ 'rtp': 'nvim',
-                    \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
-                    \ }
-        Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-        Plug 'sebdah/vim-delve', { 'for': 'go' }
-    else
-        Plug 'mdempsky/gocode', {
-                    \ 'for': 'go',
-                    \ 'rtp': 'vim',
-                    \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
-                    \ }
-    endif
-endif
+" let has_go = system("which go")
+" if !v:shell_error && !(has('win32') || has ('win64'))
+    " " Fixme remove the update binaries step
+    " Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    " Plug 'buoto/gotests-vim', { 'for': 'go' }
+    " if has('nvim')
+        " Plug 'mdempsky/gocode', {
+                    " \ 'for': 'go',
+                    " \ 'rtp': 'nvim',
+                    " \ 'do': '~/.vim/plugged/gocode/nvim/symlink.sh'
+                    " \ }
+        " Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+        " Plug 'sebdah/vim-delve', { 'for': 'go' }
+    " else
+        " Plug 'mdempsky/gocode', {
+                    " \ 'for': 'go',
+                    " \ 'rtp': 'vim',
+                    " \ 'do': '~/.vim/plugged/gocode/vim/symlink.sh'
+                    " \ }
+    " endif
+" endif
 
 " PHP
 if !(has('win32') || has ('win64'))
