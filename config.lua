@@ -146,6 +146,11 @@ lvim.builtin.treesitter.highlight.enabled = true
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 local pyright_opts = {} -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("pyright", pyright_opts)
+-- npm i -g graphql graphql-language-service-cli graphql-language-service-server
+local graphql_lsp_opts = {
+  filetypes = { "graphql", "typescriptreact", "javascriptreact", "typescript" },
+}
+require("lvim.lsp.manager").setup("graphql", graphql_lsp_opts)
 
 local function codeql_on_attach_callback(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<Cmd>lua show_diagnostics_details()<CR>", { silent = true; })
@@ -200,7 +205,12 @@ formatters.setup {
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     extra_args = { "--print-with", "80" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact" },
+    filetypes = { "graphql", "css", "html", "yaml", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  },
+  {
+    command = "golines",
+    extra_args = { "--max-len", "80" },
+    filetypes = { "golang" },
   },
 }
 
@@ -209,8 +219,8 @@ local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   { command = "flake8",
     filetypes = { "python" },
-    -- black handles lines
-    extra_args = { "--ignore", "E501" },
+    -- black handles lines and breaks
+    extra_args = { "--ignore", "E501,W503,D100,D101,D102,D103,D104,D105,D106,D107" },
   },
   {
     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -254,6 +264,9 @@ lvim.plugins = {
   },
   {
     "flazz/vim-colorschemes",
+  },
+  {
+    "jparise/vim-graphql",
   },
   {
     'pixelneo/vim-python-docstring',
@@ -332,7 +345,21 @@ lvim.plugins = {
 lvim.keys.normal_mode["<S-u>"] = ":UndotreeToggle<cr>"
 
 -- nvim-tree (check :help; nvim-tree-lua for mappings)
+-- :help nvim-tree-setup
+require('nvim-tree').setup {
+  remove_keymaps = true,
+  open_on_tab = false,
+  update_cwd = false,
+  auto_reload_on_write = false,
+}
 lvim.keys.normal_mode["<C-g>"] = ":NvimTreeToggle<cr>"
+
+-- previous tab shift-z
+lvim.keys.normal_mode["<S-z>"] = ":tabp<cr>"
+-- next tab shift-x
+lvim.keys.normal_mode["<S-x>"] = ":tabn<cr>"
+-- new tab
+lvim.keys.normal_mode["<C-n>"] = ":tabnew<cr>"
 
 
 
@@ -361,13 +388,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- save
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-
--- previous tab shift-z
-lvim.keys.normal_mode["<S-z>"] = ":tabp<cr>"
--- next tab shift-x
-lvim.keys.normal_mode["<S-x>"] = ":tabn<cr>"
--- new tab
-lvim.keys.normal_mode["<C-n>"] = ":tabnew<cr>"
 
 -- split windows
 lvim.keys.normal_mode["_"] = ":split<cr>"
