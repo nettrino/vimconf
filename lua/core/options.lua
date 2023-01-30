@@ -64,9 +64,9 @@ opt.splitright = true -- open new split to the right
 opt.wrap = false -- display a long line
 
 -- backups
-opt.backup = true -- create a backup file
+opt.backup = false -- create a backup file
 opt.swapfile = false -- creates a swapfile
-opt.writebackup = true -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 
 -- autocomplete
 opt.completeopt = {'menu', 'menuone', 'noselect'} -- mostly just for cmp
@@ -101,13 +101,12 @@ opt.foldmethod = 'marker'
 opt.foldlevel = 99
 
 -- Disable builtin plugins
-local disabled_built_ins = {"2html_plugin", "getscript", "getscriptPlugin", "gzip", "logipat", "netrw", "netrwPlugin",
-                            "netrwSettings", "netrwFileHandlers", "matchit", "tar", "tarPlugin", "rrhelper",
-                            "spellfile_plugin", "vimball", "vimballPlugin", "zip", "zipPlugin", "tutor", "rplugin",
-                            "synmenu", "optwin", "compiler", "bugreport", "ftplugin"}
+local disabled_built_ins = {"2html_plugin", "getscript", "getscriptPlugin",
+"logipat", "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
+"matchit", "tar", "rrhelper", "spellfile_plugin", 
+"tutor", "rplugin", "synmenu", "optwin", "compiler",
+"bugreport", "ftplugin"}
 
 for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
-
-vim.cmd [[colorscheme monokai]]
