@@ -77,7 +77,7 @@ setup_mac() {
 
     echo "${OK_MSG} Setting mason requirements up"
     # https://github.com/williamboman/mason.nvim#requirements
-    for pkg in ${vim} git curl; do
+    for pkg in ${vim} git curl pipx; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -85,6 +85,7 @@ setup_mac() {
             brew install $pkg > /dev/null 2>/dev/null
         fi
     done
+    pipx ensurepath
 }
 
 setup_linux() {
@@ -98,6 +99,8 @@ setup_linux() {
         sudo apt-get -y update >/dev/null 2>/dev/null
         echo "${OK_MSG} Installing required packages"
         sudo apt-get -y install neovim git curl 1>/dev/null 2>/dev/null
+        python3 -m pip install --user pipx
+        pipx ensurepath
     elif [ "${OS}" == "CentOS" ] || \
         [ "${OS}" == "RedHat" ] || \
         [ "${OS}" == "Red Hat Enterprise Linux Server" ]; then
@@ -122,12 +125,26 @@ install() {
             exit 1
     esac
 
-    mkdir -p ~/.local/share/fonts
-    cp fonts/* ~/.local/share/fonts
+    if [ -d ~/.config/nvim ]; then 
+        cp -R ~/.config/nvim ~/.config/nvim.backup
+    fi
 
     mkdir -p ~/.config/nvim
+    
+    mkdir -p ~/.local/share/fonts
+    cp fonts/* ~/.local/share/fonts
+    fc-cache -f -v
+
+    pipx install --python=$(which python3) neovim-sh
+    neovim3.sh --python
+    neovim3.sh --vim > ~/.config/nvim/init.vim
+    cat "lua require('plugins')" >> ~/.config/nvim/init.vim
+    cat "lua require('core')" >> ~/.config/nvim/init.vim
+
     cp -R lua ~/.config/nvim 
     cp init.lua ~/.config/nvim 
+
+    nvim -c PackerSync
 }
 
 usage() {
@@ -136,4 +153,3 @@ usage() {
 }
 
 install
-vim -c PackerSync
