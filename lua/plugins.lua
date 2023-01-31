@@ -48,6 +48,13 @@ return packer.startup({
         })
 
         use({
+            "lewis6991/gitsigns.nvim",
+            config = function()
+                require("gitsigns").setup()
+            end,
+        })
+
+        use({
             "numToStr/Comment.nvim",
             keys = {
                 { "n", "gc" },
