@@ -26,6 +26,27 @@ return packer.startup({
     function(use)
         use("wbthomason/packer.nvim") -- packer can manage itself
 
+        use({
+            "lukas-reineke/indent-blankline.nvim",
+            -- config = function()
+            --     vim.opt.termguicolors = true
+            --     vim.cmd([[highlight IndentBlanklineIndent1 guifg=#333333 gui=nocombine]])
+            --     vim.cmd([[highlight IndentBlanklineIndent2 guifg=#888888 gui=nocombine]])
+
+            --     vim.opt.list = true
+            --     -- vim.opt.listchars:append "space:⋅"
+            --     -- vim.opt.listchars:append "eol:↴"
+
+            --     require("indent_blankline").setup({
+            --         space_char_blankline = " ",
+            --         char_highlight_list = {
+            --             "IndentBlanklineIndent1",
+            --             "IndentBlanklineIndent2",
+            --         },
+            --     })
+            -- end,
+        })
+
         -- fuzzy finder with ,ff etc.
         use({
             "nvim-telescope/telescope.nvim",
@@ -56,37 +77,30 @@ return packer.startup({
 
         use({
             "numToStr/Comment.nvim",
-            keys = {
-                { "n", "gc" },
-                { "n", "gb" },
-                { "v", "gc" },
-                { "v", "gb" },
-            },
             config = function()
                 require("Comment").setup({
+                    ---Add a space b/w comment and the line
                     padding = true,
+                    ---Whether the cursor should stay at its position
                     sticky = true,
+                    ---Lines to be ignored while (un)comment
                     ignore = "^$",
-                    toggler = {
-                        line = "gcc",
-                        block = "gbc",
+                })
+            end,
+        })
+
+        -- Statusline
+        -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
+        use({
+            "nvim-lualine/lualine.nvim",
+            after = "github-nvim-theme",
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
+            config = function()
+                require("lualine").setup({
+                    options = {
+                        theme = "auto", -- or you can assign github_* themes individually.
+                        -- ... your lualine config
                     },
-                    opleader = {
-                        line = "gc",
-                        block = "gb",
-                    },
-                    extra = {
-                        above = "gcO",
-                        below = "gco",
-                        eol = "gcA",
-                    },
-                    mappings = {
-                        basic = true,
-                        extra = true,
-                        extended = false,
-                    },
-                    pre_hook = nil,
-                    post_hook = nil,
                 })
             end,
         })
@@ -95,17 +109,23 @@ return packer.startup({
             "projekt0n/github-nvim-theme",
             config = function()
                 require("github-theme").setup({
-                    theme_style = "dimmed",
-                    -- overrides = function(c)
-                    --     return {
-                    --         ColorColumn = { bg = "#222222" },
-                    --         Normal = { bg = "#0d1117" }
-                    --     }
-                    -- end
+                    -- theme_style = "dimmed",
+
+                    -- see github-theme/palette/dimmed.lua
+                    colors = {
+                        bg_search = "#00006b",
+                    },
+                    overrides = function(c)
+                        return {
+                            Statusline = { bg = "#00ff8b", fg = c.red },
+                            StatuslineNC = { bg = "#0aa08b", fg = c.red },
+                        }
+                    end,
+                    dev = true,
                 })
             end,
         })
-
+        vim.cmd("colorscheme github_dark_dimmed")
         use({
             "windwp/nvim-autopairs",
             config = function()
@@ -171,22 +191,6 @@ return packer.startup({
             end,
         })
 
-        -- Statusline
-        -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
-        use({
-            "nvim-lualine/lualine.nvim",
-            after = "github-nvim-theme",
-            requires = { "kyazdani42/nvim-web-devicons", opt = true },
-            config = function()
-                require("lualine").setup({
-                    options = {
-                        theme = "auto", -- or you can assign github_* themes individually.
-                        -- ... your lualine config
-                    },
-                })
-            end,
-        })
-
         use({
             "simnalamburt/vim-mundo",
             config = function()
@@ -208,8 +212,8 @@ return packer.startup({
                 { "hrsh7th/nvim-cmp" }, -- Required
                 { "hrsh7th/cmp-nvim-lsp" }, -- Required
                 { "hrsh7th/cmp-buffer" }, -- Optional
-                { "hrsh7th/cmp-path" }, -- Optional
-                { "saadparwaiz1/cmp_luasnip" }, -- Optional
+                -- { "hrsh7th/cmp-path" }, -- Optional
+                -- { "saadparwaiz1/cmp_luasnip" }, -- Optional
                 { "hrsh7th/cmp-nvim-lua" }, -- Optional
 
                 -- Snippets
@@ -226,6 +230,15 @@ return packer.startup({
             after = "mason.nvim",
             config = function()
                 require("config.null-ls")
+            end,
+        })
+
+        -- nim
+        use({
+            "alaviss/nim.nvim",
+            after = "null-ls.nvim",
+            config = function()
+                require("config.nim")
             end,
         })
 

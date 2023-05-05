@@ -4,12 +4,13 @@ local utils = require("null-ls.utils")
 
 -- FIXME ensure the ones below are available in Mason defaults
 null_ls.setup({
-    debug = true,
+    debug = false,
     sources = {
         --
         -- formatters
         --
         null_ls.builtins.formatting.black,
+        -- null_ls.builtins.formatting.nimpretty,
         null_ls.builtins.formatting.isort.with({
             extra_args = { "--profile", "black", "--filter-files" },
         }),
@@ -28,8 +29,6 @@ null_ls.setup({
         -- linters
         --
         null_ls.builtins.diagnostics.flake8.with({
-            filetypes = { "python" },
-            -- black handles lines and breaks
             extra_args = { "--ignore", "E501,W503,D100,D101,D102,D103,D104,D105,D106,D107" },
         }),
         -- FIXME check ruff
