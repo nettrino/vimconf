@@ -7,3 +7,5 @@ viminfo
 spell/*
 .netrwhist
 sessions/*
+plugin
+tags
