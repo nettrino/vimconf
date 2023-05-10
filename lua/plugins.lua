@@ -234,13 +234,13 @@ return packer.startup({
         })
 
         -- nim
-        use({
-            "alaviss/nim.nvim",
-            after = "null-ls.nvim",
-            config = function()
-                require("config.nim")
-            end,
-        })
+        -- use({
+        --     "alaviss/nim.nvim",
+        --     after = "null-ls.nvim",
+        --     config = function()
+        --         require("config.nim")
+        --     end,
+        -- })
 
         -- Automatically set up your configuration after cloning packer.nvim
         -- Must live end after all plugins
