@@ -9,6 +9,7 @@ null_ls.setup({
         --
         -- formatters
         --
+        null_ls.builtins.formatting.trim_whitespace,
         null_ls.builtins.formatting.black,
         -- null_ls.builtins.formatting.nimpretty,
         null_ls.builtins.formatting.isort.with({
@@ -26,11 +27,13 @@ null_ls.setup({
             filetypes = { "hcl", "terraform" },
         }),
         --
-        -- linters
+        -- linters --> running `gl` on a line tells you where it came from
         --
         null_ls.builtins.diagnostics.flake8.with({
             extra_args = { "--ignore", "E501,W503,D100,D101,D102,D103,D104,D105,D106,D107" },
         }),
+
+        null_ls.builtins.diagnostics.tsc,
         -- FIXME check ruff
         null_ls.builtins.diagnostics.mypy.with({
             runtime_condition = function(params)

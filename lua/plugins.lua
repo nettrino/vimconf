@@ -53,6 +53,12 @@ return packer.startup({
             requires = { { "nvim-lua/plenary.nvim" } },
         })
 
+        -- git
+        -- FIXME
+        -- noremap <silent> <Leader>gd :Git diff<CR>
+        -- noremap <silent> <Leader>gb :Git blame<CR>
+        use("tpope/vim-fugitive")
+
         -- parser support and syntax highlight
         use({
             "nvim-treesitter/nvim-treesitter",
