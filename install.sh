@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+install_fonts_linux() {
+    echo "installing fonts. Clone is bulky but we're only installing a single font"
+    pushd /tmp
+    git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
+    cd nerd-fonts
+    git sparse-checkout add patched-fonts/Hack
+    ./install.sh Hack
+    popd
+}
+
 install_brew() {
     BREW=https://raw.githubusercontent.com/Homebrew/install/master/install
     if command -v brew > /dev/null; then
@@ -63,6 +73,10 @@ get_linux_dist() {
 setup_mac() {
     install_brew
 
+    echo "installing fonts"
+    brew tap homebrew/cask-fonts
+    brew install font-hack-nerd-font
+
     local vim
     case "$EDITOR" in
         vim)
@@ -92,6 +106,8 @@ setup_linux() {
     echo "${OK_MSG} Setting things up"
     reload_env
     get_linux_dist
+
+    install_fonts_linux
 
     if [ "${OS}" == "Ubuntu" ] || [ "${OS}" == "Debian GNU/Linux" ] ; then
         echo "${OK_MSG} Running apt -y update"
@@ -125,15 +141,11 @@ install() {
             exit 1
     esac
 
-    if [ -d ~/.config/nvim ]; then 
+    if [ -d ~/.config/nvim ]; then
         cp -R ~/.config/nvim ~/.config/nvim.backup
     fi
 
     mkdir -p ~/.config/nvim
-    
-    mkdir -p ~/.local/share/fonts
-    cp fonts/* ~/.local/share/fonts
-    fc-cache -f -v
 
     pipx install --python=$(which python3) neovim-sh
     neovim3.sh --python
@@ -141,8 +153,8 @@ install() {
     cat "lua require('plugins')" >> ~/.config/nvim/init.vim
     cat "lua require('core')" >> ~/.config/nvim/init.vim
 
-    cp -R lua ~/.config/nvim 
-    cp init.lua ~/.config/nvim 
+    cp -R lua ~/.config/nvim
+    cp init.lua ~/.config/nvim
 
     nvim -c PackerSync
 }
