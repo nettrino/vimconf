@@ -23,12 +23,12 @@ cmp.setup({
         ["<Tab>"] = cmp_action.luasnip_supertab(),
         ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
     },
-    sources = {
-        { name = "path" },
-        { name = "nvim_lsp" },
-        { name = "buffer", keyword_length = 3 },
-        { name = "luasnip", keyword_length = 2 },
-    },
+    -- sources = {
+    --     { name = "path" },
+    --     { name = "nvim_lsp" },
+    --     { name = "buffer", keyword_length = 3 },
+    --     { name = "luasnip", keyword_length = 2 },
+    -- },
 })
 
 lsp.configure("pylsp", {

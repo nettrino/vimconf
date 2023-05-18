@@ -114,29 +114,8 @@ return packer.startup({
             end,
         })
 
-        -- use({
-        --     "projekt0n/github-nvim-theme",
-        --     config = function()
-        --         require("github-theme").setup({
-        --             -- theme_style = "dimmed",
-
-        --             -- see github-theme/palette/dimmed.lua
-        --             colors = {
-        --                 bg_search = "#00006b",
-        --             },
-        --             overrides = function(c)
-        --                 return {
-        --                     Statusline = { bg = "#00ff8b", fg = c.red },
-        --                     StatuslineNC = { bg = "#0aa08b", fg = c.red },
-        --                 }
-        --             end,
-        --             dev = true,
-        --         })
-        --     end,
-        -- })
-        vim.cmd("colorscheme catppuccin")
-
         use({ "catppuccin/nvim", as = "catppuccin" })
+        vim.cmd("colorscheme catppuccin")
 
         use({
             "windwp/nvim-autopairs",
