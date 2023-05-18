@@ -99,39 +99,45 @@ return packer.startup({
         -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
         use({
             "nvim-lualine/lualine.nvim",
-            after = "github-nvim-theme",
-            requires = { "kyazdani42/nvim-web-devicons", opt = true },
+            after = "catppuccin",
+            requires = {
+                { "kyazdani42/nvim-web-devicons" },
+                { "b0o/incline.nvim" },
+            },
             config = function()
+                require("incline").setup()
                 require("lualine").setup({
                     options = {
-                        theme = "auto", -- or you can assign github_* themes individually.
-                        -- ... your lualine config
+                        theme = "catppuccin",
                     },
                 })
             end,
         })
 
-        use({
-            "projekt0n/github-nvim-theme",
-            config = function()
-                require("github-theme").setup({
-                    -- theme_style = "dimmed",
+        -- use({
+        --     "projekt0n/github-nvim-theme",
+        --     config = function()
+        --         require("github-theme").setup({
+        --             -- theme_style = "dimmed",
 
-                    -- see github-theme/palette/dimmed.lua
-                    colors = {
-                        bg_search = "#00006b",
-                    },
-                    overrides = function(c)
-                        return {
-                            Statusline = { bg = "#00ff8b", fg = c.red },
-                            StatuslineNC = { bg = "#0aa08b", fg = c.red },
-                        }
-                    end,
-                    dev = true,
-                })
-            end,
-        })
-        vim.cmd("colorscheme github_dark_dimmed")
+        --             -- see github-theme/palette/dimmed.lua
+        --             colors = {
+        --                 bg_search = "#00006b",
+        --             },
+        --             overrides = function(c)
+        --                 return {
+        --                     Statusline = { bg = "#00ff8b", fg = c.red },
+        --                     StatuslineNC = { bg = "#0aa08b", fg = c.red },
+        --                 }
+        --             end,
+        --             dev = true,
+        --         })
+        --     end,
+        -- })
+        vim.cmd("colorscheme catppuccin")
+
+        use({ "catppuccin/nvim", as = "catppuccin" })
+
         use({
             "windwp/nvim-autopairs",
             config = function()
@@ -234,6 +240,9 @@ return packer.startup({
         use({
             "jose-elias-alvarez/null-ls.nvim",
             after = "mason.nvim",
+            requires = {
+                { "jay-babu/mason-null-ls.nvim" },
+            },
             config = function()
                 require("config.null-ls")
             end,

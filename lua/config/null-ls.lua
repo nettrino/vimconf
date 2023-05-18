@@ -2,6 +2,11 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local utils = require("null-ls.utils")
 
+-- list here what should be installed
+require("mason-null-ls").setup({
+    ensure_installed = { "stylua", "black", "mypy", "isort" }
+})
+
 -- FIXME ensure the ones below are available in Mason defaults
 null_ls.setup({
     debug = false,
