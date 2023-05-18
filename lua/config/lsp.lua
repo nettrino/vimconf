@@ -12,23 +12,50 @@ lsp.ensure_installed({
     "tsserver",
 })
 
--- Make sure you setup `cmp` after lsp-zero
 local cmp = require("cmp")
-local cmp_action = require("lsp-zero").cmp_action()
+local cmp_action = lsp.cmp_action()
+local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/autocomplete.md
 cmp.setup({
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer", keyword_length = 3 },
+        { name = "luasnip", keyword_length = 2 },
+    },
     mapping = {
         -- nter will only confirm the selected item. You need to select the item before pressing enter.
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),
+        ["<Down>"] = cmp.mapping.select_next_item(cmp_select_opts),
         ["<Tab>"] = cmp_action.luasnip_supertab(),
         ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
     },
-    -- sources = {
-    --     { name = "path" },
-    --     { name = "nvim_lsp" },
-    --     { name = "buffer", keyword_length = 3 },
-    --     { name = "luasnip", keyword_length = 2 },
-    -- },
+    snippet = {
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+        end,
+    },
+    window = {
+        documentation = {
+            max_height = 15,
+            max_width = 60,
+        },
+    },
+    formatting = {
+        fields = { "abbr", "menu", "kind" },
+        format = function(entry, item)
+            local short_name = {
+                nvim_lsp = "LSP",
+                nvim_lua = "nvim",
+            }
+
+            local menu_name = short_name[entry.source.name] or entry.source.name
+
+            item.menu = string.format("[%s]", menu_name)
+            return item
+        end,
+    },
 })
 
 lsp.configure("pylsp", {

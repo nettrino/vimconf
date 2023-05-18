@@ -28,23 +28,6 @@ return packer.startup({
 
         use({
             "lukas-reineke/indent-blankline.nvim",
-            -- config = function()
-            --     vim.opt.termguicolors = true
-            --     vim.cmd([[highlight IndentBlanklineIndent1 guifg=#333333 gui=nocombine]])
-            --     vim.cmd([[highlight IndentBlanklineIndent2 guifg=#888888 gui=nocombine]])
-
-            --     vim.opt.list = true
-            --     -- vim.opt.listchars:append "space:⋅"
-            --     -- vim.opt.listchars:append "eol:↴"
-
-            --     require("indent_blankline").setup({
-            --         space_char_blankline = " ",
-            --         char_highlight_list = {
-            --             "IndentBlanklineIndent1",
-            --             "IndentBlanklineIndent2",
-            --         },
-            --     })
-            -- end,
         })
 
         -- fuzzy finder with ,ff etc.
@@ -192,7 +175,7 @@ return packer.startup({
         -- lsp
         use({
             "VonHeikemen/lsp-zero.nvim",
-            branch = "v1.x",
+            branch = "v2.x",
             requires = {
                 -- LSP Support
                 { "neovim/nvim-lspconfig" }, -- Required
@@ -204,7 +187,7 @@ return packer.startup({
                 { "hrsh7th/cmp-nvim-lsp" }, -- Required
                 { "hrsh7th/cmp-buffer" }, -- Optional
                 -- { "hrsh7th/cmp-path" }, -- Optional
-                -- { "saadparwaiz1/cmp_luasnip" }, -- Optional
+                { "saadparwaiz1/cmp_luasnip" }, -- Optional
                 { "hrsh7th/cmp-nvim-lua" }, -- Optional
 
                 -- Snippets

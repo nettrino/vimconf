@@ -12,8 +12,8 @@ require("mason-null-ls").setup({
         "flake8",
         "golines",
         "gofumpt",
-        "goimports_reviser",
-        "golangci_lint",
+        "goimports-reviser",
+        "golangci-lint",
     },
 })
 
