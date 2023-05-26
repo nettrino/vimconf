@@ -1,15 +1,23 @@
 local null_ls = require("null-ls")
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local utils = require("null-ls.utils")
 
 -- list here what should be installed
 require("mason-null-ls").setup({
     ensure_installed = {
+        -- tf
+        "terraform_fmt",
+        -- lua
         "stylua",
+        -- python
         "black",
         "mypy",
         "isort",
         "flake8",
+        "autoflake",
+        -- js ts,
+        "prettier",
+        "eslint_d",
+        -- golang
         "golines",
         "gofumpt",
         "goimports-reviser",
@@ -17,32 +25,99 @@ require("mason-null-ls").setup({
     },
 })
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local async_formatting = function(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+
+    vim.lsp.buf_request(
+        bufnr,
+        "textDocument/formatting",
+        vim.lsp.util.make_formatting_params({}),
+        function(err, res, ctx)
+            if err then
+                local err_msg = type(err) == "string" and err or err.message
+                -- you can modify the log message / level (or ignore it completely)
+                vim.notify("formatting: " .. err_msg, vim.log.levels.WARN)
+                return
+            end
+
+            -- don't apply results if buffer is unloaded or has been modified
+            if not vim.api.nvim_buf_is_loaded(bufnr) or vim.api.nvim_buf_get_option(bufnr, "modified") then
+                return
+            end
+
+            if res then
+                local client = vim.lsp.get_client_by_id(ctx.client_id)
+                vim.lsp.util.apply_text_edits(res, bufnr, client and client.offset_encoding or "utf-16")
+                vim.api.nvim_buf_call(bufnr, function()
+                    vim.cmd("silent noautocmd update")
+                end)
+            end
+        end
+    )
+end
+
 -- FIXME ensure the ones below are available in Mason defaults
 null_ls.setup({
     debug = false,
     sources = {
         --
+        --
+        --
         -- formatters
         --
+        --
+        --
         null_ls.builtins.formatting.trim_whitespace,
+
+        --
+        -- python
+        --
         null_ls.builtins.formatting.black,
-        -- null_ls.builtins.formatting.nimpretty,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.autoflake.with({
+            extra_args = { "--remove-all-unused-imports", "-i" },
+        }),
         null_ls.builtins.formatting.isort.with({
             extra_args = { "--profile", "black", "--filter-files" },
         }),
+
+        -- null_ls.builtins.formatting.nimpretty,
+
+        --
+        -- golang
+        --
         null_ls.builtins.formatting.golines.with({
             extra_args = { "--max-len=80" },
         }),
         null_ls.builtins.formatting.gofumpt,
         null_ls.builtins.formatting.goimports_reviser,
+
+        --
+        -- lua
+        --
         null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "spaces" },
         }),
+
+        --
+        -- terraform
+        --
         null_ls.builtins.formatting.terraform_fmt.with({
             filetypes = { "hcl", "terraform" },
         }),
+
+        --
+        -- js/ts
+        --
+        null_ls.builtins.formatting.eslint_d,
+
+        --
+        --
         --
         -- linters --> running `gl` on a line tells you where it came from
+        --
+        --
         --
         null_ls.builtins.diagnostics.flake8.with({
             extra_args = { "--ignore", "E501,W503,D100,D101,D102,D103,D104,D105,D106,D107" },
@@ -57,14 +132,28 @@ null_ls.setup({
         }),
         null_ls.builtins.diagnostics.golangci_lint,
     },
+
+    -- on_attach = function(client, bufnr)
+    --     if client.supports_method("textDocument/formatting") then
+    --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --         vim.api.nvim_create_autocmd("BufWritePre", {
+    --             group = augroup,
+    --             buffer = bufnr,
+    --             callback = function()
+    --                 vim.lsp.buf.format({ bufnr = bufnr })
+    --             end,
+    --         })
+    --     end
+    -- end,
+    --
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
+            vim.api.nvim_create_autocmd("BufWritePost", {
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    vim.lsp.buf.format({ bufnr = bufnr })
+                    async_formatting(bufnr)
                 end,
             })
         end

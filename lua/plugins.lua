@@ -82,7 +82,7 @@ return packer.startup({
         -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
         use({
             "nvim-lualine/lualine.nvim",
-            after = "catppuccin",
+            after = "github-nvim-theme",
             requires = {
                 { "kyazdani42/nvim-web-devicons" },
                 { "b0o/incline.nvim" },
@@ -91,14 +91,32 @@ return packer.startup({
                 require("incline").setup()
                 require("lualine").setup({
                     options = {
-                        theme = "catppuccin",
+                        theme = "github_dark_dimmed",
                     },
                 })
             end,
         })
 
-        use({ "catppuccin/nvim", as = "catppuccin" })
-        vim.cmd("colorscheme catppuccin")
+        -- use({ "catppuccin/nvim", as = "catppuccin" })
+        -- vim.cmd("colorscheme catppuccin")
+
+        use({
+            "projekt0n/github-nvim-theme",
+            config = function()
+                require("github-theme").setup({
+                    options = {
+                        bg_search = "#00006b",
+                        hide_nc_statusline = false,
+                    },
+                    groups = {
+                        all = {
+                            StatusLineNC = { bg = "#00ff8b", fg = "#aaff8b", sp = "#00222b", style = "underline" },
+                        },
+                    },
+                })
+            end,
+        })
+        vim.cmd("colorscheme github_dark_dimmed")
 
         use({
             "windwp/nvim-autopairs",
