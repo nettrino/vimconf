@@ -11,4 +11,14 @@ if [ -d ~/.config/nvim ]; then mv ~/.config/nvim ~/.config/nvim.old; fi && cd &&
 - Install [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 - Install fonts
 - Copy the current folder in ~/.config/nvim
+- run
+
+```bash
+    pipx install --python=$(which python3) neovim-sh
+    neovim3.sh --python
+    neovim3.sh --vim > ~/.config/nvim/init.vim
+    echo "lua require('plugins')" >> ~/.config/nvim/init.vim
+    echo "lua require('core')" >> ~/.config/nvim/init.vim
+```
+
 - Open up vim and type `:PackerSync`, followed by `:PackerCompile`. Once installation is complete, close and reopen vim
