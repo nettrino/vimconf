@@ -35,6 +35,13 @@ install_brew() {
     fi
 }
 
+install_neovim_linux() {
+    # https://github.com/neovim/neovim/wiki/Installing-Neovim
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    sudo mv nvim.appimage /usr/bin/nvim
+}
+
 get_linux_dist() {
     if [ -f /etc/os-release ]; then
         # freedesktop.org and systemd
@@ -77,21 +84,9 @@ setup_mac() {
     brew tap homebrew/cask-fonts
     brew install font-hack-nerd-font
 
-    local vim
-    case "$EDITOR" in
-        vim)
-            vim=macvim
-            ;;
-        neovim)
-            vim=neovim
-            ;;
-        *)
-            vim=macvim;;
-    esac
-
     echo "${OK_MSG} Setting mason requirements up"
     # https://github.com/williamboman/mason.nvim#requirements
-    for pkg in ${vim} git curl pipx; do
+    for pkg in neovim rgit curl pipx; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -114,18 +109,26 @@ setup_linux() {
         sudo add-apt-repository -y ppa:neovim-ppa/stable
         sudo apt-get -y update >/dev/null 2>/dev/null
         echo "${OK_MSG} Installing required packages"
-        sudo apt-get -y install neovim git curl 1>/dev/null 2>/dev/null
+        sudo apt-get -y install npm git curl 1>/dev/null 2>/dev/null
         python3 -m pip install --user pipx
         pipx ensurepath
     elif [ "${OS}" == "CentOS" ] || \
         [ "${OS}" == "RedHat" ] || \
         [ "${OS}" == "Red Hat Enterprise Linux Server" ]; then
-        sudo yum install git curl neovim
+        sudo yum install git curl npm
+        python3 -m pip install --user pipx
+        pipx ensurepath
     elif [ "${OS}" == "SLES" ]; then
-        sudo zypper install neovim git curl
+        sudo zypper install npm git curl
+        python3 -m pip install --user pipx
+        pipx ensurepath
     elif [ "${OS}" == "Fedora" ]; then
-        sudo dnf install neovim git curl
+        sudo dnf install npm git curl
+        python3 -m pip install --user pipx
+        pipx ensurepath
     fi
+
+    install_neovim_linux
 }
 
 install() {
@@ -141,27 +144,14 @@ install() {
             exit 1
     esac
 
-    if [ -d ~/.config/nvim ]; then
-        cp -R ~/.config/nvim ~/.config/nvim.backup
-    fi
-
-    mkdir -p ~/.config/nvim
-
     pipx install --python=$(which python3) neovim-sh
     neovim3.sh --python
     neovim3.sh --vim > ~/.config/nvim/init.vim
-    cat "lua require('plugins')" >> ~/.config/nvim/init.vim
-    cat "lua require('core')" >> ~/.config/nvim/init.vim
+    echo "lua require('plugins')" >> ~/.config/nvim/init.vim
+    echo "lua require('core')" >> ~/.config/nvim/init.vim
 
-    cp -R lua ~/.config/nvim
-    cp init.lua ~/.config/nvim
-
-    nvim -c PackerSync
-}
-
-usage() {
-    echo -e "Usage: Just type $0"]
-    exit 1;
+    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
 
 install

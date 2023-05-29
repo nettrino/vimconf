@@ -9,3 +9,5 @@ spell/*
 sessions/*
 plugin
 tags
+init.vim
+.DS_Store
