@@ -150,8 +150,8 @@ install() {
     echo "lua require('plugins')" >> ~/.config/nvim/init.vim
     echo "lua require('core')" >> ~/.config/nvim/init.vim
 
-    env CC=gcc nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-    env CC=gcc nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
 
 install

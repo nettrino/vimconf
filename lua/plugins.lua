@@ -48,7 +48,7 @@ return packer.startup({
             run = ":TSUpdate",
             config = function()
                 require("nvim-treesitter.configs").setup({
-                    ensure_installed = "all",
+                    ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "golang", "bash", "html" },
                     highlight = {
                         enable = true,
                     },
@@ -140,13 +140,11 @@ return packer.startup({
             "ludovicchabant/vim-gutentags",
             config = function()
                 if vim.fn.executable("fd") == 0 then
-                    return function()
-                    end
+                    return function() end
                 end
 
                 if vim.fn.executable("ctags") == 0 then
-                    return function()
-                    end
+                    return function() end
                 end
 
                 vim.g.gutentags_define_advanced_commands = true
@@ -159,13 +157,13 @@ return packer.startup({
             "norcalli/nvim-colorizer.lua",
             config = function()
                 require("colorizer").setup({ "*" }, {
-                    RGB = true,      -- #RGB hex codes
-                    RRGGBB = true,   -- #RRGGBB hex codes
+                    RGB = true, -- #RGB hex codes
+                    RRGGBB = true, -- #RRGGBB hex codes
                     RRGGBBAA = true, -- #RRGGBBAA hex codes
-                    rgb_fn = true,   -- CSS rgb() and rgba() functions
-                    hsl_fn = true,   -- CSS hsl() and hsla() functions
-                    css = true,      -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                    css_fn = true,   -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                    rgb_fn = true, -- CSS rgb() and rgba() functions
+                    hsl_fn = true, -- CSS hsl() and hsla() functions
+                    css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                    css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
                 })
             end,
         })
@@ -198,20 +196,20 @@ return packer.startup({
             branch = "v2.x",
             requires = {
                 -- LSP Support
-                { "neovim/nvim-lspconfig" },             -- Required
-                { "williamboman/mason.nvim" },           -- Optional
+                { "neovim/nvim-lspconfig" }, -- Required
+                { "williamboman/mason.nvim" }, -- Optional
                 { "williamboman/mason-lspconfig.nvim" }, -- Optional
 
                 -- Autocompletion
-                { "hrsh7th/nvim-cmp" },         -- Required
-                { "hrsh7th/cmp-nvim-lsp" },     -- Required
-                { "hrsh7th/cmp-buffer" },       -- Optional
+                { "hrsh7th/nvim-cmp" }, -- Required
+                { "hrsh7th/cmp-nvim-lsp" }, -- Required
+                { "hrsh7th/cmp-buffer" }, -- Optional
                 -- { "hrsh7th/cmp-path" }, -- Optional
                 { "saadparwaiz1/cmp_luasnip" }, -- Optional
-                { "hrsh7th/cmp-nvim-lua" },     -- Optional
+                { "hrsh7th/cmp-nvim-lua" }, -- Optional
 
                 -- Snippets
-                { "L3MON4D3/LuaSnip" },             -- Required
+                { "L3MON4D3/LuaSnip" }, -- Required
                 { "rafamadriz/friendly-snippets" }, -- Optional
             },
             config = function()
