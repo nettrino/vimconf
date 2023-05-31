@@ -16,11 +16,9 @@ require("mason-null-ls").setup({
         "autoflake",
         -- js ts,
         "prettier",
-        "eslint_d",
         -- golang
         "golines",
-        "gofumpt",
-        "goimports-reviser",
+        "gofmt",
         "golangci-lint",
     },
 })
@@ -57,7 +55,6 @@ local async_formatting = function(bufnr)
     )
 end
 
--- FIXME ensure the ones below are available in Mason defaults
 null_ls.setup({
     debug = false,
     sources = {
@@ -74,7 +71,6 @@ null_ls.setup({
         -- python
         --
         null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.autoflake.with({
             extra_args = { "--remove-all-unused-imports", "-i" },
         }),
@@ -82,7 +78,7 @@ null_ls.setup({
             extra_args = { "--profile", "black", "--filter-files" },
         }),
 
-        -- null_ls.builtins.formatting.nimpretty,
+        null_ls.builtins.formatting.nimpretty,
 
         --
         -- golang
@@ -90,8 +86,7 @@ null_ls.setup({
         null_ls.builtins.formatting.golines.with({
             extra_args = { "--max-len=80" },
         }),
-        null_ls.builtins.formatting.gofumpt,
-        null_ls.builtins.formatting.goimports_reviser,
+        null_ls.builtins.formatting.gofmt,
 
         --
         -- lua
@@ -110,7 +105,7 @@ null_ls.setup({
         --
         -- js/ts
         --
-        null_ls.builtins.formatting.eslint_d,
+        null_ls.builtins.formatting.prettier,
 
         --
         --
@@ -124,7 +119,6 @@ null_ls.setup({
         }),
 
         null_ls.builtins.diagnostics.tsc,
-        -- FIXME check ruff
         null_ls.builtins.diagnostics.mypy.with({
             runtime_condition = function(params)
                 return utils.path.exists(params.bufname)
@@ -133,19 +127,6 @@ null_ls.setup({
         null_ls.builtins.diagnostics.golangci_lint,
     },
 
-    -- on_attach = function(client, bufnr)
-    --     if client.supports_method("textDocument/formatting") then
-    --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    --         vim.api.nvim_create_autocmd("BufWritePre", {
-    --             group = augroup,
-    --             buffer = bufnr,
-    --             callback = function()
-    --                 vim.lsp.buf.format({ bufnr = bufnr })
-    --             end,
-    --         })
-    --     end
-    -- end,
-    --
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
