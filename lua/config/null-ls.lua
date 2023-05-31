@@ -13,7 +13,6 @@ require("mason-null-ls").setup({
         "mypy",
         "isort",
         "flake8",
-        "autoflake",
         -- js ts,
         "prettier",
         -- golang
@@ -71,9 +70,6 @@ null_ls.setup({
         -- python
         --
         null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.autoflake.with({
-            extra_args = { "--remove-all-unused-imports", "-i" },
-        }),
         null_ls.builtins.formatting.isort.with({
             extra_args = { "--profile", "black", "--filter-files" },
         }),
