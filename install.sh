@@ -99,9 +99,9 @@ setup_mac() {
     pipx ensurepath
 }
 
+
 setup_linux() {
     echo "${OK_MSG} Setting things up"
-    reload_env
     get_linux_dist
 
     install_fonts_linux
