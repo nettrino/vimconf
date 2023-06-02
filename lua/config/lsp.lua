@@ -5,10 +5,11 @@ lsp.preset("recommended")
 lsp.nvim_workspace()
 
 lsp.ensure_installed({
-    "gopls",
+    -- most auto-install lsps will create issues in systems where the language
+    -- is not installed by default. Just add python and js things
+    -- manually via Mason for everything else
     "pylsp",
     "lua_ls",
-    "clangd",
     "tsserver",
     "eslint",
 })

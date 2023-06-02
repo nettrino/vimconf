@@ -79,7 +79,7 @@ setup_mac() {
 
     echo "${OK_MSG} Setting mason requirements up"
     # https://github.com/williamboman/mason.nvim#requirements
-    for pkg in neovim rgit curl pipx; do
+    for pkg in neovim rgit curl pipx ctags; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -102,7 +102,7 @@ setup_linux() {
         sudo add-apt-repository -y ppa:neovim-ppa/stable
         sudo apt-get -y update >/dev/null 2>/dev/null
         echo "${OK_MSG} Installing required packages"
-        sudo apt-get -y install npm git curl python3-venv python3-pip 1>/dev/null 2>/dev/null
+        sudo apt-get -y install npm git exuberant-ctags curl python3-venv python3-pip 1>/dev/null 2>/dev/null
         python3 -m pip install --user pipx
         python3 -m pipx ensurepath
     elif [ "${OS}" == "CentOS" ] || \
@@ -116,7 +116,7 @@ setup_linux() {
         python3 -m pip install --user pipx
         python3 -m pipx ensurepath
     elif [ "${OS}" == "Fedora" ]; then
-        sudo dnf install npm git curl python3-virtualenv python3-pip
+        sudo dnf install npm git curl ctags python3-virtualenv python3-pip
         python3 -m pip install --user pipx
         python3 -m pipx ensurepath
     fi
