@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 install_fonts_linux() {
     echo "installing fonts. Clone is bulky but we're only installing a single font"
     pushd /tmp
