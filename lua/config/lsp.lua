@@ -7,11 +7,9 @@ lsp.nvim_workspace()
 lsp.ensure_installed({
     -- most auto-install lsps will create issues in systems where the language
     -- is not installed by default. Just add python and js things
-    -- manually via Mason for everything else
+    -- manually via `:Mason` for everything else
     "pylsp",
     "lua_ls",
-    "tsserver",
-    "eslint",
 })
 
 local cmp_action = lsp.cmp_action()
