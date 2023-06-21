@@ -104,6 +104,11 @@ null_ls.setup({
         null_ls.builtins.formatting.prettier,
 
         --
+        -- nim
+        --
+        null_ls.builtins.formatting.nimpretty,
+
+        --
         --
         --
         -- linters --> running `gl` on a line tells you where it came from
