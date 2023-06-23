@@ -74,8 +74,6 @@ null_ls.setup({
             extra_args = { "--profile", "black", "--filter-files" },
         }),
 
-        null_ls.builtins.formatting.nimpretty,
-
         --
         -- golang
         --
@@ -102,11 +100,6 @@ null_ls.setup({
         -- js/ts
         --
         null_ls.builtins.formatting.prettier,
-
-        --
-        -- nim
-        --
-        null_ls.builtins.formatting.nimpretty,
 
         --
         --

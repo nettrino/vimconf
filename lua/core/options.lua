@@ -11,34 +11,34 @@ cmd([[
 ]])
 
 opt.backspace = { "eol", "start", "indent" } -- allow backspacing over everything in insert mode
-opt.clipboard = "unnamedplus" -- allow neovim to access the system clipboard
-vim.opt.fileencoding = "utf-8" -- the encoding written to a file
+opt.clipboard = "unnamedplus"                -- allow neovim to access the system clipboard
+vim.opt.fileencoding = "utf-8"               -- the encoding written to a file
 vim.o.cmdheight = 2
-opt.encoding = "utf-8" -- the encoding
+opt.encoding = "utf-8"                       -- the encoding
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 opt.syntax = "enable"
 
 opt.shortmess = aoOtI
 
 -- indention
-opt.autoindent = true -- auto indentation
-opt.expandtab = true -- convert tabs to spaces
-opt.shiftwidth = indent -- the number of spaces inserted for each indentation
-opt.smartindent = true -- make indenting smarter
+opt.autoindent = true    -- auto indentation
+opt.expandtab = true     -- convert tabs to spaces
+opt.shiftwidth = indent  -- the number of spaces inserted for each indentation
+opt.smartindent = true   -- make indenting smarter
 opt.softtabstop = indent -- when hitting <BS>, pretend like a tab is removed, even if spaces
-opt.tabstop = indent -- insert 2 spaces for a tab
-opt.shiftround = true -- use multiple of shiftwidth when indenting with '<' and '>'
+opt.tabstop = indent     -- insert 2 spaces for a tab
+opt.shiftround = true    -- use multiple of shiftwidth when indenting with '<' and '>'
 
 -- search
-opt.hlsearch = true -- highlight all matches on previous search pattern
+opt.hlsearch = true   -- highlight all matches on previous search pattern
 opt.ignorecase = true -- ignore case in search patterns
-opt.smartcase = true -- smart case
+opt.smartcase = true  -- smart case
 opt.wildignore = opt.wildignore + { "*/node_modules/*", "*/.git/*", "*/vendor/*" }
-opt.wildmenu = true -- make tab completion for files/buffers act like bash
+opt.wildmenu = true   -- make tab completion for files/buffers act like bash
 
 -- ui
 opt.cursorline = true -- highlight the current line
-opt.laststatus = 2 -- only the last window will always have a status line
+opt.laststatus = 2    -- only the last window will always have a status line
 opt.lazyredraw = true -- don't update the display while executing macros
 opt.list = true
 
@@ -53,18 +53,24 @@ opt.listchars = {
 
 opt.colorcolumn = "80"
 
-opt.mouse = "a" -- allow the mouse to be used in neovim
+opt.mouse = "a"   -- allow the mouse to be used in neovim
 opt.number = true -- set numbered lines
 -- opt.scrolloff = 18 -- minimal number of screen lines to keep above and below the cursor
 -- opt.sidescrolloff = 3 -- minimal number of screen columns to keep to the left and right (horizontal) of the cursor if wrap is `false`
 opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
-opt.splitbelow = true -- open new split below
-opt.splitright = true -- open new split to the right
-opt.wrap = false -- display a long line
+opt.splitbelow = true  -- open new split below
+opt.splitright = true  -- open new split to the right
+opt.wrap = false       -- display a long line
+-- https://vimhelp.org/options.txt.html
+opt.formatoptions = "rqn"
+
+-- turn off physical line wrapping
+-- opt.textwidth = 0
+-- opt.wrapmargin = 0
 
 -- backups
-opt.backup = false -- create a backup file
-opt.swapfile = false -- creates a swapfile
+opt.backup = false      -- create a backup file
+opt.swapfile = false    -- creates a swapfile
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 
 -- autocomplete
@@ -78,7 +84,7 @@ opt.showmode = false
 
 -- perfomance
 -- remember N lines in history
-opt.history = 100 -- keep 100 lines of history
+opt.history = 100    -- keep 100 lines of history
 opt.redrawtime = 1500
 opt.timeoutlen = 250 -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.ttimeoutlen = 10
