@@ -75,6 +75,36 @@ return packer.startup({
         })
 
         use({
+            "nvim-treesitter/playground",
+            run = ":TSInstall query",
+            requires = {
+                { "nvim-treesitter/nvim-treesitter" },
+            },
+            config = function()
+                require("nvim-treesitter.configs").setup({
+                    playground = {
+                        enable = true,
+                        disable = {},
+                        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+                        persist_queries = false, -- Whether the query persists across vim sessions
+                        keybindings = {
+                            toggle_query_editor = 'o',
+                            toggle_hl_groups = 'i',
+                            toggle_injected_languages = 't',
+                            toggle_anonymous_nodes = 'a',
+                            toggle_language_display = 'I',
+                            focus_language = 'f',
+                            unfocus_language = 'F',
+                            update = 'R',
+                            goto_node = '<cr>',
+                            show_help = '?',
+                        },
+                    }
+                })
+            end,
+        })
+
+        use({
             "lewis6991/gitsigns.nvim",
             config = function()
                 require("gitsigns").setup()
@@ -157,11 +187,13 @@ return packer.startup({
             "ludovicchabant/vim-gutentags",
             config = function()
                 if vim.fn.executable("fd") == 0 then
-                    return function() end
+                    return function()
+                    end
                 end
 
                 if vim.fn.executable("ctags") == 0 then
-                    return function() end
+                    return function()
+                    end
                 end
 
                 vim.g.gutentags_define_advanced_commands = true
@@ -174,13 +206,13 @@ return packer.startup({
             "norcalli/nvim-colorizer.lua",
             config = function()
                 require("colorizer").setup({ "*" }, {
-                    RGB = true, -- #RGB hex codes
-                    RRGGBB = true, -- #RRGGBB hex codes
+                    RGB = true,      -- #RGB hex codes
+                    RRGGBB = true,   -- #RRGGBB hex codes
                     RRGGBBAA = true, -- #RRGGBBAA hex codes
-                    rgb_fn = true, -- CSS rgb() and rgba() functions
-                    hsl_fn = true, -- CSS hsl() and hsla() functions
-                    css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                    css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+                    rgb_fn = true,   -- CSS rgb() and rgba() functions
+                    hsl_fn = true,   -- CSS hsl() and hsla() functions
+                    css = true,      -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                    css_fn = true,   -- Enable all CSS *functions*: rgb_fn, hsl_fn
                 })
             end,
         })
@@ -213,20 +245,20 @@ return packer.startup({
             branch = "v2.x",
             requires = {
                 -- LSP Support
-                { "neovim/nvim-lspconfig" }, -- Required
-                { "williamboman/mason.nvim" }, -- Optional
+                { "neovim/nvim-lspconfig" },             -- Required
+                { "williamboman/mason.nvim" },           -- Optional
                 { "williamboman/mason-lspconfig.nvim" }, -- Optional
 
                 -- Autocompletion
-                { "hrsh7th/nvim-cmp" }, -- Required
-                { "hrsh7th/cmp-nvim-lsp" }, -- Required
-                { "hrsh7th/cmp-buffer" }, -- Optional
+                { "hrsh7th/nvim-cmp" },         -- Required
+                { "hrsh7th/cmp-nvim-lsp" },     -- Required
+                { "hrsh7th/cmp-buffer" },       -- Optional
                 -- { "hrsh7th/cmp-path" }, -- Optional
                 { "saadparwaiz1/cmp_luasnip" }, -- Optional
-                { "hrsh7th/cmp-nvim-lua" }, -- Optional
+                { "hrsh7th/cmp-nvim-lua" },     -- Optional
 
                 -- Snippets
-                { "L3MON4D3/LuaSnip" }, -- Required
+                { "L3MON4D3/LuaSnip" },             -- Required
                 { "rafamadriz/friendly-snippets" }, -- Optional
             },
             config = function()
