@@ -102,6 +102,11 @@ null_ls.setup({
         null_ls.builtins.formatting.prettier,
 
         --
+        -- prisma
+        --
+        null_ls.builtins.formatting.prismaFmt,
+
+        --
         --
         --
         -- linters --> running `gl` on a line tells you where it came from
