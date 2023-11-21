@@ -99,7 +99,6 @@ setup_linux() {
 
     if [ "${OS}" == "Ubuntu" ] || [ "${OS}" == "Debian GNU/Linux" ] ; then
         echo "${OK_MSG} Running apt -y update"
-        sudo add-apt-repository -y ppa:neovim-ppa/stable
         sudo apt-get -y update >/dev/null 2>/dev/null
         echo "${OK_MSG} Installing required packages"
         sudo apt-get -y install npm git exuberant-ctags curl python3-venv python3-pip 1>/dev/null 2>/dev/null
@@ -126,17 +125,6 @@ setup_linux() {
 }
 
 install() {
-    uname="$(uname -s)"
-    case "${uname}" in
-        Linux*)
-            setup_linux;;
-        Darwin*)
-            setup_mac;;
-        *)
-            echo "Default installer may not work for you!"
-            echo "Please attempt a manual installation"
-            exit 1
-    esac
 
     pipx install --python=$(which python3) neovim-sh
     neovim3.sh --python
