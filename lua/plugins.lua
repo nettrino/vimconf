@@ -30,6 +30,8 @@ return packer.startup({
             "lukas-reineke/indent-blankline.nvim",
         })
 
+        use({ "towolf/vim-helm" })
+
         -- fuzzy finder with ,ff etc.
         use({
             "nvim-telescope/telescope.nvim",
