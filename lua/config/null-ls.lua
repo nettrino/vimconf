@@ -22,6 +22,16 @@ require("mason-null-ls").setup({
     },
 })
 
+-- disable formatter for prisma
+vim.lsp.buf.format({
+    filter = function(c)
+        if c.name == "null-ls" and #vim.lsp.get_active_clients({ name = "prismals", bufnr = 0 }) == 0 then
+            return true
+        end
+        return c.name == "prismals"
+    end,
+})
+
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local async_formatting = function(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()

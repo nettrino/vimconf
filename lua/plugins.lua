@@ -87,7 +87,7 @@ return packer.startup({
                     playground = {
                         enable = true,
                         disable = {},
-                        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+                        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
                         persist_queries = false, -- Whether the query persists across vim sessions
                         keybindings = {
                             toggle_query_editor = "o",
@@ -127,8 +127,24 @@ return packer.startup({
             end,
         })
 
-        -- use({ "catppuccin/nvim", as = "catppuccin" })
-        -- vim.cmd("colorscheme catppuccin")
+        -- Statusline
+        -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
+        use({
+            "nvim-lualine/lualine.nvim",
+            after = "github-nvim-theme",
+            requires = {
+                { "kyazdani42/nvim-web-devicons" },
+                { "b0o/incline.nvim" },
+            },
+            config = function()
+                require("incline").setup()
+                require("lualine").setup({
+                    options = {
+                        theme = "github_dark_dimmed",
+                    },
+                })
+            end,
+        })
 
         use({
             "projekt0n/github-nvim-theme",
