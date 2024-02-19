@@ -1,4 +1,3 @@
--- OR setup with some options
 local function on_attach(bufnr)
     local api = require("nvim-tree.api")
 
@@ -68,8 +67,22 @@ local function on_attach(bufnr)
     -- You will need to insert "your code goes here" for any mappings with a custom action_cb
     vim.keymap.set("n", "u", api.tree.change_root_to_parent, opts("Up"))
 end
+return {
+  "nvim-tree/nvim-tree.lua",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
+    local nvimtree = require("nvim-tree")
 
-require("nvim-tree").setup({
+    -- recommended settings from nvim-tree documentation
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+
+    -- change color for arrows in tree to light blue
+    vim.cmd([[ highlight NvimTreeFolderArrowClosed guifg=#3FC5FF ]])
+    vim.cmd([[ highlight NvimTreeFolderArrowOpen guifg=#3FC5FF ]])
+
+    -- configure nvim-tree
+    nvimtree.setup({
     on_attach = on_attach,
     disable_netrw = true,
     hijack_netrw = true,
@@ -174,21 +187,14 @@ require("nvim-tree").setup({
     filters = {
         dotfiles = false,
     },
-})
+    })
 
-local function open_nvim_tree(data)
-    -- buffer is a directory
-    local directory = vim.fn.isdirectory(data.file) == 1
+    -- set keymaps
+    local keymap = vim.keymap -- for conciseness
 
-    if not directory then
-        return
-    end
-
-    -- change to the directory
-    vim.cmd.cd(data.file)
-
-    -- open the tree
-    require("nvim-tree.api").tree.open()
-end
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+    keymap.set("n", "<C-g>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
+    keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
+    keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
+    keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
+  end,
+}

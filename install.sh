@@ -79,7 +79,7 @@ setup_mac() {
 
     echo "${OK_MSG} Setting mason requirements up"
     # https://github.com/williamboman/mason.nvim#requirements
-    for pkg in neovim rgit curl pipx ctags; do
+    for pkg in neovim; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -87,7 +87,6 @@ setup_mac() {
             brew install $pkg > /dev/null 2>/dev/null
         fi
     done
-    pipx ensurepath
 }
 
 
@@ -96,44 +95,21 @@ setup_linux() {
     get_linux_dist
 
     install_fonts_linux
-
-    if [ "${OS}" == "Ubuntu" ] || [ "${OS}" == "Debian GNU/Linux" ] ; then
-        echo "${OK_MSG} Running apt -y update"
-        sudo apt-get -y update >/dev/null 2>/dev/null
-        echo "${OK_MSG} Installing required packages"
-        sudo apt-get -y install npm git exuberant-ctags curl python3-venv python3-pip 1>/dev/null 2>/dev/null
-        python3 -m pip install --user pipx
-        python3 -m pipx ensurepath
-    elif [ "${OS}" == "CentOS" ] || \
-        [ "${OS}" == "RedHat" ] || \
-        [ "${OS}" == "Red Hat Enterprise Linux Server" ]; then
-        sudo yum install git curl npm python3-virtualenv python3-setuptools python3-devel python3-pip
-        python3 -m pip install --user pipx
-        python3 -m pipx ensurepath
-    elif [ "${OS}" == "SLES" ]; then
-        sudo zypper install npm git curl python3-virtualenv python3-pip
-        python3 -m pip install --user pipx
-        python3 -m pipx ensurepath
-    elif [ "${OS}" == "Fedora" ]; then
-        sudo dnf install npm git curl ctags python3-virtualenv python3-pip
-        python3 -m pip install --user pipx
-        python3 -m pipx ensurepath
-    fi
-
-    eval "$(exec /usr/bin/env -i "${SHELL}" -l -c "export")"
     install_neovim_linux
 }
 
 install() {
-
-    pipx install --python=$(which python3) neovim-sh
-    neovim3.sh --python
-    neovim3.sh --vim > ~/.config/nvim/init.vim
-    echo "lua require('plugins')" >> ~/.config/nvim/init.vim
-    echo "lua require('core')" >> ~/.config/nvim/init.vim
-
-    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-    nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+ uname="$(uname -s)"
+    case "${uname}" in
+        Linux*)
+            setup_linux;;
+        Darwin*)
+            setup_mac;;
+        *)
+            echo "Default installer may not work for you!"
+            echo "Please attempt a manual installation for neovim"
+            exit 1
+    esac
 }
 
 install
