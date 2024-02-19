@@ -127,25 +127,6 @@ return packer.startup({
             end,
         })
 
-        -- Statusline
-        -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
-        use({
-            "nvim-lualine/lualine.nvim",
-            after = "github-nvim-theme",
-            requires = {
-                { "kyazdani42/nvim-web-devicons" },
-                { "b0o/incline.nvim" },
-            },
-            config = function()
-                require("incline").setup()
-                require("lualine").setup({
-                    options = {
-                        theme = "github_dark_dimmed",
-                    },
-                })
-            end,
-        })
-
         use({
             "projekt0n/github-nvim-theme",
             config = function()
