@@ -11,10 +11,15 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
-			python = { "pylint" },
+			python = { "flake8" },
 			golang = { "golangci-lint" },
 		}
 
+		local flake8 = lint.linters.flake8
+		flake8.args = {
+			"--ignore",
+			"E501,W503,D100,D101,D102,D103,D104,D105,D106,D107",
+		}
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
