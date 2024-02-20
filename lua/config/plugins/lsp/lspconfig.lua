@@ -133,10 +133,23 @@ return {
 		})
 
 		-- configure python server
-		-- lspconfig["pyright"].setup({
-		-- 	capabilities = capabilities,
-		-- 	on_attach = on_attach,
-		-- })
+		lspconfig["pyright"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		lspconfig["pylsp"].setup({
+			settings = {
+				pylsp = {
+					configurationSources = { "flake8", "mypy" },
+					plugins = {
+						-- we have black for these
+						pycodestyle = { enabled = false },
+						flake8 = { enabled = false },
+					},
+				},
+			},
+		})
 
 		lspconfig["nim_langserver"].setup({
 			settings = {
@@ -146,7 +159,10 @@ return {
 			},
 		})
 		lspconfig["gopls"].setup({
-			-- ...some other setups
+			on_attach = on_attach,
+			capabilities = capabilities,
+			cmd = { "gopls" },
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 			root_dir = function(fname)
 				-- see: https://github.com/neovim/nvim-lspconfig/issues/804
 				local mod_cache = vim.trim(vim.fn.system("go env GOMODCACHE"))
@@ -158,6 +174,15 @@ return {
 				end
 				return util.root_pattern("go.work")(fname) or util.root_pattern("go.mod", ".git")(fname)
 			end,
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+				},
+			},
 		})
 
 		-- configure lua server (with special settings)
