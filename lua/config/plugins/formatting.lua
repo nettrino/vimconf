@@ -19,21 +19,25 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
+				python = { "isort", "black", "autoflake" },
+			},
+			formatters = {
+				autoflake = {
+					args = { "--remove-all-unused-imports", "--stdin-display-name", "$FILENAME", "-" },
+				},
 			},
 			format_on_save = {
 				lsp_fallback = true,
-				async = false,
 				timeout_ms = 1000,
 			},
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			})
-		end, { desc = "Format file or range (in visual mode)" })
+		-- vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+		-- 	conform.format({
+		-- 		lsp_fallback = true,
+		-- 		async = false,
+		-- 		timeout_ms = 1000,
+		-- 	})
+		-- end, { desc = "Format file or range (in visual mode)" })
 	end,
 }
