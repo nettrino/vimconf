@@ -2,10 +2,22 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
+		"williamboman/nvim-lsp-installer",
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
+		-- this needs to be configured before setting up servers
+		require("nvim-lsp-installer").setup({
+			automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+			ui = {
+				icons = {
+					server_installed = "✓",
+					server_pending = "➜",
+					server_uninstalled = "✗",
+				},
+			},
+		})
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
 		local util = require("lspconfig.util")
