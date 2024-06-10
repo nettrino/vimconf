@@ -15,12 +15,12 @@ return {
 			treesitter.setup({ -- enable syntax highlighting
 				highlight = {
 					enable = true,
-					additional_vim_regex_highlighting = false,
+					additional_vim_regex_highlighting = true,
 					-- use_languagetree = false,
 					disable = function(_, bufnr)
 						local buf_name = vim.api.nvim_buf_get_name(bufnr)
 						local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-						return file_size > 2 * 1024
+						return file_size > 500 * 1024
 					end,
 				},
 				-- enable indentation
