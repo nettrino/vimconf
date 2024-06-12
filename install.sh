@@ -74,7 +74,6 @@ setup_mac() {
     install_brew
 
     echo "installing fonts"
-    brew tap homebrew/cask-fonts
     brew install font-hack-nerd-font
 
     echo "${OK_MSG} Setting mason requirements up"
@@ -95,7 +94,6 @@ setup_linux() {
     get_linux_dist
 
     install_fonts_linux
-    install_neovim_linux
 }
 
 install() {
