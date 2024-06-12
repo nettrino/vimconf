@@ -1,5 +1,3 @@
-vim.g.mapleader = ","
-
 -- Save with ctrl + s
 vim.keymap.set("n", "<C-s>", ":w<CR>", {})
 
