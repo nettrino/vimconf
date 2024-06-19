@@ -49,6 +49,7 @@ return {
 				"isort", -- python formatter
 				"black", -- python formatter
 				"autoflake", -- python formatter
+				"flake8", -- python linter
 				"pylint", -- python linter
 				"eslint_d", -- js linter
 				"golines", -- golang formatter
