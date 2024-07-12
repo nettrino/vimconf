@@ -52,8 +52,6 @@ return {
 				"flake8", -- python linter
 				"pylint", -- python linter
 				"eslint_d", -- js linter
-				"golines", -- golang formatter
-				"gofumpt", -- golang formatter
 				"golangci-lint", -- golang linter
 			},
 		})
