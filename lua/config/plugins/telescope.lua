@@ -8,10 +8,22 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
+		local file_ignore_patterns = {
+			"yarn%.lock",
+			"node_modules/",
+			"dist/",
+			"%.next",
+			"build/",
+			"target/",
+			"package%-lock%.json",
+			"%.o",
+			"%.d",
+		}
 
 		telescope.setup({
 			defaults = {
 				path_display = { "truncate " },
+				file_ignore_patterns = file_ignore_patterns,
 				mappings = {
 					i = {
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
