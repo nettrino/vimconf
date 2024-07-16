@@ -170,6 +170,9 @@ return {
 				},
 			},
 		})
+		lspconfig["clangd"].setup({
+			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+		})
 		lspconfig["gopls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,

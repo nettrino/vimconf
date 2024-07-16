@@ -1,9 +1,17 @@
 return {
 	"nvimdev/guard.nvim",
+	-- Builtin configuration, optional
+	dependencies = {
+		"nvimdev/guard-collection",
+	},
 	event = "BufReadPre",
 	config = function()
 		local ft = require("guard.filetype")
-
+		ft("cmake"):fmt({
+			cmd = "cmake-format",
+			args = { "-" },
+			stdio = true,
+		})
 		ft("c,cpp,json"):fmt("clang-format")
 
 		require("guard").setup({
