@@ -92,7 +92,8 @@ setup_mac() {
 setup_linux() {
     echo "${OK_MSG} Setting things up"
     get_linux_dist
-
+    # FIXME on debian
+    # apt-get install python3-pynvim
     install_fonts_linux
 }
 
