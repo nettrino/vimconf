@@ -103,7 +103,6 @@ opt.undoreload = 10000
 
 -- fold
 opt.foldmethod = "marker"
-opt.foldlevel = 99
 
 -- Disable builtin plugins
 local disabled_built_ins = {
