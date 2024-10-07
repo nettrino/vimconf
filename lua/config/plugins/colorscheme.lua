@@ -3,6 +3,15 @@ return {
 	"projekt0n/github-nvim-theme",
 	config = function()
 		require("github-theme").setup({
+			palettes = {
+				-- Custom duskfox with black background
+				github_dark_dimmed = {
+					bg1 = "#000000", -- Black background
+					-- bg0 = "#1d1d2b", -- Alt backgrounds (floats, statusline, ...)
+					-- bg3 = "#121820", -- 55% darkened from stock
+					-- sel0 = "#131b24", -- 55% darkened from stock
+				},
+			},
 			options = {
 				bg_search = "#00006b",
 				hide_nc_statusline = false,
