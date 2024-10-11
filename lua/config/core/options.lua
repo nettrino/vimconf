@@ -102,7 +102,11 @@ opt.undolevels = 1000
 opt.undoreload = 10000
 
 -- fold
+-- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
 opt.foldmethod = "marker"
+opt.foldlevel = 99
+opt.foldlevelstart = 1
+opt.foldnestmax = 4
 
 -- Disable builtin plugins
 local disabled_built_ins = {
