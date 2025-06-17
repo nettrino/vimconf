@@ -36,21 +36,15 @@ return {
             },
             -- auto-install configured servers (with lspconfig)
             automatic_installation = true, -- not the same as ensure_installed
-            automatic_enable = true,
         })
 
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier", -- prettier formatter
-                "stylua", -- lua formatter
-                "isort", -- python formatter
-                "black", -- python formatter
-                "autoflake", -- python formatter
-                "flake8", -- python linter
-                "pylint", -- python linter
-                "eslint_d", -- js linter
+                "prettier",      -- prettier formatter
+                "stylua",        -- lua formatter
+                "eslint_d",      -- js linter
                 "golangci-lint", -- golang linter
-                "golines", -- golang formatter
+                "golines",       -- golang formatter
             },
         })
     end,
