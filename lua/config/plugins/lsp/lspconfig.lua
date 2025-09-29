@@ -126,8 +126,8 @@ return {
 
 		-- configure prisma orm server
 		lspconfig["prismals"].setup({
-			capabilities = capabilities,
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- configure graphql language server
@@ -139,18 +139,19 @@ return {
 
 		-- configure emmet language server
 		lspconfig["emmet_ls"].setup({
-			capabilities = capabilities,
 			on_attach = on_attach,
+			capabilities = capabilities,
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 		})
 
 		-- configure python server
 		lspconfig["pyright"].setup({
-			capabilities = capabilities,
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		lspconfig["pylsp"].setup({
+			on_attach = on_attach,
 			settings = {
 				pylsp = {
 					configurationSources = { "flake8", "mypy" },
@@ -158,6 +159,17 @@ return {
 						-- we have black for these
 						pycodestyle = { enabled = false },
 						flake8 = { enabled = false },
+						ruff = {
+							enabled = true, -- Enable the plugin
+							formatEnabled = true, -- Enable formatting using ruffs formatter
+							-- lineLength = 80, -- Line length to pass to ruff checking and formatting
+							-- exclude = { "__about__.py" }, -- Files to be excluded by ruff checking
+							-- select = { "F" }, -- Rules to be enabled by ruff
+							-- ignore = { "D210" }, -- Rules to be ignored by ruff
+							-- perFileIgnores = { ["__init__.py"] = "CPY001" }, -- Rules that should be ignored for specific files
+							preview = false, -- Whether to enable the preview style linting and formatting.
+							-- targetVersion = "py310", -- The minimum python version to target (applies for both linting and formatting).
+						},
 					},
 				},
 			},
@@ -170,8 +182,17 @@ return {
 				},
 			},
 		})
-		lspconfig["clangd"].setup({
+		lspconfig["buf_ls"].setup({
+			-- this needs to be there for diagnostics to apply
+			on_attach = on_attach,
 			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+			filetypes = { "proto" }, -- exclude "proto"
+		})
+		lspconfig["clangd"].setup({
+			-- this needs to be there for diagnostics to apply
+			on_attach = on_attach,
+			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
 			cmd = {
 				"clangd",
 				"--completion-style=detailed",
@@ -179,6 +200,7 @@ return {
 			},
 		})
 		lspconfig["gopls"].setup({
+			-- this needs to be there for diagnostics to apply
 			on_attach = on_attach,
 			capabilities = capabilities,
 			cmd = { "gopls" },
@@ -207,8 +229,9 @@ return {
 
 		-- configure lua server (with special settings)
 		lspconfig["lua_ls"].setup({
-			capabilities = capabilities,
+			-- this needs to be there for diagnostics to apply
 			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = { -- custom settings for lua
 				Lua = {
 					-- make the language server recognize "vim" global

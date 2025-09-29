@@ -21,8 +21,10 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black", "autoflake" },
+				python = { "ruff_format", "ruff_organize_imports", "rff_fix" },
+				sql = { "sqlruff" },
 				go = { "gofumpt", "golines" },
+				proto = { "buf" },
 			},
 			formatters = {
 				autoflake = {
