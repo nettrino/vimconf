@@ -1,36 +1,20 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPre", "BufNewFile" },
+		-- main is the rewritten plugin: no nvim-treesitter.configs module, no
+		-- lazy loading, highlighting/indent wired through core nvim APIs
+		-- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#setup
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"windwp/nvim-ts-autotag",
-		},
 		config = function()
-			-- import nvim-treesitter plugin
-			local treesitter = require("nvim-treesitter.configs")
+			local ts = require("nvim-treesitter")
+			ts.setup({})
 
-			-- configure treesitter
-			treesitter.setup({ -- enable syntax highlighting
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = true,
-					-- use_languagetree = false,
-					disable = function(_, bufnr)
-						local buf_name = vim.api.nvim_buf_get_name(bufnr)
-						local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-						return file_size > 500 * 1024
-					end,
-				},
-				-- enable indentation
-				indent = { enable = true },
-				-- enable autotagging (w/ nvim-ts-autotag plugin)
-				autotag = {
-					enable = true,
-				},
-				-- ensure these language parsers are installed
-				ensure_installed = {
+			-- parsers are compiled with `tree-sitter build`, so without the CLI
+			-- every install fails with a separate error
+			if vim.fn.executable("tree-sitter") == 1 then
+				ts.install({
 					"bash",
 					"c",
 					"css",
@@ -54,17 +38,32 @@ return {
 					"vim",
 					"vimdoc",
 					"yaml",
-				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-space>",
-						node_incremental = "<C-space>",
-						scope_incremental = false,
-						node_decremental = "<bs>",
-					},
-				},
+				})
+			else
+				vim.notify_once("tree-sitter CLI not found, skipping parser install (see README)", vim.log.levels.WARN)
+			end
+
+			-- incremental selection is builtin since 0.12, see :h v_an
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+				callback = function(args)
+					local buf = args.buf
+					local lang = vim.treesitter.language.get_lang(args.match)
+					if not lang or not vim.treesitter.language.add(lang) then
+						return
+					end
+					if vim.fn.getfsize(vim.api.nvim_buf_get_name(buf)) > 500 * 1024 then
+						return
+					end
+					vim.treesitter.start(buf, lang)
+					vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
 			})
 		end,
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
 	},
 }

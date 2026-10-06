@@ -88,7 +88,7 @@ return {
 			hijack_netrw = true,
 			open_on_tab = false,
 			hijack_cursor = false,
-			update_cwd = false,
+			sync_root_with_cwd = false,
 			actions = {
 				open_file = {
 					quit_on_open = false,
@@ -138,7 +138,7 @@ return {
 			},
 			update_focused_file = {
 				enable = true,
-				update_cwd = false,
+				update_root = false,
 				ignore_list = {},
 			},
 			renderer = {

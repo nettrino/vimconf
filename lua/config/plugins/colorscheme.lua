@@ -13,8 +13,12 @@ return {
                 },
             },
             options = {
-                bg_search = "#00006b",
                 hide_nc_statusline = false,
+            },
+            groups = {
+                all = {
+                    Search = { bg = "#00006b" },
+                },
             },
             -- groups = {
             -- 	all = {

@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "config.plugins" }, { import = "config.plugins.lsp" } }, {
 	install = {
-		colorscheme = { "nightfly" },
+		colorscheme = { "github_dark_dimmed" },
 	},
 	checker = {
 		enabled = true,
@@ -21,5 +21,9 @@ require("lazy").setup({ { import = "config.plugins" }, { import = "config.plugin
 	},
 	change_detection = {
 		notify = false,
+	},
+	-- nothing here needs luarocks; this silences the hererocks checkhealth error
+	rocks = {
+		enabled = false,
 	},
 })

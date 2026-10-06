@@ -1,5 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -22,7 +23,7 @@ return {
 
         telescope.setup({
             defaults = {
-                path_display = { "truncate " },
+                path_display = { "truncate" },
                 file_ignore_patterns = file_ignore_patterns,
                 mappings = {
                     i = {
