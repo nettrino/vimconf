@@ -23,9 +23,6 @@ vim.keymap.set("n", "<C-n>", ":tabnew<cr>", {})
 vim.keymap.set("n", "<leader>hon", ":set binary <bar> %!xxd", {})
 vim.keymap.set("n", "<leader>hof", ":set binary <bar> %!xxd -r", {})
 
--- NvimTree
-vim.keymap.set("n", "<C-g>", ":NvimTreeToggle<CR>", {}) -- open/close
-
 -- sort
 vim.keymap.set("n", "<leader>s", ":sort<CR>yy", {})
 

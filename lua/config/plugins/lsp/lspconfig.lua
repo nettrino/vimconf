@@ -2,220 +2,111 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"williamboman/nvim-lsp-installer",
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
-		-- this needs to be configured before setting up servers
-		require("nvim-lsp-installer").setup({
-			automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-			ui = {
-				icons = {
-					server_installed = "✓",
-					server_pending = "➜",
-					server_uninstalled = "✗",
+		-- native config API, the require("lspconfig") framework is removed in
+		-- nvim-lspconfig v3: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+		vim.lsp.config("*", {
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+		})
+
+		vim.diagnostic.config({
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
 				},
 			},
 		})
-		-- import lspconfig plugin
-		local lspconfig = require("lspconfig")
-		local util = require("lspconfig.util")
 
-		-- import cmp-nvim-lsp plugin
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("user_lsp_keymaps", { clear = true }),
+			callback = function(ev)
+				local function map(mode, lhs, rhs, desc)
+					vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, noremap = true, silent = true, desc = desc })
+				end
 
-		local keymap = vim.keymap -- for conciseness
-
-		local opts = { noremap = true, silent = true }
-		local on_attach = function(client, bufnr)
-			opts.buffer = bufnr
-
-			-- set keybinds
-			opts.desc = "Show LSP references"
-			keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-			opts.desc = "Go to declaration"
-			keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
-			opts.desc = "Show LSP definitions"
-			keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-
-			opts.desc = "Show LSP implementations"
-			keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-
-			opts.desc = "Show LSP type definitions"
-			keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
-			opts.desc = "See available code actions"
-			keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
-			opts.desc = "Smart rename"
-			keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
-			opts.desc = "Show buffer diagnostics"
-			keymap.set("n", "gb", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-
-			opts.desc = "Show line diagnostics"
-			keymap.set("n", "gl", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-			opts.desc = "Go to previous diagnostic"
-			keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
-			opts.desc = "Go to next diagnostic"
-			keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
-			opts.desc = "Show documentation for what is under cursor"
-			keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-			opts.desc = "Restart LSP"
-			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-		end
-
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
-
-		-- configure html server
-		lspconfig["html"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
+				map("n", "gR", "<cmd>Telescope lsp_references<CR>", "Show LSP references")
+				map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+				map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", "Show LSP definitions")
+				map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations")
+				map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", "Show LSP type definitions")
+				map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "See available code actions")
+				map("n", "<leader>rn", vim.lsp.buf.rename, "Smart rename")
+				map("n", "gb", "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics")
+				map("n", "gl", vim.diagnostic.open_float, "Show line diagnostics")
+				map("n", "[d", function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end, "Go to previous diagnostic")
+				map("n", "]d", function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end, "Go to next diagnostic")
+				map("n", "K", vim.lsp.buf.hover, "Show documentation for what is under cursor")
+				map("n", "<leader>rs", ":LspRestart<CR>", "Restart LSP")
+			end,
 		})
 
-		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure css server
-		lspconfig["cssls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure tailwindcss server
-		lspconfig["tailwindcss"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure svelte server
-		lspconfig["svelte"].setup({
-			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-
+		vim.lsp.config("svelte", {
+			on_attach = function(client)
 				vim.api.nvim_create_autocmd("BufWritePost", {
 					pattern = { "*.js", "*.ts" },
 					callback = function(ctx)
-						if client.name == "svelte" then
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-						end
+						client:notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
 					end,
 				})
 			end,
 		})
 
-		-- configure prisma orm server
-		lspconfig["prismals"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-
-		-- configure graphql language server
-		-- lspconfig["graphql"].setup({
-		-- 	capabilities = capabilities,
-		-- 	on_attach = on_attach,
-		-- 	filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-		-- })
-
-		-- configure emmet language server
-		lspconfig["emmet_ls"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
+		vim.lsp.config("emmet_ls", {
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 		})
 
-		-- configure python server
-		lspconfig["pyright"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-
-		lspconfig["pylsp"].setup({
-			on_attach = on_attach,
+		vim.lsp.config("pylsp", {
 			settings = {
 				pylsp = {
 					configurationSources = { "flake8", "mypy" },
 					plugins = {
-						-- we have black for these
+						-- ruff covers these
 						pycodestyle = { enabled = false },
 						flake8 = { enabled = false },
 						ruff = {
-							enabled = true, -- Enable the plugin
-							formatEnabled = true, -- Enable formatting using ruffs formatter
-							-- lineLength = 80, -- Line length to pass to ruff checking and formatting
-							-- exclude = { "__about__.py" }, -- Files to be excluded by ruff checking
-							-- select = { "F" }, -- Rules to be enabled by ruff
-							-- ignore = { "D210" }, -- Rules to be ignored by ruff
-							-- perFileIgnores = { ["__init__.py"] = "CPY001" }, -- Rules that should be ignored for specific files
-							preview = false, -- Whether to enable the preview style linting and formatting.
-							-- targetVersion = "py310", -- The minimum python version to target (applies for both linting and formatting).
+							enabled = true,
+							formatEnabled = true,
+							preview = false,
 						},
 					},
 				},
 			},
 		})
 
-		lspconfig["nim_langserver"].setup({
+		vim.lsp.config("nim_langserver", {
 			settings = {
 				nim = {
 					nimsuggestPath = "~/.nimble/bin/",
 				},
 			},
 		})
-		lspconfig["buf_ls"].setup({
-			-- this needs to be there for diagnostics to apply
-			on_attach = on_attach,
-			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-			filetypes = { "proto" }, -- exclude "proto"
+
+		vim.lsp.config("buf_ls", {
+			filetypes = { "proto" },
 		})
-		lspconfig["clangd"].setup({
-			-- this needs to be there for diagnostics to apply
-			on_attach = on_attach,
-			automatic_installation = false, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
+
+		vim.lsp.config("clangd", {
+			filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 			cmd = {
 				"clangd",
 				"--completion-style=detailed",
 				"--header-insertion=never",
 			},
 		})
-		lspconfig["gopls"].setup({
-			-- this needs to be there for diagnostics to apply
-			on_attach = on_attach,
-			capabilities = capabilities,
-			cmd = { "gopls" },
-			filetypes = { "go", "gomod", "gowork", "gotmpl" },
-			root_dir = function(fname)
-				-- see: https://github.com/neovim/nvim-lspconfig/issues/804
-				local mod_cache = vim.trim(vim.fn.system("go env GOMODCACHE"))
-				if fname:sub(1, #mod_cache) == mod_cache then
-					local clients = vim.lsp.get_active_clients({ name = "gopls" })
-					if #clients > 0 then
-						return clients[#clients].config.root_dir
-					end
-				end
-				return util.root_pattern("go.work")(fname) or util.root_pattern("go.mod", ".git")(fname)
-			end,
+
+		-- root_dir for files under GOMODCACHE is handled upstream, see
+		-- https://github.com/neovim/nvim-lspconfig/issues/804
+		vim.lsp.config("gopls", {
 			settings = {
 				gopls = {
 					analyses = {
@@ -227,19 +118,13 @@ return {
 			},
 		})
 
-		-- configure lua server (with special settings)
-		lspconfig["lua_ls"].setup({
-			-- this needs to be there for diagnostics to apply
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = { -- custom settings for lua
+		vim.lsp.config("lua_ls", {
+			settings = {
 				Lua = {
-					-- make the language server recognize "vim" global
 					diagnostics = {
 						globals = { "vim" },
 					},
 					workspace = {
-						-- make language server aware of runtime files
 						library = {
 							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 							[vim.fn.stdpath("config") .. "/lua"] = true,
@@ -247,6 +132,25 @@ return {
 					},
 				},
 			},
+		})
+
+		-- mason-lspconfig enables whatever it installed; the rest are expected
+		-- on $PATH (clangd from xcode, buf from brew, nimlangserver from nimble)
+		vim.lsp.enable({
+			"html",
+			"ts_ls",
+			"cssls",
+			"tailwindcss",
+			"svelte",
+			"prismals",
+			"emmet_ls",
+			"pyright",
+			"pylsp",
+			"nim_langserver",
+			"buf_ls",
+			"clangd",
+			"gopls",
+			"lua_ls",
 		})
 	end,
 }

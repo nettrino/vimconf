@@ -3,7 +3,7 @@
 install_fonts_linux() {
     echo "installing fonts. Clone is bulky but we're only installing a single font"
     pushd /tmp
-    git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
+    git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts
     cd nerd-fonts
     git sparse-checkout add patched-fonts/Hack
     ./install.sh Hack
@@ -74,11 +74,13 @@ setup_mac() {
     install_brew
 
     echo "installing fonts"
-    brew install font-hack-nerd-font
+    brew install --cask font-hack-nerd-font
 
-    echo "${OK_MSG} Setting mason requirements up"
-    # https://github.com/williamboman/mason.nvim#requirements
-    for pkg in neovim; do
+    echo "${OK_MSG} Setting neovim requirements up"
+    # ripgrep: telescope live_grep, fd: venv-selector searches,
+    # tree-sitter: parser generation for nvim-treesitter main
+    # https://github.com/nvim-treesitter/nvim-treesitter/tree/main#requirements
+    for pkg in neovim ripgrep fd tree-sitter; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
@@ -93,7 +95,7 @@ setup_linux() {
     echo "${OK_MSG} Setting things up"
     get_linux_dist
     # FIXME on debian
-    # apt-get install python3-pynvim
+    # apt-get install ripgrep fd-find tree-sitter-cli build-essential
     install_fonts_linux
 }
 

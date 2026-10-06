@@ -3,7 +3,6 @@ local cmd = vim.cmd
 local opt = vim.opt
 -- Global variables
 local g = vim.g
-local s = vim.s
 local indent = 4
 
 cmd([[
@@ -16,8 +15,6 @@ opt.fileencoding = "utf-8"                   -- the encoding written to a file
 vim.o.cmdheight = 2
 opt.encoding = "utf-8"                       -- the encoding
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
-opt.syntax = "enable"
-opt.shortmess = aoOtI
 
 -- indention
 opt.autoindent = true    -- auto indentation
