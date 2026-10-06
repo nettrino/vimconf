@@ -160,7 +160,7 @@ return {
 					glyphs = {
 						default = "",
 						symlink = "",
-						bookmark = "",
+						bookmark = "󰆤", -- U+F6A3 was dropped in Nerd Fonts v3
 						modified = "●",
 						folder = {
 							arrow_closed = "",
