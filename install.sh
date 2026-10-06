@@ -78,9 +78,10 @@ setup_mac() {
 
     echo "${OK_MSG} Setting neovim requirements up"
     # ripgrep: telescope live_grep, fd: venv-selector searches,
-    # tree-sitter: parser generation for nvim-treesitter main
+    # tree-sitter-cli: parser builds for nvim-treesitter main (the tree-sitter
+    # formula is only the library)
     # https://github.com/nvim-treesitter/nvim-treesitter/tree/main#requirements
-    for pkg in neovim ripgrep fd tree-sitter; do
+    for pkg in neovim ripgrep fd tree-sitter-cli; do
         if brew ls --versions ${pkg} > /dev/null; then
             echo -e "\t Skipping $pkg -- already installed"
         else
