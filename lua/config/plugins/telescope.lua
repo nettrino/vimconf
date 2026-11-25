@@ -1,6 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    -- 0.1.x is frozen; upstream recommends pinning to the latest release tag
+    version = "*",
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

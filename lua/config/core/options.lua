@@ -132,3 +132,9 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
     g["loaded_" .. plugin] = 1
 end
+
+-- remote-plugin providers: nothing in this config uses them (undotree replaced
+-- vim-mundo to avoid pynvim), so don't probe for them or report them in health
+for _, provider in ipairs({ "python3", "node", "perl", "ruby" }) do
+    g["loaded_" .. provider .. "_provider"] = 0
+end
