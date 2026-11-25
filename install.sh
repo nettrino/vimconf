@@ -92,12 +92,87 @@ setup_mac() {
 }
 
 
+# distro packages lag behind: nvim-treesitter main needs nvim >= 0.12 and
+# tree-sitter-cli >= 0.26.1, so those come from upstream releases into ~/.local
+NVIM_VERSION=v0.12.6
+TS_CLI_VERSION=v0.27.2
+
+version_ge() {
+    [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -1)" = "$2" ]
+}
+
+install_linux_packages() {
+    # ripgrep: telescope live_grep, fd: venv-selector/telescope, go: mason
+    # builds gopls/gofumpt/golines, clangd: C/C++ LSP, gcc/make: parser and
+    # telescope-fzf-native builds
+    case "$OS" in
+        Fedora*|"Red Hat"*|CentOS*|Rocky*|Alma*)
+            sudo dnf install -y git curl unzip gcc make ripgrep fd-find golang clang-tools-extra;;
+        Debian*|Ubuntu*|"Linux Mint"*|Pop*)
+            sudo apt-get update && sudo apt-get install -y git curl unzip build-essential ripgrep fd-find golang-go clangd;;
+        *)
+            echo "Unknown distro '$OS': install git curl unzip gcc make ripgrep fd go clangd manually";;
+    esac
+}
+
+install_nvim_linux() {
+    local have
+    have=$(nvim --version 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    if [ -n "$have" ] && version_ge "$have" 0.12.0; then
+        echo -e "\t Skipping neovim -- $have already installed"
+        return
+    fi
+    local arch tmp
+    case "$(uname -m)" in
+        aarch64|arm64) arch=arm64;;
+        *) arch=x86_64;;
+    esac
+    tmp=$(mktemp -d)
+    echo -e "\t Installing neovim $NVIM_VERSION into ~/.local/opt"
+    curl -fsSL -o "$tmp/nvim.tar.gz" \
+        "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-${arch}.tar.gz"
+    mkdir -p ~/.local/opt ~/.local/bin
+    rm -rf ~/.local/opt/nvim-"${NVIM_VERSION#v}"
+    tar -xzf "$tmp/nvim.tar.gz" -C "$tmp"
+    mv "$tmp/nvim-linux-${arch}" ~/.local/opt/nvim-"${NVIM_VERSION#v}"
+    ln -sfn ~/.local/opt/nvim-"${NVIM_VERSION#v}"/bin/nvim ~/.local/bin/nvim
+    rm -rf "$tmp"
+}
+
+install_tree_sitter_cli_linux() {
+    local have
+    have=$(tree-sitter --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+    if [ -n "$have" ] && version_ge "$have" 0.26.1; then
+        echo -e "\t Skipping tree-sitter-cli -- $have already installed"
+        return
+    fi
+    local arch
+    case "$(uname -m)" in
+        aarch64|arm64) arch=arm64;;
+        *) arch=x64;;
+    esac
+    echo -e "\t Installing tree-sitter-cli $TS_CLI_VERSION into ~/.local/bin"
+    mkdir -p ~/.local/bin
+    curl -fsSL "https://github.com/tree-sitter/tree-sitter/releases/download/${TS_CLI_VERSION}/tree-sitter-linux-${arch}.gz" \
+        | gunzip > ~/.local/bin/tree-sitter
+    chmod +x ~/.local/bin/tree-sitter
+}
+
 setup_linux() {
     echo "${OK_MSG} Setting things up"
     get_linux_dist
-    # FIXME on debian
-    # apt-get install ripgrep fd-find tree-sitter-cli build-essential
-    install_fonts_linux
+    install_linux_packages
+    install_nvim_linux
+    install_tree_sitter_cli_linux
+    case ":$PATH:" in
+        *":$HOME/.local/bin:"*) ;;
+        *) echo "Add ~/.local/bin to the front of your PATH so the new nvim is picked up";;
+    esac
+    if fc-list 2>/dev/null | grep -qi "hack.*nerd"; then
+        echo -e "\t Skipping fonts -- Hack Nerd Font already installed"
+    else
+        install_fonts_linux
+    fi
 }
 
 install() {

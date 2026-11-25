@@ -1,3 +1,12 @@
+-- mason builds these with `go install`; without a Go toolchain every startup
+-- reports "failed to install", so only ask for them once go is on $PATH
+local function with_go(list, go_pkgs)
+	if vim.fn.executable("go") == 1 then
+		vim.list_extend(list, go_pkgs)
+	end
+	return list
+end
+
 return {
 	"mason-org/mason-lspconfig.nvim",
 	dependencies = {
@@ -18,17 +27,15 @@ return {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			opts = {
 				-- binaries referenced by conform.nvim / nvim-lint
-				ensure_installed = {
+				ensure_installed = with_go({
 					"prettier",
 					"stylua",
 					"eslint_d",
 					"golangci-lint",
-					"golines",
-					"gofumpt",
 					"ruff",
 					"clang-format",
 					"sqlfluff",
-				},
+				}, { "golines", "gofumpt" }),
 			},
 		},
 	},
@@ -41,18 +48,17 @@ return {
 		automatic_enable = {
 			exclude = { "ruff", "stylua" },
 		},
-		ensure_installed = {
+		ensure_installed = with_go({
 			"html",
 			"cssls",
 			"tailwindcss",
 			"lua_ls",
 			"emmet_ls",
-			"gopls",
 			"ts_ls",
 			"svelte",
 			"prismals",
 			"pyright",
 			"pylsp",
-		},
+		}, { "gopls" }),
 	},
 }
